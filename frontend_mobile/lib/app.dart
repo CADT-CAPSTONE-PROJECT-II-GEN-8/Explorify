@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
-
-
+import 'package:google_fonts/google_fonts.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -21,55 +20,55 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: RouteManager.onGenerateRoute,
       initialRoute: RouteManager.splashScreen,
       theme: ThemeData(
-        fontFamily: 'Inter',
+        // fontFamily: 'Inter',
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: AppColor.white,
         primaryColor: const Color.fromARGB(255, 145, 121, 102),
         secondaryHeaderColor: AppColor.secondary,
-        textTheme: const TextTheme(
-          displayLarge: TextStyle(
+        textTheme: TextTheme(
+          displayLarge: GoogleFonts.inter(
             fontSize: 32,
             fontWeight: FontWeight.bold,
             color: AppColor.primary,
           ),
-          headlineLarge: TextStyle(
+          headlineLarge: GoogleFonts.inter(
             fontSize: 30,
             fontWeight: FontWeight.bold,
             color: Colors.orange,
           ),
-          headlineMedium: TextStyle(
+          headlineMedium: GoogleFonts.inter(
               fontSize: 18,
               fontWeight: FontWeight.w600,
               color: AppColor.secondary),
-          headlineSmall: TextStyle(
+          headlineSmall: GoogleFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: AppColor.accent),
-          titleLarge: TextStyle(
+          titleLarge: GoogleFonts.inter(
             fontSize: 15,
             fontWeight: FontWeight.bold,
             color: AppColor.secondary,
           ),
-          titleMedium: TextStyle(
+          titleMedium: GoogleFonts.inter(
             fontSize: 12,
             fontWeight: FontWeight.w600,
             color: AppColor.secondary,
           ),
-          titleSmall: TextStyle(
+          titleSmall: GoogleFonts.inter(
               fontSize: 10,
               fontWeight: FontWeight.w600,
               color: AppColor.accent),
-          bodyLarge: TextStyle(
+          bodyLarge: GoogleFonts.inter(
             fontSize: 12,
             fontWeight: FontWeight.normal,
             color: AppColor.textPrimary,
           ),
-          bodyMedium: TextStyle(
+          bodyMedium: GoogleFonts.inter(
             fontSize: 10,
             fontWeight: FontWeight.normal,
             color: AppColor.textSecondary,
           ),
-          bodySmall: TextStyle(
+          bodySmall: GoogleFonts.inter(
             fontSize: 9,
             fontWeight: FontWeight.normal,
             color: AppColor.textAccent,
@@ -82,7 +81,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: AppColor.primary,
             disabledForegroundColor: AppColor.midGrey,
             disabledBackgroundColor: AppColor.midGrey,
-            textStyle: const TextStyle(
+            textStyle: GoogleFonts.inter(
                 fontSize: 16,
                 color: AppColor.white,
                 fontWeight: FontWeight.bold),

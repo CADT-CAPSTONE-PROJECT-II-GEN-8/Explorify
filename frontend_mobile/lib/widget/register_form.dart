@@ -79,8 +79,12 @@ class _RigisterState extends State<RegisterForm> {
                   ? AutovalidateMode.always
                   : AutovalidateMode.disabled,
               controller: usernameController,
-              decoration: formDecoration('', Icons.person),
+              decoration: formDecoration(
+                  labelText: '',
+                  prefixIcon: Icons.person,
+                  hintText: 'Enter your username'),
               onChanged: (value) => userInputData.updateUsername(value),
+              textInputAction: TextInputAction.next,
             ),
             Config.spaceSmall,
             Text(
@@ -98,8 +102,12 @@ class _RigisterState extends State<RegisterForm> {
                   ? AutovalidateMode.always
                   : AutovalidateMode.disabled,
 
-              decoration: formDecoration('', Icons.email),
+              decoration: formDecoration(
+                  labelText: '',
+                  prefixIcon: Icons.email,
+                  hintText: 'Enter your email address'),
               onChanged: (value) => userInputData.updateEmail(value),
+              textInputAction: TextInputAction.next,
             ),
             // const SizedBox(child: Config.spaceSmall),
             // Text(
@@ -130,8 +138,14 @@ class _RigisterState extends State<RegisterForm> {
                   ? AutovalidateMode.always
                   : AutovalidateMode.disabled,
               controller: passwordController,
-              decoration: formDecoration('', Icons.lock),
+              decoration: formDecoration(
+                  labelText: '',
+                  prefixIcon: Icons.lock,
+                  suffixIcon: Icons.remove_red_eye,
+                  hintText: 'Enter your password'),
               onChanged: (value) => userInputData.updatePassword(value),
+              textInputAction: TextInputAction.done,
+
               obscureText: true,
             ),
             Config.spaceSmall,

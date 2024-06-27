@@ -39,8 +39,46 @@ class _HomeScreenState extends State<HomeScreen> {
                   const HomeAppBar(),
                   Config.spaceMedium,
                   // -- Search --
-                  SearchContainer(
-                    text: AppText.enText['search-text']!,
+                  // SearchContainer(
+                  //   text: AppText.enText['search-text']!,
+                  // ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: AppColor.white,
+                              prefixIcon: const Icon(Icons.search),
+                              hintText: 'Search ...',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(
+                                    12.0), // Adjust as desired
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                            width:
+                                10.0), // Spacing between search field and button
+                        IconButton(
+                          icon: Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: const BoxDecoration(
+                                color: AppColor.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12))),
+                            child: const Icon(Icons.filter_list_rounded),
+                          ), // Change the icon if needed
+                          onPressed: () {
+                            // To Do: Navigate to Filter
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -122,4 +160,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

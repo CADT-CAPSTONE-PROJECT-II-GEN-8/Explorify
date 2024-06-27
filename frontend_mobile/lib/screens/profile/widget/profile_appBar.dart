@@ -70,66 +70,58 @@ class ProfileAppBar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(width: 10),
-                  Text(
-                    "Country",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: AppColor.white),
-                  ),
-                  SizedBox(width: 60),
-                  Text(
-                    "Job Title",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: AppColor.white),
-                  ),
-                  SizedBox(width: 60),
-                  InkWell(
-                    onTap: () {
-                      Navigator.popAndPushNamed(
-                          context, RouteManager.editProfileScreen);
-                    },
-                    borderRadius: BorderRadius.circular(
-                        20.0), // Adjust the radius as needed
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15.0, vertical: 2.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white
-                            .withOpacity(0.2), // Transparent white color
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Adjust the radius as needed
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Edit Profile",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(color: AppColor.white),
-                          ),
-                          const SizedBox(width: 8),
-                          const Icon(
-                            Icons.edit,
-                            color: AppColor.white,
-                            size: 14,
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+              Text(
+                "Country",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(color: AppColor.white),
               ),
+              Text(
+                "Job Title",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(color: AppColor.white),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.popAndPushNamed(
+                      context, RouteManager.editProfileScreen);
+                },
+                borderRadius:
+                    BorderRadius.circular(20.0), // Adjust the radius as needed
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 2.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white
+                        .withOpacity(0.2), // Transparent white color
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Adjust the radius as needed
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Edit Profile",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: AppColor.white),
+                      ),
+                      const SizedBox(width: 8),
+                      const Icon(
+                        Icons.edit,
+                        color: AppColor.white,
+                        size: 14,
+                      ),
+                    ],
+                  ),
+                ),
+              )
             ],
-          )
+          ),
         ],
       ),
     );

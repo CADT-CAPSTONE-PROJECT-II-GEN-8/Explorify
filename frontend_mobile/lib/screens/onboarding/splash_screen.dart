@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import "package:flutter/material.dart";
+import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/init.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -48,7 +49,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     TextSpan(
                       text: "plorify",
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                          color: AppColor.secondary,
+                          fontWeight: FontWeight.bold),
                     ),
                   ]),
             ),

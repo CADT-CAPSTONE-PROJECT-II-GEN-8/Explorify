@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/utils/config.dart';
 
-InputDecoration formDecoration(String labelText, IconData iconData) {
+InputDecoration formDecoration(
+    {required String labelText,
+    String? hintText,
+    required IconData prefixIcon,
+    IconData? suffixIcon,
+    bool? isObsure}) {
   return InputDecoration(
-      errorStyle: const TextStyle(fontSize: 10),
-      prefixIcon: Icon(
-        iconData,
-        color: Colors.black,
-      ),
-      errorMaxLines: 3,
-      labelText: labelText,
-      labelStyle: const TextStyle(color: Colors.grey),
-      enabledBorder: Config.outlinedBorder,
-      focusedBorder: Config.focusBorder,
-      errorBorder: Config.errorBorder);
+    errorStyle: const TextStyle(fontSize: 10),
+    prefixIcon: Icon(
+      prefixIcon,
+      color: Colors.black,
+    ),
+    suffixIcon: Icon(suffixIcon),
+    hintText: hintText,
+    errorMaxLines: 3,
+    labelText: labelText,
+    labelStyle: const TextStyle(color: Colors.grey),
+    enabledBorder: Config.outlinedBorder,
+    focusedBorder: Config.focusBorder,
+    errorBorder: Config.errorBorder,
+    floatingLabelBehavior: FloatingLabelBehavior.always,
+  );
 }
 
 // const enabledBorder = OutlineInputBorder(
@@ -37,7 +46,7 @@ InputDecoration formDecoration(String labelText, IconData iconData) {
 void showSnackBar(BuildContext context, String text) {
   // Hide the current SnackBar
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-  
+
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(text),

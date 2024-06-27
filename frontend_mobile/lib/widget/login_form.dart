@@ -44,7 +44,7 @@ class _LoginFormState extends State<LoginForm> {
           children: [
             Text(
               "Username",
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(
               height: 12,
@@ -53,12 +53,15 @@ class _LoginFormState extends State<LoginForm> {
               // textInputAction: TextInputAction.continueAction,
               validator: validateEmail,
               controller: emailController,
-              decoration: formDecoration('', Icons.person),
+              decoration: formDecoration(
+                  labelText: '',
+                  prefixIcon: Icons.email,
+                  hintText: "Enter your email address"),
             ),
             const SizedBox(child: Config.spaceSmall),
             Text(
               "Password",
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(
               height: 12,
@@ -67,23 +70,15 @@ class _LoginFormState extends State<LoginForm> {
               // textInputAction: TextInputAction.continueAction,
               validator: validatePassword,
               controller: passwordController,
-              decoration: formDecoration('', Icons.lock),
+              // decoration: formDecoration('', Icons.lock),
+              decoration: formDecoration(
+                  labelText: '',
+                  prefixIcon: Icons.lock,
+                  suffixIcon: Icons.remove_red_eye,
+                  hintText: "Enter your password"),
             ),
             const SizedBox(child: Config.spaceSmall),
-            Text(
-              "Password",
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            TextFormField(
-              // textInputAction: TextInputAction.continueAction,
-              validator: validatePassword,
-              controller: passwordController,
-              decoration: formDecoration('', Icons.lock),
-            ),
-            Config.spaceSmall,
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

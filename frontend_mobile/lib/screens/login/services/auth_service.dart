@@ -26,6 +26,7 @@ class AuthService {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
+      User user = User(email: email, username: username);
       // trim input and convert to lowercase
       email = email.trim().toLowerCase();
       var response = await http.post(
@@ -124,17 +125,18 @@ class AuthService {
           },
           body: jsonEncode(
               {'username_or_email': username, 'code': otpProvider.code}));
-      if (!context.mounted) return tokenModelFromJson(response.toString());
+      if (!context.mounted) return tokenModelFromJson(response.body);
       debugPrint(response.body);
       httpErrorHandle(
           response: response,
           context: context,
           onSuccess: () {
+            // userProvider.setUserFromModel(user);
             debugPrint(response.body);
             Navigator.of(context)
                 .pushReplacementNamed(RouteManager.navigationMenu);
           });
-      return tokenModelFromJson(response.toString());
+      return tokenModelFromJson(response.body);
     } catch (e) {
       showSnackBar(context, e.toString());
       return Future.error(e.toString());

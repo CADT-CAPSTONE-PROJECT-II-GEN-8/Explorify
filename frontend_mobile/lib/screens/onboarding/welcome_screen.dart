@@ -3,6 +3,7 @@ import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/utils/config.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -31,11 +32,14 @@ class WelcomePage extends StatelessWidget {
               textAlign: TextAlign.center,
               text: TextSpan(
                   text: AppText.enText['welcome-body']!,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  children: const [
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontWeight: FontWeight.w300),
+                  children: [
                     TextSpan(
                         text: " Explorify",
-                        style: TextStyle(fontWeight: FontWeight.bold))
+                        style: GoogleFonts.inter(fontWeight: FontWeight.bold))
                   ]),
             ),
             Config.spaceLarge,
