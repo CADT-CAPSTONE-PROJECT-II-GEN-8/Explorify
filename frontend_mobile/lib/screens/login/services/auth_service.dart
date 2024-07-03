@@ -9,6 +9,7 @@ import 'package:frontend_mobile/model/user/token_model.dart';
 import 'package:frontend_mobile/provider/user_provider.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/login/logic/otp_logic.dart';
+import 'package:frontend_mobile/screens/login/services/token_service.dart';
 import 'package:frontend_mobile/screens/login/verify_screen.dart';
 import 'package:frontend_mobile/utils/constant.dart';
 import 'package:frontend_mobile/utils/error_handling.dart';
@@ -132,6 +133,12 @@ class AuthService {
           context: context,
           onSuccess: () {
             // userProvider.setUserFromModel(user);
+            TokenService newToken = TokenService();
+            final data = jsonDecode(response.body);
+            String accessToken = data['body']['accessToken'] ?? 'non';
+            String requestToken = data['body']['requestToken'] ?? 'non';
+            print("Success $accessToken, $requestToken");
+            newToken.saveTokens(accessToken, requestToken);
             debugPrint(response.body);
             Navigator.of(context)
                 .pushReplacementNamed(RouteManager.navigationMenu);

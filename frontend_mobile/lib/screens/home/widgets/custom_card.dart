@@ -26,7 +26,7 @@ class CustomCardInfo extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.only(bottom: 24),
         child: Container(
           padding: const EdgeInsets.all(18),
           alignment: Alignment.center,
