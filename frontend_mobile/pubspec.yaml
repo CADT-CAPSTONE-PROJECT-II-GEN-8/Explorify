@@ -46,7 +46,7 @@ dependencies:
   shared_preferences: ^2.2.3
   get_storage: ^2.1.1
   flutter_secure_storage: ^9.2.2
-  filter_list: ^1.0.3
+  
 
   # Utility
   http: ^1.2.1

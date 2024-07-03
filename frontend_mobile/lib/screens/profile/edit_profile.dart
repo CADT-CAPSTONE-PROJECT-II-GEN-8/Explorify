@@ -234,7 +234,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
 
                   //Gender
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   //Name
@@ -247,7 +247,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           color: AppColor.black), // Match text style
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   // This code implements two RadioButtons for selecting gender
