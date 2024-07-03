@@ -17,7 +17,6 @@ import 'package:frontend_mobile/utils/config.dart';
 import 'package:frontend_mobile/widget/app_bar.dart';
 import 'package:frontend_mobile/widget/custom_container.dart';
 import 'package:http/retry.dart';
-import 'package:filter_list/filter_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
