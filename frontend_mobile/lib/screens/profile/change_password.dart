@@ -69,7 +69,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       TextFormField(
                         validator: validatePassword,
                         controller: _oldPwdController,
-                        decoration: formDecoration('', Icons.visibility),
+                        decoration: formDecoration(labelText: '', prefixIcon: Icons.visibility),
                       ),
                       SizedBox(
                         height: 12,
@@ -84,7 +84,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       TextFormField(
                         validator: validatePassword,
                         controller: _newPwdController,
-                        decoration: formDecoration('', Icons.visibility),
+                        decoration: formDecoration(labelText: '', prefixIcon: Icons.visibility),
                       ),
                       SizedBox(
                         height: 12,
@@ -99,7 +99,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       TextFormField(
                         validator: validatePassword,
                         controller: _cfPwdController,
-                        decoration: formDecoration('', Icons.visibility),
+                        decoration: formDecoration(labelText: '', prefixIcon:  Icons.visibility),
                       ),
                       Config.spaceLarge,
                       ElevatedButton(

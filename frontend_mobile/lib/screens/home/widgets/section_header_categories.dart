@@ -11,7 +11,7 @@ class SectionHeadingCategory extends StatelessWidget {
   });
 
   final String title;
-  final IconData buttonIcon;
+  final String buttonIcon;
   final Color? textColor;
   final void Function()? onPressed;
   @override
@@ -19,11 +19,10 @@ class SectionHeadingCategory extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        IconButton(
-          onPressed: onPressed,
-          icon: Icon(
-            buttonIcon,
-          ),
+        Image.asset(
+          buttonIcon,
+          height: 24,
+          width: 24,
         ),
         Text(
           title,

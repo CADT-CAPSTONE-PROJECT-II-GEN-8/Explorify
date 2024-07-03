@@ -4,6 +4,7 @@ import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
+import 'package:frontend_mobile/screens/home/filter_overlay.dart';
 import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
 import 'package:frontend_mobile/screens/home/widgets/category.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_card.dart';
@@ -26,6 +27,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Map<String, List<String>> selectedOptions = {}; // State variable
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +81,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           onPressed: () {
                             // To Do: Navigate to Filter
                             // openFilterDelegate();
-                            FilterOverLay(context);
+                            FilterOverLay(
+                              context,
+                              (Map<String, List<String>> updatedOptions) {
+                                // Callback function to update parent state
+                                setState(() {
+                                  selectedOptions =
+                                      updatedOptions; // Update your state variable with selections
+                                });
+                              },
+                            );
                           },
                         ),
                       ],
@@ -193,7 +205,34 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<dynamic> FilterOverLay(BuildContext context) {
+  Future<dynamic> FilterOverLay(BuildContext context,
+      Function(Map<String, List<String>>) onSelectOptions) {
+    Map<String, List<String>> selectedOptions = {};
+    bool isSelected = false;
+
+    final List<Map<String, dynamic>> filterCategories = [
+      {
+        "title": "Intern Type:",
+        "icon": AppImage.briefcaseImg,
+        "options": ["Intern", "Full-time", "Part-time"],
+      },
+      {
+        "title": "Location:",
+        "icon": AppImage.locationImg,
+        "options": ["San Francisco", "New York", "Remote"],
+      },
+      {
+        "title": "Education:",
+        "icon": AppImage.educationImg,
+        "options": ["San Francisco", "New York", "Remote"],
+      },
+      {
+        "title": "Field of Interest:",
+        "icon": AppImage.interestFieldImg,
+        "options": ["San Francisco", "New York", "Remote"],
+      },
+    ];
+
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -206,53 +245,114 @@ class _HomeScreenState extends State<HomeScreen> {
                   topLeft: Radius.circular(16), topRight: Radius.circular(16))),
           child: Padding(
             padding: const EdgeInsets.all(24),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AppColor.grey,
-                          prefixIcon: const Icon(Icons.search),
-                          hintText: 'Search ...',
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(
-                                12.0), // Adjust as desired
-                          ),
+            child: Column(children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppColor.grey,
+                        prefixIcon: const Icon(Icons.search),
+                        hintText: 'Search ...',
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius:
+                              BorderRadius.circular(12.0), // Adjust as desired
                         ),
                       ),
                     ),
-                    const SizedBox(
-                        width: 10.0), // Spacing between search field and button
-                    IconButton(
-                      icon: Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: const BoxDecoration(
-                            color: AppColor.grey,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(12))),
-                        child: const Icon(Icons.close_rounded),
-                      ), // Change the icon if needed
-                      onPressed: () {
-                        // To Do: Navigate to Filter
-                        // openFilterDelegate();
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
+                  ),
+                  const SizedBox(
+                      width: 10.0), // Spacing between search field and button
+                  IconButton(
+                    icon: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: const BoxDecoration(
+                          color: AppColor.grey,
+                          borderRadius: BorderRadius.all(Radius.circular(12))),
+                      child: const Icon(Icons.close_rounded),
+                    ), // Change the icon if needed
+                    onPressed: () {
+                      // To Do: Navigate to Filter
+                      // openFilterDelegate();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+              // const SizedBox(
+              //   height: 12,
+              // ),
+              // const SectionHeadingCategory(
+              //   title: 'Intern Type:',
+              //   buttonIcon: Icons.cases_rounded,
+              // ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: filterCategories.length,
+                  itemBuilder: (context, index) {
+                    final category = filterCategories[index];
+                    final options = category["options"] as List<String>;
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SectionHeadingCategory(
+                          title: category['title'],
+                          buttonIcon: category['icon'],
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Wrap(
+                          spacing: 8,
+                          children: options.map<Widget>((option) {
+                            // Check if option is a String
+                            return ChoiceChip(
+                              showCheckmark: false,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50))),
+                              label: Text(option),
+                              selectedColor: AppColor.primary, // Selected color
+                              selected: isSelected,
+                              onSelected: (isSelected) {
+                                if (isSelected) {
+                                  if (selectedOptions[category['title']] ==
+                                      null) {
+                                    selectedOptions[category['title']] = [];
+                                  }
+                                  selectedOptions[category['title']]!
+                                      .add(option);
+                                } else {
+                                  selectedOptions[category['title']]!
+                                      .remove(option);
+                                }
+                                onSelectOptions(selectedOptions);
+                                setState(() {
+                                  debugPrint("Selected");
+                                  isSelected = !isSelected;
+                                });
+                                // Update parent state
+                              },
+                            );
+                          }).toList(),
+                          // category['options'].map((options) {}).toList(),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        )
+                        // ListTile(
+                        //   title: Text(category['title']),
+                        //   onTap: () => selectedOptions(category),
+                        // ),
+                      ],
+                    );
+                  },
                 ),
-                const SizedBox(
-                  height: 12,
-                ),
-                const SectionHeadingCategory(
-                  title: 'Intern Type:',
-                  buttonIcon: Icons.cases_rounded,
-                ),
-              ],
-            ),
+              ),
+            ]),
           ),
         );
       },

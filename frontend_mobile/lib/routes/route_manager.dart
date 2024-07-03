@@ -41,24 +41,20 @@ class RouteManager {
   static const String verifyScreen = '/verify';
   static const String cvGenerateScreen = '/cvGenertate';
   static const String profileScreen = '/profile';
-  static const String accountScreen = '/profile/acoount_detail';
-  static const String editProfileScreen = '/profile/edit_profile';
-  static const String changePasswordScreen = '/profile/change_password';
-  static const String aboutMeScreen = '/profile/account_detail/about_me';
-  static const String workExperinceScreen =
-      '/profile/account_detail/work_experince';
-  static const String eduInfoScreen =
-      '/profile/account_detail/education_information';
-  static const String userLanguageScreen = '/profile/account_detail/language';
-  static const String languageMainScreen =
-      '/profile/account_detail/language_main';
-  static const String editLanguageScreen =
-      '/profile/account_detail/edit_language';
-  static const String skillScreen = '/profile/account_detail/skill';
-  static const String appreciationScreen = '/profile/appreciation';
-  static const String addAppreciationScreen = '/profile/addAppreciation';
-  static const String languageScreen = '/profile/language';
-  static const String teamScreen = '/profile/team';
+  static const String accountScreen = '/acoount_detail';
+  static const String editProfileScreen = '/edit_profile';
+  static const String changePasswordScreen = '/change_password';
+  static const String aboutMeScreen = '/account_detail/about_me';
+  static const String workExperinceScreen = '/account_detail/work_experince';
+  static const String eduInfoScreen = '/account_detail/education_information';
+  static const String userLanguageScreen = '/account_detail/language';
+  static const String languageMainScreen = '/account_detail/language_main';
+  static const String editLanguageScreen = '/account_detail/edit_language';
+  static const String skillScreen = '/account_detail/skill';
+  static const String appreciationScreen = '/appreciation';
+  static const String addAppreciationScreen = '/addAppreciation';
+  static const String languageScreen = '/language';
+  static const String teamScreen = '/team';
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
