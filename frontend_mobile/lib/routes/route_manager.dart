@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
+import 'package:frontend_mobile/screens/history/history_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
 import 'package:frontend_mobile/screens/login/check_email.dart';
@@ -25,6 +26,7 @@ import 'package:frontend_mobile/screens/profile/language.dart';
 import 'package:frontend_mobile/screens/profile/profile_screen.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/work_experince.dart';
 import 'package:frontend_mobile/screens/profile/team.dart';
+import 'package:frontend_mobile/screens/recommended_article/recommend_screen.dart';
 import 'package:frontend_mobile/widget/navigation_menu.dart';
 
 class RouteManager {
@@ -55,6 +57,8 @@ class RouteManager {
   static const String addAppreciationScreen = '/addAppreciation';
   static const String languageScreen = '/language';
   static const String teamScreen = '/team';
+  static const String historyScreen = '/history';
+  static const String articleScreen = '/article';
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -120,6 +124,10 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const LanguageScreen());
       case teamScreen:
         return MaterialPageRoute(builder: (context) => const TeamScreen());
+      case historyScreen:
+        return MaterialPageRoute(builder: (context) => const HistoryScreen());
+      case articleScreen:
+        return MaterialPageRoute(builder: (context) => const ArticleScreen());
       default:
         return MaterialPageRoute(builder: (context) => const RegisterPage());
     }

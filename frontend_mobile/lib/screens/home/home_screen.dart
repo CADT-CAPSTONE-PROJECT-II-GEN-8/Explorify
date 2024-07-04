@@ -3,10 +3,15 @@ import 'package:flutter/widgets.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
+import 'package:frontend_mobile/model/internship/company_profile.dart';
+import 'package:frontend_mobile/model/internship/internship_posting.dart';
+import 'package:frontend_mobile/provider/company_info_provider.dart';
+import 'package:frontend_mobile/provider/job_detail_provider.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/home/filter_overlay.dart';
 import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
 import 'package:frontend_mobile/screens/home/widgets/category.dart';
+import 'package:frontend_mobile/screens/home/widgets/company_info.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_card.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_header.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_notification.dart';
@@ -18,6 +23,7 @@ import 'package:frontend_mobile/utils/config.dart';
 import 'package:frontend_mobile/widget/app_bar.dart';
 import 'package:frontend_mobile/widget/custom_container.dart';
 import 'package:http/retry.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,6 +34,130 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Map<String, List<String>> selectedOptions = {}; // State variable
+
+  final List<Internship> internshipList = [
+    Internship(
+        internshipPostId: 01,
+        jobTitle: 'UX/UI Designer',
+        location: 'Cambodia, Phnom Penh',
+        status: 'Active',
+        jobDescription:
+            'responsible for creating user-centered designs for digital products, such as websites, mobile apps, and software interfaces. Their primary focus is on enhancing user satisfaction and usability by improving the accessibility, efficiency, and aesthetics of the product.',
+        jobDuration: "3 Months",
+        jobRequirement:
+            'Bachelor\'s degree in Graphic Design, Interaction Design, Human-Computer Interaction, or related field., Proven experience as a UI/UX Designer or similar role, with a strong portfolio showcasing your design projects., Proficiency in design tools such as Adobe XD, Sketch, Figma, or InVision., Solid understanding of user-centered design principles and best practices. ',
+        jobType: 'Full-Time',
+        qualification: 'Bachelor\'s Degree',
+        salary: '100\$ - 200\$',
+        active: true,
+        deadline: DateTime(2024, 6, 30),
+        userId: 1),
+    Internship(
+      internshipPostId: 2,
+      jobTitle: 'Content Marketing Intern',
+      location: 'Thailand, Bangkok',
+      status: 'Active',
+      jobDescription:
+          'Create and manage engaging content for social media, website, and blog. Assist with content marketing campaigns.',
+      jobDuration: "4 Months",
+      jobRequirement:
+          'Excellent written and verbal communication skills., Strong understanding of SEO principles., Experience with social media marketing platforms., Proficiency in content creation tools.',
+      jobType: 'Part-Time',
+      qualification: 'Bachelor\'s Degree (Preferred)',
+      salary: '50\$ - 100\$',
+      active: true,
+      deadline: DateTime(2024, 7, 15),
+      userId: 2,
+    ),
+    Internship(
+      internshipPostId: 3,
+      jobTitle: 'Digital Marketing Analyst',
+      location: 'Vietnam, Hanoi',
+      status: 'Active',
+      jobDescription:
+          'Analyze marketing data to identify trends and measure campaign performance. Develop and implement digital marketing strategies.',
+      jobDuration: "5 Months",
+      jobRequirement:
+          'Bachelor\'s degree in Marketing or related field., Experience with web analytics tools., Knowledge of digital marketing channels., Strong analytical and problem-solving skills.',
+      jobType: 'Intern',
+      qualification: 'Bachelor\'s Degree',
+      salary: 'Unpaid',
+      active: true,
+      deadline: DateTime(2024, 7, 7),
+      userId: 3,
+    ),
+    Internship(
+      internshipPostId: 4,
+      jobTitle: 'Graphic Designer',
+      location: 'Singapore',
+      status: 'Active',
+      jobDescription:
+          'Create visually appealing graphics for marketing materials, presentations, and social media.',
+      jobDuration: "3 Months",
+      jobRequirement:
+          'Bachelor\'s degree in Graphic Design or related field., Strong portfolio showcasing design skills., Proficiency in design software such as Adobe Photoshop Illustrator and InDesign.',
+      jobType: 'Full-Time',
+      qualification: 'Bachelor\'s Degree',
+      salary: '120\$ - 200\$',
+      active: true,
+      deadline: DateTime(2024, 7, 10),
+      userId: 4,
+    ),
+    Internship(
+      internshipPostId: 5,
+      jobTitle: 'Digital Business Intern',
+      location: 'Indonesia, Jakarta',
+      status: 'Active',
+      jobDescription:
+          'Identify and develop new business opportunities. Conduct market research and competitor analysis. Prepare presentations and proposals.',
+      jobDuration: "6 Months",
+      jobRequirement:
+          'Bachelor\'s degree in Business Administration or related field., Strong communication and interpersonal skills., Experience with business development activities (a plus).',
+      jobType: 'Intern',
+      qualification: 'Bachelor\'s Degree (In Progress)',
+      salary: '75\$ - 125',
+      active: true,
+      deadline: DateTime(2024, 7, 1),
+      userId: 5,
+    ),
+  ];
+
+  final List<CompanyProfile> companyList = [
+    CompanyProfile(
+        image: AppImage.google,
+        companyId: 01,
+        companyName: "Google Inc",
+        description: "Giant tech company",
+        location: "Canada, USA"),
+    CompanyProfile(
+      image: AppImage.facebook,
+      companyId: 2,
+      companyName: "Meta Platforms Inc.",
+      description: "Social media and technology company",
+      location: "USA",
+    ),
+    CompanyProfile(
+      image: AppImage.amazon,
+      companyId: 3,
+      companyName: "Amazon.com, Inc.",
+      description: "E-commerce and cloud computing company",
+      location: "USA",
+    ),
+    CompanyProfile(
+      image: AppImage.apple,
+      companyId: 4,
+      companyName: "Apple Inc.",
+      description: "Consumer electronics and software company",
+      location: "USA",
+    ),
+    CompanyProfile(
+      image: AppImage.microsoft,
+      companyId: 5,
+      companyName: "Microsoft Corporation",
+      description: "Multinational technology company",
+      location: "USA",
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -117,12 +247,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 118,
                     child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: 6,
+                        itemCount: internshipList.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return const VerticleImage(
-                            title: 'Title',
-                            subTitle: '11 Jobs',
+                          final internshipInfo = internshipList[index];
+                          return VerticleImage(
+                            internship: internshipInfo,
                             image: AppImage.logo,
                           );
                         }),
@@ -178,20 +308,44 @@ class _HomeScreenState extends State<HomeScreen> {
                   // ),
                   ListView.builder(
                       shrinkWrap: true,
-                      itemCount: 5,
+                      itemCount: internshipList.length,
                       scrollDirection: Axis.vertical,
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
+                        final internshipInfo = internshipList[index];
+                        final companyInfo = companyList[index];
+                        double minSalary;
+                        double maxSalary;
+                        if (internshipInfo.salary.trim().toLowerCase() ==
+                            "unpaid") {
+                          // Handle unpaid case (set minSalary to 0 or a specific value)
+                          minSalary = 0; // Assuming unpaid means no salary
+                          maxSalary = 0;
+                        } else {
+                          List<String> salaryParts =
+                              internshipInfo.salary.split('-');
+                          minSalary = double.parse(
+                              salaryParts[0].trim().replaceAll('\$', ''));
+                          maxSalary = double.parse(
+                              salaryParts[1].trim().replaceAll('\$', ''));
+                        }
+
                         return CustomCardInfo(
-                          jobImage: AppImage.google,
-                          jobType: "Full Time",
-                          companyName: "Google Inc",
-                          positionName: "UX/UI Designer",
-                          location: "California, USA",
-                          minSalary: 200,
-                          maxSalry: 400,
+                          jobImage: companyInfo.image,
+                          jobType: internshipInfo.jobType,
+                          companyName: companyInfo.companyName,
+                          positionName: internshipInfo.jobTitle,
+                          location: companyInfo.location,
+                          minSalary: minSalary,
+                          maxSalry: maxSalary,
                           onTap: () {
-                            Navigator.popAndPushNamed(
+                            Provider.of<InternshipProvider>(context,
+                                    listen: false)
+                                .internshipInfo = internshipInfo;
+                            Provider.of<CompanyProfileProvider>(context,
+                                    listen: false)
+                                .companyProfile = companyInfo;
+                            Navigator.pushNamed(
                                 context, RouteManager.jobDetailScreen);
                           },
                         );

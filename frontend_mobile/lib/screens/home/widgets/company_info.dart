@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/text.dart';
+import 'package:frontend_mobile/model/internship/company_profile.dart';
+import 'package:frontend_mobile/provider/company_info_provider.dart';
+import 'package:frontend_mobile/provider/job_detail_provider.dart';
 import 'package:frontend_mobile/screens/home/widgets/apply_button.dart';
 import 'package:frontend_mobile/screens/home/widgets/bullet_list.dart';
 import 'package:frontend_mobile/utils/config.dart';
+import 'package:provider/provider.dart';
 
 class CompanyInfo extends StatelessWidget {
   const CompanyInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final companyInfo =
+        Provider.of<CompanyProfileProvider>(context).companyProfile;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -28,7 +34,7 @@ class CompanyInfo extends StatelessWidget {
               ),
               Text(
                 textAlign: TextAlign.justify,
-                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+                companyInfo!.description ?? '',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.normal, color: AppColor.secondary),
               ),

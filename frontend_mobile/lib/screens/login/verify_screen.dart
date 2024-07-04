@@ -108,7 +108,7 @@ class _VerifyPageState extends State<VerifyPage> {
                               //     context, RouteManager.loginScreen);
                               authService.getToken(
                                   context: context, username: widget.username);
-                              print("token $widget.username");
+                              print("token ${widget.username}");
                             },
                             style: Theme.of(context).elevatedButtonTheme.style,
                             child: Text(AppText.enText['continue_button']!),

@@ -3,6 +3,8 @@ import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/provider/apply.dart';
+import 'package:frontend_mobile/provider/company_info_provider.dart';
+import 'package:frontend_mobile/provider/job_detail_provider.dart';
 import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
 import 'package:frontend_mobile/screens/home/widgets/apply_button.dart';
 import 'package:frontend_mobile/screens/home/widgets/tab_bar.dart';
@@ -43,6 +45,11 @@ class _JobDetailScreenState extends State<JobDetailScreen>
   bool isUpload = false;
   @override
   Widget build(BuildContext context) {
+    final internshipInfo =
+        Provider.of<InternshipProvider>(context).internshipInfo;
+    final companyInfo =
+        Provider.of<CompanyProfileProvider>(context).companyProfile;
+
     final uploadState = Provider.of<UploadState>(context);
     List<String> tabs = ['Job Description', 'About Company'];
     return Scaffold(
@@ -82,10 +89,10 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                   Container(
                     width: 54,
                     height: 54,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(
-                          "assets/images/app_logo.png",
+                          companyInfo!.image,
                         ),
                       ),
                     ),
@@ -97,7 +104,7 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Company Name",
+                        companyInfo.companyName,
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.w500,
                             color: AppColor.primary),
@@ -106,7 +113,7 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                         height: 4,
                       ),
                       Text(
-                        "Job Position",
+                        internshipInfo!.jobTitle,
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
@@ -118,7 +125,7 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                         height: 4,
                       ),
                       Text(
-                        "Location",
+                        companyInfo.location,
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             fontWeight: FontWeight.normal,
                             color: AppColor.midGrey),

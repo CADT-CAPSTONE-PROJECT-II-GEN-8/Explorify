@@ -56,5 +56,7 @@ class AppText {
     'update_button': 'Update',
     'cancle_button': 'Cancel',
     'description': 'Description',
+    'article_screen_title': 'Article',
+    'history_screen_title': 'History',
   };
 }

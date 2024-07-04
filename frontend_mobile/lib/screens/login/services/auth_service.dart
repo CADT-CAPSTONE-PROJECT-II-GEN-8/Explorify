@@ -13,6 +13,7 @@ import 'package:frontend_mobile/screens/login/services/token_service.dart';
 import 'package:frontend_mobile/screens/login/verify_screen.dart';
 import 'package:frontend_mobile/utils/constant.dart';
 import 'package:frontend_mobile/utils/error_handling.dart';
+import 'package:frontend_mobile/widget/app_progress_indicator.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,7 +39,12 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(
-          {"email": email, "username": username, "password": password},
+          {
+            "email": email,
+            "username": username,
+            "password": password,
+            "social_registration": 0
+          },
         ),
       );
       debugPrint("User provider: ");
@@ -47,13 +53,13 @@ class AuthService {
       debugPrint(response.body);
       if (!context.mounted) return;
 
-      getOTP(context: context, username: username, password: password);
-
       httpErrorHandle(
         response: response,
         context: context,
         onSuccess: () async {
           showSnackBar(context, 'Signed Up!');
+
+          getOTP(context: context, username: username, password: password);
 
           // Navigator.popUntil(
           //     context, ModalRoute.withName(LoginScreen.routeName));
@@ -62,6 +68,20 @@ class AuthService {
     } catch (e) {
       showSnackBar(context, e.toString());
     }
+  }
+
+  Future <void> logIn ({
+    required String username,
+    required String password
+  }) async {
+
+  }
+
+  Future <void> socialLogIn ({
+    required String username,
+    required String password
+  }) async {
+
   }
 
   Future<void> getOTP({
@@ -106,12 +126,11 @@ class AuthService {
     }
   }
 
-  Future<TokenModel> getToken({
+  Future<void> getToken({
     required BuildContext context,
     required username,
   }) async {
     final otpProvider = Provider.of<OtpProvider>(context, listen: false);
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
       debugPrint(username);
@@ -126,7 +145,7 @@ class AuthService {
           },
           body: jsonEncode(
               {'username_or_email': username, 'code': otpProvider.code}));
-      if (!context.mounted) return tokenModelFromJson(response.body);
+      if (!context.mounted) return;
       debugPrint(response.body);
       httpErrorHandle(
           response: response,
@@ -135,18 +154,14 @@ class AuthService {
             // userProvider.setUserFromModel(user);
             TokenService newToken = TokenService();
             final data = jsonDecode(response.body);
-            String accessToken = data['body']['accessToken'] ?? 'non';
-            String requestToken = data['body']['requestToken'] ?? 'non';
-            print("Success $accessToken, $requestToken");
+            String accessToken = data['body']['access_token'] ?? 'non';
+            String requestToken = data['body']['refresh_token'] ?? 'non';
             newToken.saveTokens(accessToken, requestToken);
             debugPrint(response.body);
-            Navigator.of(context)
-                .pushReplacementNamed(RouteManager.navigationMenu);
+            Navigator.of(context).popAndPushNamed(RouteManager.navigationMenu);
           });
-      return tokenModelFromJson(response.body);
     } catch (e) {
       showSnackBar(context, e.toString());
-      return Future.error(e.toString());
     }
   }
 }

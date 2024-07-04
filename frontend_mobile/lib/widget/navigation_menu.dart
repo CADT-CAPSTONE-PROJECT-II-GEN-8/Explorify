@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
+import 'package:frontend_mobile/screens/history/history_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/profile/profile_screen.dart';
+import 'package:frontend_mobile/screens/recommended_article/recommend_screen.dart';
 import 'package:provider/provider.dart';
 
 class NavigationMenu extends StatelessWidget {
@@ -72,8 +74,8 @@ class NavigationProvider with ChangeNotifier {
   int _selectedIndex = 0;
   final List<Widget> screens = [
     const HomeScreen(),
-    Container(color: Colors.red),
-    Container(color: Colors.yellow),
+    const ArticleScreen(),
+    const HistoryScreen(),
     const ProfileScreen(),
   ];
 

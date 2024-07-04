@@ -1,17 +1,17 @@
-
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
+import 'package:frontend_mobile/model/internship/internship_posting.dart';
 
 class VerticleImage extends StatelessWidget {
   const VerticleImage({
+    required this.internship,
     super.key,
-    required this.title,
-    required this.subTitle,
     this.onTap,
     required this.image,
   });
 
-  final String title, subTitle, image;
+  final String image;
+  final Internship internship;
   final void Function()? onTap;
 
   @override
@@ -51,7 +51,8 @@ class VerticleImage extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  title,
+                  internship.jobTitle,
+                  textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
@@ -61,7 +62,7 @@ class VerticleImage extends StatelessWidget {
                   height: 4,
                 ),
                 Text(
-                  subTitle,
+                  internship.jobDuration,
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!

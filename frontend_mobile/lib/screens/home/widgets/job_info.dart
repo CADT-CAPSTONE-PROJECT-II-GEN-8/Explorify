@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/text.dart';
+import 'package:frontend_mobile/provider/company_info_provider.dart';
+import 'package:frontend_mobile/provider/job_detail_provider.dart';
 import 'package:frontend_mobile/screens/home/widgets/apply_button.dart';
 import 'package:frontend_mobile/screens/home/widgets/bullet_list.dart';
 import 'package:frontend_mobile/utils/config.dart';
+import 'package:provider/provider.dart';
 
 class JobInfo extends StatelessWidget {
   const JobInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final internshipInfo =
+        Provider.of<InternshipProvider>(context).internshipInfo;
+    List<String> requirements = internshipInfo!.jobRequirement.split(',');
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -28,7 +34,7 @@ class JobInfo extends StatelessWidget {
               ),
               Text(
                 textAlign: TextAlign.justify,
-                "Lorem Ipusm Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem",
+                internshipInfo!.jobDescription,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.normal, color: AppColor.secondary),
               ),
@@ -45,13 +51,7 @@ class JobInfo extends StatelessWidget {
               const SizedBox(
                 height: 12,
               ),
-              BulletList(
-                const [
-                  'Sed ut perspiciatis unde omnis iste natus error sit.',
-                  'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur & adipisci velit.',
-                  'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.'
-                ],
-              ),
+              BulletList(requirements),
               const SizedBox(
                 height: 18,
               ),
@@ -66,7 +66,7 @@ class JobInfo extends StatelessWidget {
               ),
               Text(
                 textAlign: TextAlign.justify,
-                "Overlook Avenue, Belleville, NJ, USA",
+                internshipInfo.location,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.normal, color: AppColor.secondary),
               ),

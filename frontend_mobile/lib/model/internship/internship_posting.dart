@@ -3,8 +3,6 @@ class Internship {
   final String jobTitle;
   final String location;
   final String status;
-  final DateTime createdAt;
-  final DateTime updatedAt;
   final String jobDescription;
   final String jobDuration; // Assuming this is a string for now
   final String jobRequirement;
@@ -20,8 +18,6 @@ class Internship {
     required this.jobTitle,
     required this.location,
     required this.status,
-    required this.createdAt,
-    required this.updatedAt,
     required this.jobDescription,
     required this.jobDuration,
     required this.jobRequirement,
@@ -38,8 +34,6 @@ class Internship {
         jobTitle: json['job_title'] as String,
         location: json['location'] as String,
         status: json['status'] as String,
-        createdAt: DateTime.parse(json['created_at'] as String),
-        updatedAt: DateTime.parse(json['updated_at'] as String),
         jobDescription: json['job_description'] as String,
         jobDuration: json['job_duration'] as String,
         jobRequirement: json['job_requirement'] as String,
@@ -50,4 +44,20 @@ class Internship {
         deadline: DateTime.parse(json['deadline'] as String),
         userId: json['user_id'] as int,
       );
+
+  Map<String, dynamic> toMap() => {
+        'internship_post_id': internshipPostId,
+        'job_title': jobTitle,
+        'location': location,
+        'status': status,
+        'job_description': jobDescription,
+        'job_duration': jobDuration,
+        'job_requirement': jobRequirement,
+        'job_type': jobType,
+        'qualification': qualification,
+        'salary': salary,
+        'active': active,
+        'deadline': deadline.toString(), // Convert DateTime to String
+        'user_id': userId,
+      };
 }

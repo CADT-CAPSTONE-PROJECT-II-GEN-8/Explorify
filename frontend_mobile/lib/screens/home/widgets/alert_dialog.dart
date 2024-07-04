@@ -102,6 +102,7 @@ Future<void> showConfirmationDialog(
               child: Text(
                 title,
                 textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
             Padding(
@@ -109,6 +110,7 @@ Future<void> showConfirmationDialog(
               child: Text(
                 content,
                 textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
             Padding(

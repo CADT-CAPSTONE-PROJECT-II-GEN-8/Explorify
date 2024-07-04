@@ -44,6 +44,8 @@ class ApplyButton extends StatelessWidget {
                 positiveButtonText: AppText.enText['upload_text_button']!,
                 onPositivePressed: () {
                   debugPrint("Upload Screen");
+                  Navigator.of(context)
+                      .pushReplacementNamed(RouteManager.accountScreen);
                 },
               );
             }

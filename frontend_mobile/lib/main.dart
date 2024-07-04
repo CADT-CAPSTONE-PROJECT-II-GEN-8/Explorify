@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/app.dart';
+import 'package:frontend_mobile/provider/company_info_provider.dart';
+import 'package:frontend_mobile/provider/job_detail_provider.dart';
 import 'package:frontend_mobile/screens/profile/widget/language_logic.dart';
 import 'package:frontend_mobile/provider/apply.dart';
 import 'package:frontend_mobile/provider/user_provider.dart';
@@ -13,19 +15,19 @@ import 'package:provider/provider.dart';
 //       child: const MyApp(),
 //     ));
 
-
 void main() => runApp(
       MultiProvider(
         providers: [
-                    ChangeNotifierProvider(create: (context) => LanguageLogic()),
-
+          ChangeNotifierProvider(create: (context) => LanguageLogic()),
           ChangeNotifierProvider<UploadState>(
               create: (context) => UploadState()),
           ChangeNotifierProvider<NavigationProvider>(
               create: (context) => NavigationProvider()),
           ChangeNotifierProvider(create: (context) => OtpProvider()),
           ChangeNotifierProvider(create: (context) => UserInputLogic()),
-          ChangeNotifierProvider(create: (context) => UserProvider())
+          ChangeNotifierProvider(create: (context) => UserProvider()),
+          ChangeNotifierProvider(create: (context) => InternshipProvider()),
+          ChangeNotifierProvider(create: (context) => CompanyProfileProvider())
         ],
         child: const MyApp(),
       ),

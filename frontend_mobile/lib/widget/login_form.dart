@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
+import 'package:frontend_mobile/screens/login/services/auth_service.dart';
 import 'package:frontend_mobile/utils/constant.dart';
 import 'package:frontend_mobile/utils/validators.dart';
 import 'package:frontend_mobile/utils/config.dart';
@@ -16,6 +17,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  final AuthService authService = AuthService();
 
   @override
   void initState() {
@@ -33,6 +35,9 @@ class _LoginFormState extends State<LoginForm> {
     passwordController.dispose();
   }
 
+  void logInUser () {
+    authService.logIn;
+  }
   @override
   Widget build(BuildContext context) {
     return Form(

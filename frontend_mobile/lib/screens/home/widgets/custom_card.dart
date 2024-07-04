@@ -52,6 +52,9 @@ class CustomCardInfo extends StatelessWidget {
                           height: 24,
                         ),
                       ),
+                      const SizedBox(
+                        width: 12,
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -79,10 +82,15 @@ class CustomCardInfo extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      "$minSalary\$ - $maxSalry\$",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
+                    child: minSalary == 0 && maxSalry == 0
+                        ? Text(
+                            "Unpaid",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          )
+                        : Text(
+                            "$minSalary\$ - $maxSalry\$",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                   ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(

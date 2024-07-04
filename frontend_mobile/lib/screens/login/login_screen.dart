@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
           data: data, onSendProgress: (count, total) {
         print("Count:$count");
       });
-      print(response.data);
+      debugPrint(response.data);
     } on DioException catch (e) {
       print(e.response);
     }
@@ -163,7 +163,9 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _googleSignIn.signIn();
+                          },
                           icon: const Image(
                             image: AssetImage(AppImage.google),
                             width: 24,

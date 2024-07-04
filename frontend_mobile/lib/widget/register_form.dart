@@ -48,10 +48,6 @@ class _RigisterState extends State<RegisterForm> {
       password: userInputData.password,
       email: userInputData.email,
     );
-
-    print(userInputData.email);
-    print(userInputData.password);
-    print(userInputData.username);
   }
 
   bool isSubmitted = false;
