@@ -90,8 +90,6 @@ class NavigationProvider with ChangeNotifier {
     const HomeScreen(),
     const ArticleScreen(),
     const HistoryScreen(),
-    const ArticleScreen(),
-    const HistoryScreen(),
     const ProfileScreen(),
   ];
 
