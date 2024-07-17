@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/screens/history/history_screen.dart';
+import 'package:frontend_mobile/screens/artical/artical_screen.dart';
+import 'package:frontend_mobile/screens/history/history_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/profile/profile_screen.dart';
 import 'package:frontend_mobile/screens/recommended_article/recommend_screen.dart';
@@ -63,9 +65,21 @@ class NavigationMenu extends StatelessWidget {
           ),
         ],
       ),
-      body: context
-          .watch<NavigationProvider>()
-          .screens[context.watch<NavigationProvider>().selectedIndex],
+      body: Consumer<NavigationProvider>(
+        builder: (context, provider, child) {
+          return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 150),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              final offsetAnimation = Tween<Offset>(
+                begin: const Offset(1.0, 0.0),
+                end: Offset.zero,
+              ).animate(animation);
+              return SlideTransition(position: offsetAnimation, child: child);
+            },
+            child: provider.screens[provider.selectedIndex],
+          );
+        },
+      ),
     );
   }
 }
@@ -74,6 +88,8 @@ class NavigationProvider with ChangeNotifier {
   int _selectedIndex = 0;
   final List<Widget> screens = [
     const HomeScreen(),
+    const ArticleScreen(),
+    const HistoryScreen(),
     const ArticleScreen(),
     const HistoryScreen(),
     const ProfileScreen(),

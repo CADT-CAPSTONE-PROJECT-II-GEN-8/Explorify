@@ -45,7 +45,7 @@ class WelcomePage extends StatelessWidget {
             Config.spaceLarge,
             ElevatedButton(
               onPressed: () {
-                Navigator.popAndPushNamed(context, RouteManager.loginScreen);
+                Navigator.pushNamed(context, RouteManager.preferenceScreen);
               },
               style: Theme.of(context).elevatedButtonTheme.style,
               child: Text(AppText.enText['welcome-button']!),

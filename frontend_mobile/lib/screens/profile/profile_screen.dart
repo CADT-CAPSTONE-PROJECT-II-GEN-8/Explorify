@@ -6,6 +6,7 @@ import 'package:frontend_mobile/screens/home/widgets/custom_header.dart';
 import 'package:frontend_mobile/screens/home/widgets/section_heading.dart';
 import 'package:frontend_mobile/screens/login/services/auth_service.dart';
 import 'package:frontend_mobile/screens/login/services/token_service.dart';
+import 'package:frontend_mobile/screens/profile/faq_screen.dart';
 import 'package:frontend_mobile/screens/profile/widget/custom_divider.dart';
 import 'package:frontend_mobile/screens/profile/widget/listing.dart';
 import 'package:frontend_mobile/screens/profile/widget/profile_appBar.dart';
@@ -29,9 +30,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
+        backgroundColor: AppColor.white,
+        body: SafeArea(
+            child: SingleChildScrollView(
           child: Column(
             children: [
               // Header AppBar
@@ -150,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               color: AppColor.grey,
                             ),
                             onTap: () {
-                              Navigator.pushNamed(
+                              Navigator.popAndPushNamed(
                                   context, RouteManager.changePasswordScreen);
                             },
                           ),
@@ -181,7 +182,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               size: 16.0,
                               color: AppColor.grey,
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FAQScreen()),
+                              );
+                            },
                           ),
                           const CustomDivider(),
                           ProfileSetting(
@@ -194,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               color: AppColor.grey,
                             ),
                             onTap: () {
-                              Navigator.pushNamed(
+                              Navigator.popAndPushNamed(
                                   context, RouteManager.teamScreen);
                             },
                           ),
@@ -205,7 +212,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             title: 'Logout',
                             trailing: null,
                             onTap: () {
-                              Navigator.pushNamed(
+                              Navigator.popAndPushNamed(
                                   context, RouteManager.loginScreen);
                               isLoggedOut();
                             },
@@ -219,8 +226,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               )
             ],
           ),
-        ),
-      ),
-    );
+        )));
   }
 }

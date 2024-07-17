@@ -2,18 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
-import 'package:frontend_mobile/provider/apply.dart';
-import 'package:frontend_mobile/provider/company_info_provider.dart';
-import 'package:frontend_mobile/provider/job_detail_provider.dart';
-import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
-import 'package:frontend_mobile/screens/home/widgets/apply_button.dart';
+import 'package:frontend_mobile/screens/history/widgets/articles_saved.dart';
+import 'package:frontend_mobile/screens/history/widgets/internship_apply_history.dart';
+import 'package:frontend_mobile/screens/history/widgets/internship_save_history.dart';
 import 'package:frontend_mobile/screens/home/widgets/tab_bar.dart';
-import 'package:frontend_mobile/screens/home/widgets/text_tile.dart';
-import 'package:frontend_mobile/utils/config.dart';
 import 'package:frontend_mobile/widget/app_bar.dart';
-import 'package:frontend_mobile/screens/home/widgets/job_info.dart';
-import 'package:frontend_mobile/screens/home/widgets/company_info.dart';
-import 'package:provider/provider.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -25,11 +18,11 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryScreenState extends State<HistoryScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+
   @override
   void initState() {
-    // TODO: implement initState
     tabController = TabController(
-      length: 2,
+      length: 3,
       vsync: this,
     );
     super.initState();
@@ -37,49 +30,61 @@ class _HistoryScreenState extends State<HistoryScreen>
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
     tabController.dispose();
+    super.dispose();
   }
 
-  bool isUpload = false;
   @override
   Widget build(BuildContext context) {
-    final internshipInfo =
-        Provider.of<InternshipProvider>(context).internshipInfo;
-    final companyInfo =
-        Provider.of<CompanyProfileProvider>(context).companyProfile;
-
-    final uploadState = Provider.of<UploadState>(context);
-    List<String> tabs = ['Job Description', 'About Company'];
+    List<String> tabs = ['Applied', 'Saved', 'Article Saved'];
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // -------APP BAR--------
-            Image.asset(AppImage.upperStyle),
-            CustomAppBar(
-              isCenter: true,
-              title: Text(
-                AppText.enText['history_screen_title']!,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              action: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.more_vert,
-                  ),
+      
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // -------APP BAR--------
+          Image.asset(AppImage.upperStyle),
+          CustomAppBar(
+            isCenter: true,
+            showBackArrow: true,
+            title: Text(
+              "History",
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            action: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.more_vert,
                 ),
+              ),
+            ],
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(48),
+                color: AppColor.buttonSecondary,
+              ),
+              child: DescriptionTab(
+                tabs: tabs,
+                tabController: tabController,
+              ),
+            ),
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: tabController,
+              children: const [
+                InternshipApplyScreen(),
+                InternshipSavedScreen(),
+                ArticleSavedScreen(), // Added new screen for articles
               ],
             ),
-            const SizedBox(
-              height: 24,
-            ),
-            // -------COMPANY NAME--------
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

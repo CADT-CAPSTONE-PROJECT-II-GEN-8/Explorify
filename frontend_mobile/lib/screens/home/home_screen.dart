@@ -19,6 +19,7 @@ import 'package:frontend_mobile/screens/home/widgets/home_appBar.dart';
 import 'package:frontend_mobile/screens/home/widgets/search_bar.dart';
 import 'package:frontend_mobile/screens/home/widgets/section_header_categories.dart';
 import 'package:frontend_mobile/screens/home/widgets/section_heading.dart';
+import 'package:frontend_mobile/screens/home/widgets/search_bar.dart';
 import 'package:frontend_mobile/utils/config.dart';
 import 'package:frontend_mobile/widget/app_bar.dart';
 import 'package:frontend_mobile/widget/custom_container.dart';
