@@ -53,30 +53,32 @@ class _ArticleScreenState extends State<ArticleScreen>
     final uploadState = Provider.of<UploadState>(context);
     List<String> tabs = ['Job Description', 'About Company'];
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        // -------APP BAR--------
-        Image.asset(AppImage.upperStyle),
-        CustomAppBar(
-          isCenter: true,
-          title: Text(
-            AppText.enText['article_screen_title']!,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          action: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.more_vert,
-              ),
+        body: SafeArea(
+      child: SingleChildScrollView(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          // -------APP BAR--------
+          Image.asset(AppImage.upperStyle),
+          CustomAppBar(
+            isCenter: true,
+            title: Text(
+              AppText.enText['article_screen_title']!,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-          ],
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        // -------COMPANY NAME--------
-      ]),
+            action: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.more_vert,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          // -------COMPANY NAME--------
+        ]),
+      ),
     ));
   }
 }

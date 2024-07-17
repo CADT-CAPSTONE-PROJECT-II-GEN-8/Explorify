@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_mobile/app.dart';
 import 'package:frontend_mobile/provider/company_info_provider.dart';
 import 'package:frontend_mobile/provider/job_detail_provider.dart';
+import 'package:frontend_mobile/provider/obsure_text_provider.dart';
 import 'package:frontend_mobile/screens/profile/widget/language_logic.dart';
 import 'package:frontend_mobile/provider/apply.dart';
 import 'package:frontend_mobile/provider/user_provider.dart';
@@ -27,7 +28,8 @@ void main() => runApp(
           ChangeNotifierProvider(create: (context) => UserInputLogic()),
           ChangeNotifierProvider(create: (context) => UserProvider()),
           ChangeNotifierProvider(create: (context) => InternshipProvider()),
-          ChangeNotifierProvider(create: (context) => CompanyProfileProvider())
+          ChangeNotifierProvider(create: (context) => CompanyProfileProvider()),
+          ChangeNotifierProvider(create: (context) => IsObscureProvider()),
         ],
         child: const MyApp(),
       ),

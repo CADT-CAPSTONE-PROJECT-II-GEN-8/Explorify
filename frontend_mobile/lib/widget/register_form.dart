@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/text.dart';
+import 'package:frontend_mobile/provider/obsure_text_provider.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/login/logic/user_input_logic.dart';
 import 'package:frontend_mobile/screens/login/services/auth_service.dart';
 import 'package:frontend_mobile/utils/constant.dart';
 import 'package:frontend_mobile/utils/validators.dart';
 import 'package:frontend_mobile/utils/config.dart';
+import 'package:provider/provider.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -53,6 +55,7 @@ class _RigisterState extends State<RegisterForm> {
   bool isSubmitted = false;
   @override
   Widget build(BuildContext context) {
+    final isObscureProvider = Provider.of<IsObscureProvider>(context);
     return Form(
       key: _formKey,
       child: Padding(
@@ -76,8 +79,10 @@ class _RigisterState extends State<RegisterForm> {
                   : AutovalidateMode.disabled,
               controller: usernameController,
               decoration: formDecoration(
+                  context: context,
                   labelText: '',
                   prefixIcon: Icons.person,
+                  suffixIcon: false,
                   hintText: 'Enter your username'),
               onChanged: (value) => userInputData.updateUsername(value),
               textInputAction: TextInputAction.next,
@@ -99,8 +104,10 @@ class _RigisterState extends State<RegisterForm> {
                   : AutovalidateMode.disabled,
 
               decoration: formDecoration(
+                  context: context,
                   labelText: '',
                   prefixIcon: Icons.email,
+                  suffixIcon: false,
                   hintText: 'Enter your email address'),
               onChanged: (value) => userInputData.updateEmail(value),
               textInputAction: TextInputAction.next,
@@ -135,14 +142,15 @@ class _RigisterState extends State<RegisterForm> {
                   : AutovalidateMode.disabled,
               controller: passwordController,
               decoration: formDecoration(
+                  context: context,
                   labelText: '',
                   prefixIcon: Icons.lock,
-                  suffixIcon: Icons.remove_red_eye,
+                  suffixIcon: true,
                   hintText: 'Enter your password'),
+
               onChanged: (value) => userInputData.updatePassword(value),
               textInputAction: TextInputAction.done,
-
-              obscureText: true,
+              obscureText: isObscureProvider.isObscure,
             ),
             Config.spaceSmall,
 

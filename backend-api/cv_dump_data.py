@@ -23,7 +23,7 @@ def get_or_create_instance(model, field_name, field_value):
     return instance
 
 # # Create a User
-user, created = User.objects.get_or_create(pk=1)
+user, created = User.objects.get_or_create(pk=12)
 
 # Create an Education Level
 education_level = get_or_create_instance(EducationLevel, 'education_name', 'Bachelor')

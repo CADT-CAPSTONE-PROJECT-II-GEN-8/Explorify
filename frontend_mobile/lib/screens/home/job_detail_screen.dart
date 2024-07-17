@@ -186,6 +186,7 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                 SizedBox(
                   height: MediaQuery.of(context).size.height,
                   child: TabBarView(
+                    physics: NeverScrollableScrollPhysics(),
                     controller: tabController,
                     children: const [JobInfo(), CompanyInfo()],
                   ),

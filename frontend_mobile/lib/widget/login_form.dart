@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/text.dart';
+import 'package:frontend_mobile/provider/obsure_text_provider.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/login/services/auth_service.dart';
 import 'package:frontend_mobile/utils/constant.dart';
 import 'package:frontend_mobile/utils/validators.dart';
 import 'package:frontend_mobile/utils/config.dart';
+import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -18,7 +20,6 @@ class _LoginFormState extends State<LoginForm> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   final AuthService authService = AuthService();
-
   @override
   void initState() {
     // TODO: implement initState
@@ -35,11 +36,14 @@ class _LoginFormState extends State<LoginForm> {
     passwordController.dispose();
   }
 
-  void logInUser () {
+  void logInUser() {
     authService.logIn;
   }
+
   @override
   Widget build(BuildContext context) {
+    final isObscureProvider = Provider.of<IsObscureProvider>(context);
+
     return Form(
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -59,9 +63,12 @@ class _LoginFormState extends State<LoginForm> {
               validator: validateEmail,
               controller: emailController,
               decoration: formDecoration(
+                  context: context,
                   labelText: '',
                   prefixIcon: Icons.email,
+                  suffixIcon: false,
                   hintText: "Enter your email address"),
+              obscureText: isObscureProvider.isObscure ? true : false,
             ),
             const SizedBox(child: Config.spaceSmall),
             Text(
@@ -77,10 +84,12 @@ class _LoginFormState extends State<LoginForm> {
               controller: passwordController,
               // decoration: formDecoration('', Icons.lock),
               decoration: formDecoration(
+                  context: context,
                   labelText: '',
                   prefixIcon: Icons.lock,
-                  suffixIcon: Icons.remove_red_eye,
+                  suffixIcon: true,
                   hintText: "Enter your password"),
+              obscureText: isObscureProvider.isObscure,
             ),
             const SizedBox(child: Config.spaceSmall),
 

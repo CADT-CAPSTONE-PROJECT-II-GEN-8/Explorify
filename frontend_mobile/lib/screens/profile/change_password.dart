@@ -69,7 +69,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                       TextFormField(
                         validator: validatePassword,
                         controller: _oldPwdController,
-                        decoration: formDecoration(labelText: '', prefixIcon: Icons.visibility),
+                        decoration: formDecoration(
+                          context: context,
+                          labelText: '',
+                          prefixIcon: Icons.visibility,
+                          suffixIcon: false,
+                        ),
                       ),
                       SizedBox(
                         height: 12,
@@ -84,7 +89,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                       TextFormField(
                         validator: validatePassword,
                         controller: _newPwdController,
-                        decoration: formDecoration(labelText: '', prefixIcon: Icons.visibility),
+                        decoration: formDecoration(
+                          context: context,
+                          labelText: '',
+                          prefixIcon: Icons.visibility,
+                          suffixIcon: false,
+                        ),
                       ),
                       SizedBox(
                         height: 12,
@@ -99,7 +109,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                       TextFormField(
                         validator: validatePassword,
                         controller: _cfPwdController,
-                        decoration: formDecoration(labelText: '', prefixIcon:  Icons.visibility),
+                        decoration: formDecoration(
+                          context: context,
+                          labelText: '',
+                          prefixIcon: Icons.visibility,
+                          suffixIcon: false,
+                        ),
                       ),
                       Config.spaceLarge,
                       ElevatedButton(

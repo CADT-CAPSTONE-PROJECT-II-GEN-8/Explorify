@@ -16,71 +16,69 @@ class JobInfo extends StatelessWidget {
     final internshipInfo =
         Provider.of<InternshipProvider>(context).internshipInfo;
     List<String> requirements = internshipInfo!.jobRequirement.split(',');
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // -----JOB Description-----
-              Text(
-                AppText.enText['job_title']!,
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.w600, color: AppColor.primary),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Text(
-                textAlign: TextAlign.justify,
-                internshipInfo!.jobDescription,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.normal, color: AppColor.secondary),
-              ),
-              const SizedBox(
-                height: 18,
-              ),
-              // -----JOB Requirement-----
+    return SizedBox(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // -----JOB Description-----
+            Text(
+              AppText.enText['job_title']!,
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  fontWeight: FontWeight.w600, color: AppColor.primary),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Text(
+              textAlign: TextAlign.justify,
+              internshipInfo!.jobDescription,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.normal, color: AppColor.secondary),
+            ),
+            const SizedBox(
+              height: 18,
+            ),
+            // -----JOB Requirement-----
 
-              Text(
-                AppText.enText['job_requirement_title']!,
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.w600, color: AppColor.primary),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              BulletList(requirements),
-              const SizedBox(
-                height: 18,
-              ),
-              // -----JOB Location-----
-              Text(
-                AppText.enText['job_location_title']!,
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.w600, color: AppColor.primary),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Text(
-                textAlign: TextAlign.justify,
-                internshipInfo.location,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.normal, color: AppColor.secondary),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.width / 2,
-                decoration: BoxDecoration(
-                    border: Border.all(color: AppColor.primary),
-                    borderRadius: BorderRadius.circular(12)),
-              ),
-            ],
-          ),
+            Text(
+              AppText.enText['job_requirement_title']!,
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  fontWeight: FontWeight.w600, color: AppColor.primary),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            BulletList(requirements),
+            const SizedBox(
+              height: 18,
+            ),
+            // -----JOB Location-----
+            Text(
+              AppText.enText['job_location_title']!,
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  fontWeight: FontWeight.w600, color: AppColor.primary),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Text(
+              textAlign: TextAlign.justify,
+              internshipInfo.location,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.normal, color: AppColor.secondary),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.width / 2,
+              decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.primary),
+                  borderRadius: BorderRadius.circular(12)),
+            ),
+          ],
         ),
       ),
     );

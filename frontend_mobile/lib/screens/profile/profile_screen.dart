@@ -22,199 +22,203 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool _isDarkMode = false;
   bool _notiIsOn = false;
   TokenService logoutService = TokenService();
-  void isLoggedOut () {
+  void isLoggedOut() {
     logoutService.clearTokens;
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header AppBar
-            const PrimaryCustomContainer(
-              child: Column(
-                children: [
-                  // -- APPBAR --
-                  ProfileAppBar(),
-                  Config.spaceSmall,
-                ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Header AppBar
+              const PrimaryCustomContainer(
+                child: Column(
+                  children: [
+                    // -- APPBAR --
+                    ProfileAppBar(),
+                    Config.spaceSmall,
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            //setting
-            // const SizedBox(
-            //   height: 5,
-            // ),
-            // user profile
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 3.0, horizontal: 3.0),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0), // Add left padding here
-                    child: SectionHeading(
-                      title: AppText.enText['profile']!,
-                      //showActionButton: true,
-                    ),
-                  ),
-                  Container(
-                    color: AppColor.white,
-                    child: Column(
-                      children: [
-                        ProfileSetting(
-                          icon: Icon(Icons.account_circle_outlined).icon ??
-                              Icons.error,
-                          title: 'Account Detail',
-                          trailing: const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.0,
-                            color: AppColor.grey,
-                          ),
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed(RouteManager.accountScreen);
-                          },
-                        ),
-                        const CustomDivider(),
-                        ProfileSetting(
-                          icon:
-                              Icon(Icons.language_outlined).icon ?? Icons.error,
-                          title: 'Language',
-                          trailing: const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.0,
-                            color: AppColor.grey,
-                          ),
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, RouteManager.languageScreen);
-                          },
-                        ),
-                        const CustomDivider(),
-                      ],
-                    ),
-                  )
-                ],
+              const SizedBox(
+                height: 24,
               ),
-            ),
+              //setting
+              // const SizedBox(
+              //   height: 5,
+              // ),
+              // user profile
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 3.0, horizontal: 3.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 16.0), // Add left padding here
+                      child: SectionHeading(
+                        title: AppText.enText['profile']!,
+                        //showActionButton: true,
+                      ),
+                    ),
+                    Container(
+                      color: AppColor.white,
+                      child: Column(
+                        children: [
+                          ProfileSetting(
+                            icon: Icon(Icons.account_circle_outlined).icon ??
+                                Icons.error,
+                            title: 'Account Detail',
+                            trailing: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16.0,
+                              color: AppColor.grey,
+                            ),
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed(RouteManager.accountScreen);
+                            },
+                          ),
+                          const CustomDivider(),
+                          ProfileSetting(
+                            icon: Icon(Icons.language_outlined).icon ??
+                                Icons.error,
+                            title: 'Language',
+                            trailing: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16.0,
+                              color: AppColor.grey,
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, RouteManager.languageScreen);
+                            },
+                          ),
+                          const CustomDivider(),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
 
-            //setting
-            // user profile
-            Padding(
-              padding: const EdgeInsets.only(top: 24.0),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0), // Add left padding here
-                    child: SectionHeading(
-                      title: AppText.enText['setting']!,
-                      //showActionButton: true,
+              //setting
+              // user profile
+              Padding(
+                padding: const EdgeInsets.only(top: 24.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 16.0), // Add left padding here
+                      child: SectionHeading(
+                        title: AppText.enText['setting']!,
+                        //showActionButton: true,
+                      ),
                     ),
-                  ),
-                  Container(
-                    color: AppColor.white,
-                    child: Column(
-                      children: [
-                        ProfileSetting(
-                          icon: Icon(Icons.notifications_rounded).icon ??
-                              Icons.error,
-                          title: 'Notification',
-                          trailing: Switch(
-                            value: _notiIsOn, // Use the state variable
-                            onChanged: (value) =>
-                                setState(() => _notiIsOn = value),
-                            activeColor: AppColor
-                                .primary, // Customize color for on state (optional)
-                            inactiveTrackColor: AppColor
-                                .grey, // Customize color for off state (optional)
+                    Container(
+                      color: AppColor.white,
+                      child: Column(
+                        children: [
+                          ProfileSetting(
+                            icon: Icon(Icons.notifications_rounded).icon ??
+                                Icons.error,
+                            title: 'Notification',
+                            trailing: Switch(
+                              value: _notiIsOn, // Use the state variable
+                              onChanged: (value) =>
+                                  setState(() => _notiIsOn = value),
+                              activeColor: AppColor
+                                  .primary, // Customize color for on state (optional)
+                              inactiveTrackColor: AppColor
+                                  .grey, // Customize color for off state (optional)
+                            ),
+                            onTap: () {},
                           ),
-                          onTap: () {},
-                        ),
-                        const CustomDivider(),
-                        ProfileSetting(
-                          icon:
-                              Icon(Icons.password_outlined).icon ?? Icons.error,
-                          title: 'Change Password',
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.0,
-                            color: AppColor.grey,
+                          const CustomDivider(),
+                          ProfileSetting(
+                            icon: Icon(Icons.password_outlined).icon ??
+                                Icons.error,
+                            title: 'Change Password',
+                            trailing: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16.0,
+                              color: AppColor.grey,
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, RouteManager.changePasswordScreen);
+                            },
                           ),
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, RouteManager.changePasswordScreen);
-                          },
-                        ),
-                        const CustomDivider(),
-                        ProfileSetting(
-                          icon: Icon(Icons.dark_mode_outlined).icon ??
-                              Icons.error,
-                          title: 'Dark Mode',
-                          trailing: Switch(
-                            value: _isDarkMode, // Use the state variable
-                            onChanged: (value) =>
-                                setState(() => _isDarkMode = value),
-                            activeColor: AppColor
-                                .primary, // Customize color for on state (optional)
-                            inactiveTrackColor: AppColor
-                                .grey, // Customize color for off state (optional)
+                          const CustomDivider(),
+                          ProfileSetting(
+                            icon: Icon(Icons.dark_mode_outlined).icon ??
+                                Icons.error,
+                            title: 'Dark Mode',
+                            trailing: Switch(
+                              value: _isDarkMode, // Use the state variable
+                              onChanged: (value) =>
+                                  setState(() => _isDarkMode = value),
+                              activeColor: AppColor
+                                  .primary, // Customize color for on state (optional)
+                              inactiveTrackColor: AppColor
+                                  .grey, // Customize color for off state (optional)
+                            ),
+                            onTap:
+                                () {}, // Optional tap functionality for the entire setting
                           ),
-                          onTap:
-                              () {}, // Optional tap functionality for the entire setting
-                        ),
-                        const CustomDivider(),
-                        ProfileSetting(
-                          icon: Icon(Icons.policy_outlined).icon ?? Icons.error,
-                          title: 'Terms and Conditions',
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.0,
-                            color: AppColor.grey,
+                          const CustomDivider(),
+                          ProfileSetting(
+                            icon:
+                                Icon(Icons.policy_outlined).icon ?? Icons.error,
+                            title: 'Terms and Conditions',
+                            trailing: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16.0,
+                              color: AppColor.grey,
+                            ),
+                            onTap: () {},
                           ),
-                          onTap: () {},
-                        ),
-                        const CustomDivider(),
-                        ProfileSetting(
-                          icon: Icon(Icons.people_alt_rounded).icon ??
-                              Icons.error,
-                          title: 'Our Team',
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.0,
-                            color: AppColor.grey,
+                          const CustomDivider(),
+                          ProfileSetting(
+                            icon: Icon(Icons.people_alt_rounded).icon ??
+                                Icons.error,
+                            title: 'Our Team',
+                            trailing: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16.0,
+                              color: AppColor.grey,
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, RouteManager.teamScreen);
+                            },
                           ),
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, RouteManager.teamScreen);
-                          },
-                        ),
-                        const CustomDivider(),
-                        ProfileSetting(
-                          icon: Icon(Icons.logout_outlined).icon ?? Icons.error,
-                          title: 'Logout',
-                          trailing: null,
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, RouteManager.loginScreen);
-                            isLoggedOut();
-                          },
-                        ),
-                        const CustomDivider(),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
+                          const CustomDivider(),
+                          ProfileSetting(
+                            icon:
+                                Icon(Icons.logout_outlined).icon ?? Icons.error,
+                            title: 'Logout',
+                            trailing: null,
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, RouteManager.loginScreen);
+                              isLoggedOut();
+                            },
+                          ),
+                          const CustomDivider(),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
