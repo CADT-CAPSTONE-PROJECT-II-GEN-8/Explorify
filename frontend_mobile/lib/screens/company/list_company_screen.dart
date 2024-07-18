@@ -55,20 +55,21 @@ class _ListCompanyScreenState extends State<ListCompanyScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  SizedBox(
-                    height: 118,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 6,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return const VerticleImage(
-                            title: 'Title',
-                            subTitle: '11 Jobs',
-                            image: AppImage.logo,
-                          );
-                        }),
-                  )
+                  // SizedBox(
+                  //   height: 118,
+                  //   child: ListView.builder(
+                  //       shrinkWrap: true,
+                  //       itemCount: 6,
+                  //       scrollDirection: Axis.horizontal,
+                  //       itemBuilder: (context, index) {
+                  //         return const VerticleImage(
+                  //           // title: 'Title',
+                  //           // subTitle: '11 Jobs',
+                  //           image: AppImage.logo,
+                  //           internship: null,
+                  //         );
+                  //       }),
+                  // )
                 ],
               ),
             ),
@@ -118,4 +119,3 @@ class _ListCompanyScreenState extends State<ListCompanyScreen> {
     );
   }
 }
-
