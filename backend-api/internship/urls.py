@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from .views import *
+from internship.views import FetchCvView, FetchCoverLetterView
 
 urlpatterns = [
  
@@ -18,4 +20,10 @@ urlpatterns = [
     path('post/update/<int:postId>/', views.update_post, name='update_post'),
     path('post/delete/<int:postId>/', views.delete_post, name='delete_post'),
     
+
+    # application urls
+    path('internship/<int:pk>/apply/', ApplyInternshipView.as_view(), name="apply-internship"), 
+    path('internship/cv/<int:pk>/view/',FetchCvView.as_view(), name="fetch-cv"),
+    path('internship/cover_letter/<int:pk>/view/',FetchCoverLetterView.as_view(), name="fetch-coverLetter"),
+    path('internship/<int:pk>/applications/', ListInternshipApplication.as_view(), name="list-intern-application"),
 ]
