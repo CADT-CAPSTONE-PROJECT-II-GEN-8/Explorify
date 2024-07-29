@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
+import 'package:frontend_mobile/screens/cv_generate/resume_screen.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_header.dart';
 import 'package:frontend_mobile/screens/home/widgets/section_heading.dart';
 import 'package:frontend_mobile/screens/profile/faq_screen.dart';
@@ -55,7 +56,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         left: 16.0), // Add left padding here
                     child: SectionHeading(
                       title: AppText.enText['profile']!,
-                      //showActionButton: true,
                     ),
                   ),
                   Container(
@@ -72,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColor.grey,
                           ),
                           onTap: () {
-                            Navigator.popAndPushNamed(
+                            Navigator.pushNamed(
                                 context, RouteManager.accountScreen);
                           },
                         ),
@@ -87,8 +87,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColor.grey,
                           ),
                           onTap: () {
-                            Navigator.popAndPushNamed(
+                            Navigator.pushNamed(
                                 context, RouteManager.languageScreen);
+                          },
+                        ),
+                        const CustomDivider(),
+                        ProfileSetting(
+                          icon: Icon(Icons.work_outline).icon ?? Icons.error,
+                          title: 'Resume',
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16.0,
+                            color: AppColor.grey,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    CVScreen(), // Pass the item here
+                              ),
+                            );
                           },
                         ),
                         const CustomDivider(),
@@ -143,27 +162,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColor.grey,
                           ),
                           onTap: () {
-                            Navigator.popAndPushNamed(
+                            Navigator.pushNamed(
                                 context, RouteManager.changePasswordScreen);
                           },
                         ),
-                        const CustomDivider(),
-                        ProfileSetting(
-                          icon: Icon(Icons.dark_mode_outlined).icon ??
-                              Icons.error,
-                          title: 'Dark Mode',
-                          trailing: Switch(
-                            value: _isDarkMode, // Use the state variable
-                            onChanged: (value) =>
-                                setState(() => _isDarkMode = value),
-                            activeColor: AppColor
-                                .primary, // Customize color for on state (optional)
-                            inactiveTrackColor: AppColor
-                                .grey, // Customize color for off state (optional)
-                          ),
-                          onTap:
-                              () {}, // Optional tap functionality for the entire setting
-                        ),
+                        // const CustomDivider(),
+                        // ProfileSetting(
+                        //   icon: Icon(Icons.dark_mode_outlined).icon ??
+                        //       Icons.error,
+                        //   title: 'Dark Mode',
+                        //   trailing: Switch(
+                        //     value: _isDarkMode, // Use the state variable
+                        //     onChanged: (value) =>
+                        //         setState(() => _isDarkMode = value),
+                        //     activeColor: AppColor
+                        //         .primary, // Customize color for on state (optional)
+                        //     inactiveTrackColor: AppColor
+                        //         .grey, // Customize color for off state (optional)
+                        //   ),
+                        //   onTap:
+                        //       () {}, // Optional tap functionality for the entire setting
+                        // ),
                         const CustomDivider(),
                         ProfileSetting(
                           icon: Icon(Icons.policy_outlined).icon ?? Icons.error,
@@ -174,11 +193,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColor.grey,
                           ),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => FAQScreen()),
-                            );
+                            Navigator.pushNamed(
+                                context, RouteManager.termAndConditionScreen);
                           },
                         ),
                         const CustomDivider(),
@@ -192,7 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColor.grey,
                           ),
                           onTap: () {
-                            Navigator.popAndPushNamed(
+                            Navigator.pushNamed(
                                 context, RouteManager.teamScreen);
                           },
                         ),
@@ -202,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           title: 'Logout',
                           trailing: null,
                           onTap: () {
-                            Navigator.popAndPushNamed(
+                            Navigator.pushNamed(
                                 context, RouteManager.loginScreen);
                           },
                         ),

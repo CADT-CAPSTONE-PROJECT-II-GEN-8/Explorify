@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Narrow&family=Julius+Sans+One&family=Open+Sans&family=Source+Sans+Pro&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Fonts */
+
+        /* Family */
+        h1 {
+            font-family: 'Julius Sans One', sans-serif;
+
+        }
+
+        h2 {
+            /* Contact, Skills, Education, About me, Work Experience */
+            font-family: 'FArchivo Narrow', sans-serif;
+
+        }
+
+        h3 {
+            /* Accountant */
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .jobPosition span,
+        .projectName span {
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .upperCase {
+            text-transform: uppercase;
+        }
+
+        .smallText,
+        .smallText span,
+        .smallText p,
+        .smallText a {
+            font-family: 'Source Sans Pro', sans-serif;
+            text-align: justify;
+        }
+
+
+        .TopContainer {
+            border-top: 1.5cm solid #F0CFC3;
+            padding-bottom: 10px;
+            /* Adjust the value as needed */
+
+        }
+
+        /* End Family */
+
+        /* Colors */
+        h1 {
+            color: #111;
+        }
+
+        .leftPanel,
+        .leftPanel a {
+            color: #bebebe;
+            text-decoration: none;
+        }
+
+        .leftPanel h2 {
+            color: white;
+            letter-spacing: 1px;
+            font-size: 20px;
+        }
+
+        /* End Colors */
+
+        /* Sizes */
+        h1 {
+            font-weight: 900;
+            font-size: 1cm;
+            transform: scale(1, 1.15);
+            margin-bottom: 0.2cm;
+            margin-top: 0.2cm;
+
+        }
+
+        h2 {
+            margin-top: 0.1cm;
+            margin-bottom: 0.1cm;
+            font-size: 20px;
+            color: #000000;
+        }
+
+        .leftPanel,
+        .leftPanel a {
+            font-size: 0.38cm;
+        }
+
+        .projectName span,
+        .jobPosition span {
+            font-size: 0.35cm;
+        }
+
+        .smallText,
+        .smallText span,
+        .smallText p,
+        .smallText a {
+            font-size: 0.5cm;
+        }
+
+        .leftPanel .smallText,
+        .leftPanel .smallText,
+        .leftPanel .smallText span,
+        .leftPanel .smallText p,
+        .smallText a {
+            font-size: 0.5cm;
+        }
+
+
+        .contactIcon {
+            width: 0.5cm;
+            text-align: center;
+        }
+
+        p {
+            margin-top: 0.05cm;
+            margin-bottom: 0.05cm;
+        }
+
+        /* End Sizes */
+
+        .bolded {
+            font-weight: bold;
+            color: white;
+        }
+
+        .white {
+            color: white;
+        }
+
+        /* End Fonts */
+
+        /* Layout */
+        body {
+            background: black;
+            width: 21cm;
+            height: 29.7cm;
+            margin: 0 auto;
+        }
+
+        /* Printing */
+        page {
+            background: white;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 0.5cm;
+        }
+
+        page[size="A4"] {
+            width: 21cm;
+            height: 29.7cm;
+        }
+
+        @page {
+            size: 21cm 29.7cm;
+            padding: 0;
+            margin: 0mm;
+            border: none;
+            border-collapse: collapse;
+        }
+
+        /* End Printing */
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100%;
+        }
+
+        .leftPanel {
+            width: 30%;
+            background-color: #464A4E;
+            padding: 0.7cm;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        .rightPanel {
+            width: 70%;
+            padding: 0.7cm;
+        }
+
+        .leftPanel img {
+            width: 4cm;
+            height: 4cm;
+            margin-bottom: 0.7cm;
+            border-radius: 50%;
+            border: 0.15cm solid white;
+            object-fit: cover;
+            object-position: 50% 50%;
+        }
+
+        .leftPanel .details {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .skill {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+
+
+        .bottomLineSeparatorTop {
+            border-bottom: 0.1cm solid #d7d5d5;
+            width: 250px;
+            padding-bottom: 10px;
+            padding-top: 20px;
+            /* Adjust the value as needed */
+
+        }
+
+        .yearsOfExperience {
+            width: 1.6cm;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .alignleft {
+            text-align: left !important;
+            width: 1cm;
+        }
+
+        .alignright {
+            text-align: right !important;
+            width: 0.6cm;
+            margin-right: 0.1cm
+        }
+
+
+
+        .jobPosition {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .item {
+            padding-bottom: 0.7cm;
+            padding-top: 5px;
+
+        }
+
+        .item h2 {
+            margin-top: 0;
+        }
+
+        .lastParagrafNoMarginBottom {
+            margin-bottom: 0;
+        }
+
+
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 50%;
+            padding-top: 10px;
+            /* Should be removed. Only for demonstration */
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .column {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <page size="A4">
+
+        <div class="container">
+            <!-- Left Pabel -->
+            <div class="leftPanel">
+                <img
+                    src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202405/byeon-woo-seok-103857870-3x4.jpg?VersionId=4xjxJnMxzbsN8wEPflaocJJSqfvaPoV5" />
+                <h2 class='upperCase' style="text-align: center; color:white ;font-size: 30px;">Byeon WooSeok<br>
+                    <span style="font-size: 18px; font-weight: normal;">Computer Scientist</span>
+                </h2>
+
+                <div class="bottomLineSeparatorTop"></div>
+                <div class="details">
+
+                    <!-- Contace -->
+                    <div class="item" style=" padding-top: 50px;">
+                        <h2>
+                            CONTACT
+                        </h2>
+                        <div class="smallText" style="padding-top: 10px;">
+
+                            <p style="padding-bottom: 15px; padding-top: 10px;">
+                                <i class="fa fa-phone contactIcon" aria-hidden="true" style="color:white"></i>
+                                <span style="color : white ; padding-left: 10px;"> (+33) 777 777 77</span>
+                            </p>
+
+                            <p style="padding-bottom: 15px;">
+                                <i class="fa fa-envelope contactIcon " aria-hidden="true" style="color :white"></i>
+                                <a href="mailto:lorem@ipsum.com@gmail.com" style="color : white ; padding-left: 10px;">
+                                    lorem@ipsum.com
+                                </a>
+                            </p>
+
+                            <p>
+                                <i class="fa fa-map-marker contactIcon" aria-hidden="true" style="color:white"></i>
+                                <span style="color : white ; padding-left: 8px;"> សំណង់12 , Street 261, & St 186z,
+                                    Phnom Penh</span>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Skills -->
+                    <div class="item" style=" padding-top: 30px;">
+                        <h2>
+                            SKILLS
+                        </h2>
+                        <div class="smallText" style="padding-top: 10px;">
+                            <div style="font-size: 20px; color:white">
+                                <ul>
+                                    <li>
+                                        <span>Accounting</span>
+                                    </li>
+                                    <li> <span>Accounting </span></li>
+                                    <li> <span>Accounting</span></li>
+                                    <li> <span>Accounting</span></li>
+                                    <li> <span>Accounting</span></li>
+                                    <li> <span>Accounting</span></li>
+                                    <li> <span>Accounting</span></li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Language -->
+                    <div class="item" style=" padding-top: 10px">
+                        <h2>
+                            LANGUAGES
+                        </h2>
+                        <div class="smallText" style="padding-top: 20px;">
+                            <div style="font-size: 20px; color:white">
+                                <ul>
+                                    <li>
+                                        <span>Accounting(Flunent)</span>
+                                    </li>
+                                    <li> <span>Accounting(Basic) </span></li>
+                                    <li> <span>Accounting(Basic)</span></li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+            <!-- Right Panel -->
+            <div class="rightPanel">
+
+
+                <!-- Profile -->
+                <div style="padding-top: 10px; padding-bottom: 20px;">
+                    <h2>
+                        ABOUT ME
+                    </h2>
+                    <div class="smallText" style="padding-top: 5px ;">
+                        <p style="font-size: 15px; color: black;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris venenatis, justo sed feugiat
+                            pulvinar., quam ipsum tincidunt enim, ac gravida est metus sit amet neque. Curabitur ut arcu
+                            ut nunc finibus accumsan id id elit. ut nunc finibus accumsan id id elit. ut nunc finibus
+                            accumsan id id elit.
+                        </p>
+
+                    </div>
+                </div>
+
+                <!-- Work Experience -->
+
+                <div class="about">
+                    <h2>EXPERIENCES</h2>
+
+                    <div style="padding-bottom: 10px;">
+                        <div class="row">
+                            <div class="column">
+                                <p class="smallText"
+                                    style="font-size: 16px; font-weight:bold; color:#0B0B0B ; text-transform: uppercase; ">
+                                    project name</p>
+                                <p class="smallText" style="font-size: 15px;  color:#0b0b0b">
+                                    Company Name
+                                </p>
+                            </div>
+                            <div class="column">
+
+                                <p class="smallText" style="font-size: 16px; color:#0B0B0B; text-align: right;">
+                                    2010 - 2014</p>
+                            </div>
+                        </div>
+                        <p class="smallText" style="font-size: 14px;  color:rgb(96, 95, 95)">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                            galley of type and scrambled it to make a type specimen book.
+                        </p>
+                    </div>
+
+
+                    <div style="padding-bottom: 10px;">
+                        <div class="row">
+                            <div class="column">
+                                <p class="smallText"
+                                    style="font-size: 16px; font-weight:bold; color:#0B0B0B ; text-transform: uppercase; ">
+                                    project name</p>
+                                <p class="smallText" style="font-size: 15px;  color:#0b0b0b">
+                                    Company Name
+                                </p>
+                            </div>
+                            <div class="column">
+
+                                <p class="smallText" style="font-size: 16px; color:#0B0B0B; text-align: right;">
+                                    2010 - 2014</p>
+                            </div>
+                        </div>
+                        <p class="smallText" style="font-size: 14px;  color:rgb(96, 95, 95)">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                            galley of type and scrambled it to make a type specimen book.
+                        </p>
+                    </div>
+
+
+
+                    <div style="padding-bottom: 10px;">
+                        <div class="row">
+                            <div class="column">
+                                <p class="smallText"
+                                    style="font-size: 16px; font-weight:bold; color:#0B0B0B ; text-transform: uppercase; ">
+                                    project name</p>
+                                <p class="smallText" style="font-size: 15px;  color:#0b0b0b">
+                                    Company Name
+                                </p>
+                            </div>
+                            <div class="column">
+
+                                <p class="smallText" style="font-size: 16px; color:#0B0B0B; text-align: right;">
+                                    2010 - 2014</p>
+                            </div>
+                        </div>
+                        <p class="smallText" style="font-size: 14px;  color:rgb(96, 95, 95)">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                            galley of type and scrambled it to make a type specimen book.
+                        </p>
+                    </div>
+
+
+
+                </div>
+
+                <!-- Educations  -->
+                <div class="item" style="padding-top: 20px;">
+
+                    <h2 style="padding-bottom: 10px;">
+                        EDUCATION
+                    </h2>
+
+                    <div style="padding-bottom: 10px;">
+                        <div class="row">
+                            <div class="column">
+                                <div class="smallText">
+                                    <p class="smallText"
+                                        style="font-size: 17px; font-weight:bold; color:#0B0B0B ; text-transform: uppercase; ">
+                                        Name UserName</p>
+                                    <p class="smallText" style="font-size: 18px;  color:rgb(67, 66, 66)">Wardiere Inc. /
+                                        CTO
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="column">
+
+                                <p class="smallText" style="font-size: 16px; color:#0B0B0B; text-align: right;">
+                                    2010 - 2014</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="padding-bottom: 10px;">
+                        <div class="row">
+                            <div class="column">
+                                <div class="smallText">
+                                    <p class="smallText"
+                                        style="font-size: 17px; font-weight:bold; color:#0B0B0B ; text-transform: uppercase; ">
+                                        Name UserName</p>
+                                    <p class="smallText" style="font-size: 18px;  color:rgb(67, 66, 66)">Wardiere Inc. /
+                                        CTO
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="column">
+
+                                <p class="smallText" style="font-size: 16px; color:#0B0B0B; text-align: right;">
+                                    2010 - 2014</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!-- Reference -->
+                <div>
+                    <h2 style="padding-top: 10px;">
+                        REFERENCES
+                    </h2>
+                    <div>
+                        <div class="row">
+
+                            <div class="column">
+
+                                <p class="smallText" style="font-size: 17px; font-weight:bold; color:#0B0B0B">
+                                    Name UserName</p>
+                                <p class="smallText" style="font-size: 17px;  color:rgb(67, 66, 66)">Wardiere Inc. / CTO
+                                </p>
+                                <div class="smallText" style="color: #737373;">
+                                    <p style=" padding-top: 10px;font-size: 15px;">
+
+                                        Phone: (+33) 777 777 77
+                                    </p>
+
+                                    <p style="font-size: 15px;">
+                                        Email:
+                                        <a href="mailto:lorem@ipsum.com@gmail.com" style=" padding-left: 10px;">
+                                            lorem@ipsum.com
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="column">
+
+                                <p class="smallText" style="font-size: 17px; font-weight:bold; color:#0B0B0B">
+                                    Name UserName</p>
+                                <p class="smallText" style="font-size: 17px;  color:rgb(67, 66, 66)">Wardiere Inc. / CTO
+                                </p>
+                                <div class="smallText" style="color: #737373;">
+                                    <p style=" padding-top: 10px;font-size: 15px;">
+
+                                        Phone: (+33) 777 777 77
+                                    </p>
+
+                                    <p style="font-size: 15px;">
+                                        Email:
+                                        <a href="mailto:lorem@ipsum.com@gmail.com" style=" padding-left: 10px;">
+                                            lorem@ipsum.com
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </page>
+    <!-- <page size="A4">
+        <div class="container">
+          <div class="leftPanel">
+          </div>
+          <div class="rightPanel">
+          </div>
+      </page>    -->
+</body>
+
+</html>

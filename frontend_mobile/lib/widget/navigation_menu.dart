@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/common/colors.dart';
+import 'package:frontend_mobile/screens/history/history_screen.dart';
 import 'package:frontend_mobile/screens/artical/artical_screen.dart';
+import 'package:frontend_mobile/screens/history/history_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/profile/profile_screen.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +21,8 @@ class NavigationMenu extends StatelessWidget {
         onDestinationSelected: (index) {
           if (index == 3) {
             // Navigate to the profile screen using Navigator.pushNamed
-            Navigator.pushNamed(context, '/profile');
-            //context.read<NavigationProvider>().updateSelectedIndex(3);
+            // Navigator.pushNamed(context, '/profile');
+            context.read<NavigationProvider>().updateSelectedIndex(3);
           } else {
             // Update the selected index for other destinations
             context.read<NavigationProvider>().updateSelectedIndex(index);
@@ -26,16 +30,55 @@ class NavigationMenu extends StatelessWidget {
           //context.read<NavigationProvider>().updateSelectedIndex(index);
         },
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
           NavigationDestination(
-              icon: Icon(Icons.document_scanner), label: 'Article'),
-          NavigationDestination(icon: Icon(Icons.history), label: 'History'),
-          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
+            icon: Icon(Icons.home),
+            label: 'Home',
+            selectedIcon: Icon(
+              Icons.home_rounded,
+              color: AppColor.primary,
+            ),
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.edit_document),
+            label: 'Article',
+            selectedIcon: Icon(
+              Icons.edit_document,
+              color: AppColor.primary,
+            ),
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.history),
+            label: 'History',
+            selectedIcon: Icon(
+              Icons.history,
+              color: AppColor.primary,
+            ),
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+            selectedIcon: Icon(
+              Icons.person,
+              color: AppColor.primary,
+            ),
+          ),
         ],
       ),
-      body: context
-          .watch<NavigationProvider>()
-          .screens[context.watch<NavigationProvider>().selectedIndex],
+      body: Consumer<NavigationProvider>(
+        builder: (context, provider, child) {
+          return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 150),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              final offsetAnimation = Tween<Offset>(
+                begin: const Offset(1.0, 0.0),
+                end: Offset.zero,
+              ).animate(animation);
+              return SlideTransition(position: offsetAnimation, child: child);
+            },
+            child: provider.screens[provider.selectedIndex],
+          );
+        },
+      ),
     );
   }
 }
@@ -45,7 +88,7 @@ class NavigationProvider with ChangeNotifier {
   final List<Widget> screens = [
     const HomeScreen(),
     const ArticleScreen(),
-    Container(color: Colors.yellow),
+    const HistoryScreen(),
     const ProfileScreen(),
   ];
 
