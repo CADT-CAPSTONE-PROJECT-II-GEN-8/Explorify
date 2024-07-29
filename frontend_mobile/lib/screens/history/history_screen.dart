@@ -38,7 +38,6 @@ class _HistoryScreenState extends State<HistoryScreen>
   Widget build(BuildContext context) {
     List<String> tabs = ['Applied', 'Saved', 'Article Saved'];
     return Scaffold(
-      
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -46,10 +45,14 @@ class _HistoryScreenState extends State<HistoryScreen>
           Image.asset(AppImage.upperStyle),
           CustomAppBar(
             isCenter: true,
-            showBackArrow: true,
+            showBackArrow: false,
             title: Text(
               "History",
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: TextStyle(
+                color: AppColor.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             action: [
               IconButton(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/common/colors.dart';
+import 'package:frontend_mobile/common/image_strings.dart';
+import 'package:frontend_mobile/screens/profile/widget/custom_accAppBar.dart';
 
-// Item class to hold data for each item in the expansion panel list
 class Item {
   Item({
     required this.headerText,
@@ -21,7 +23,6 @@ class FAQScreen extends StatefulWidget {
 }
 
 class _FAQScreenState extends State<FAQScreen> {
-  // Generate a list of items with different text for the expansion panel list
   final List<Item> _data = [
     Item(
       headerText: 'Introduction',
@@ -122,22 +123,11 @@ class _FAQScreenState extends State<FAQScreen> {
     "Account",
     "Tips ",
   ];
-  int selectedIndex = 0; // Track the selected index
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // backgroundColor: Color.fromARGB(255, 249, 198, 157),
-        title: Text(
-          'FAQ',
-          style: TextStyle(
-            letterSpacing: 1,
-            color: Colors.black,
-            fontSize: 25,
-          ),
-        ),
-      ),
       body: _buildBody(),
     );
   }
@@ -145,8 +135,28 @@ class _FAQScreenState extends State<FAQScreen> {
   Widget _buildBody() {
     return Column(
       children: [
+        Image.asset(AppImage.upperStyle),
+        const Column(
+          children: [
+            CustomAccountAppBar(
+              showBackArrow: true,
+              leadingIconColor: Colors.black,
+              title: Padding(
+                padding: EdgeInsets.only(left: 25),
+                child: Text(
+                  "Terms and Conditions",
+                  style: TextStyle(
+                    color: AppColor.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
         SizedBox(
-          height: 30,
+          height: 10,
         ),
         _buildMenuBar(),
         Expanded(
@@ -173,13 +183,12 @@ class _FAQScreenState extends State<FAQScreen> {
         scrollDirection: Axis.horizontal,
         itemCount: buttonTitles.length,
         itemBuilder: (context, index) {
-          bool isSelected =
-              index == selectedIndex; // Check if this index is selected
+          bool isSelected = index == selectedIndex;
 
           return GestureDetector(
             onTap: () {
               setState(() {
-                selectedIndex = index; // Update selected index on tap
+                selectedIndex = index;
               });
             },
             child: Padding(
@@ -191,11 +200,9 @@ class _FAQScreenState extends State<FAQScreen> {
                     height: 200,
                     decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
-                      color: isSelected
-                          ? Color.fromARGB(255, 250, 86, 4)
-                          : Colors.white, // Change color on selection
+                      color: isSelected ? AppColor.primary : Colors.white,
                       border: Border.all(
-                        color: Color.fromARGB(255, 250, 86, 4),
+                        color: AppColor.primary,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(20),
@@ -204,21 +211,16 @@ class _FAQScreenState extends State<FAQScreen> {
                       child: Text(
                         buttonTitles[index],
                         style: TextStyle(
-                          color: isSelected
-                              ? Colors.white
-                              : Color.fromARGB(255, 250, 86,
-                                  4), // Adjust text color on selection
+                          color: isSelected ? Colors.white : AppColor.primary,
                           fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                          //fontWeight: FontWeight.w600,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ),
-                  SizedBox(
-                      width:
-                          8), // Add some space between the Container and the next Text
+                  SizedBox(width: 20),
                 ],
               ),
             ),
@@ -236,20 +238,11 @@ class _FAQScreenState extends State<FAQScreen> {
           return Container(
             margin: const EdgeInsets.only(top: 10.0),
             decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(
-                color: item.isExpanded
-                    ? const Color.fromARGB(255, 255, 229, 153)
-                    : Colors.white,
+                color: item.isExpanded ? AppColor.primary : Colors.grey,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(149, 157, 165, 0.2),
-                  blurRadius: 24,
-                  spreadRadius: 0,
-                  offset: Offset(0, 8),
-                ),
-              ],
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
@@ -263,16 +256,17 @@ class _FAQScreenState extends State<FAQScreen> {
                 children: [
                   ExpansionPanelRadio(
                     value: item.headerText,
+                    backgroundColor: Colors.white,
                     headerBuilder: (BuildContext context, bool isExpanded) {
                       return ListTile(
                         title: Text(
                           item.headerText,
                           style: TextStyle(
-                            fontWeight: FontWeight.w600,
+                            //fontWeight: FontWeight.w600,
                             fontSize: 16,
                           ),
                         ),
-                        iconColor: Colors.amber, // Set icon color to black
+                        iconColor: Colors.amber,
                       );
                     },
                     body: Container(
@@ -282,7 +276,6 @@ class _FAQScreenState extends State<FAQScreen> {
                             padding: const EdgeInsets.only(left: 20, right: 10),
                             child: Divider(
                               height: 1,
-                              // color: Colors.amber[700],
                             ),
                           ),
                           ListTile(
@@ -313,20 +306,11 @@ class _FAQScreenState extends State<FAQScreen> {
           return Container(
             margin: const EdgeInsets.only(top: 10.0),
             decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(
-                color: item.isExpanded
-                    ? const Color.fromARGB(255, 255, 229, 153)
-                    : Colors.white,
+                color: item.isExpanded ? AppColor.primary : Colors.grey,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(149, 157, 165, 0.2),
-                  blurRadius: 24,
-                  spreadRadius: 0,
-                  offset: Offset(0, 8),
-                ),
-              ],
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
@@ -340,16 +324,17 @@ class _FAQScreenState extends State<FAQScreen> {
                 children: [
                   ExpansionPanelRadio(
                     value: item.headerText,
+                    backgroundColor: Colors.white,
                     headerBuilder: (BuildContext context, bool isExpanded) {
                       return ListTile(
                         title: Text(
                           item.headerText,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                            //fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
                         ),
-                        iconColor: Colors.amber, // Set icon color to black
+                        iconColor: AppColor.primary,
                       );
                     },
                     body: Container(
@@ -359,14 +344,13 @@ class _FAQScreenState extends State<FAQScreen> {
                             padding: const EdgeInsets.only(left: 20, right: 10),
                             child: Divider(
                               height: 1,
-                              // color: Colors.amber[700],
                             ),
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.only(left: 20),
                             title: Text(
                               item.expandedText,
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(fontSize: 16),
                             ),
                           ),
                         ],
@@ -390,20 +374,11 @@ class _FAQScreenState extends State<FAQScreen> {
           return Container(
             margin: const EdgeInsets.only(top: 10.0),
             decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(
-                color: item.isExpanded
-                    ? const Color.fromARGB(255, 255, 229, 153)
-                    : Colors.white,
+                color: item.isExpanded ? AppColor.primary : Colors.grey,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(149, 157, 165, 0.2),
-                  blurRadius: 24,
-                  spreadRadius: 0,
-                  offset: Offset(0, 8),
-                ),
-              ],
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
@@ -417,16 +392,17 @@ class _FAQScreenState extends State<FAQScreen> {
                 children: [
                   ExpansionPanelRadio(
                     value: item.headerText,
+                    backgroundColor: Colors.white,
                     headerBuilder: (BuildContext context, bool isExpanded) {
                       return ListTile(
                         title: Text(
                           item.headerText,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                            //fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
                         ),
-                        iconColor: Colors.amber, // Set icon color to black
+                        iconColor: AppColor.primary,
                       );
                     },
                     body: Container(
@@ -436,7 +412,6 @@ class _FAQScreenState extends State<FAQScreen> {
                             padding: const EdgeInsets.only(left: 20, right: 10),
                             child: Divider(
                               height: 1,
-                              // color: Colors.amber[700],
                             ),
                           ),
                           ListTile(
@@ -467,20 +442,11 @@ class _FAQScreenState extends State<FAQScreen> {
           return Container(
             margin: const EdgeInsets.only(top: 10.0),
             decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(
-                color: item.isExpanded
-                    ? const Color.fromARGB(255, 255, 229, 153)
-                    : Colors.white,
+                color: item.isExpanded ? AppColor.primary : Colors.grey,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(149, 157, 165, 0.2),
-                  blurRadius: 24,
-                  spreadRadius: 0,
-                  offset: Offset(0, 8),
-                ),
-              ],
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
@@ -494,16 +460,17 @@ class _FAQScreenState extends State<FAQScreen> {
                 children: [
                   ExpansionPanelRadio(
                     value: item.headerText,
+                    backgroundColor: Colors.white,
                     headerBuilder: (BuildContext context, bool isExpanded) {
                       return ListTile(
                         title: Text(
                           item.headerText,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            //fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
                         ),
-                        iconColor: Colors.amber, // Set icon color to black
+                        iconColor: AppColor.primary,
                       );
                     },
                     body: Container(
@@ -513,14 +480,13 @@ class _FAQScreenState extends State<FAQScreen> {
                             padding: const EdgeInsets.only(left: 20, right: 10),
                             child: Divider(
                               height: 1,
-                              // color: Colors.amber[700],
                             ),
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.only(left: 20),
                             title: Text(
                               item.expandedText,
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(fontSize: 16),
                             ),
                           ),
                         ],

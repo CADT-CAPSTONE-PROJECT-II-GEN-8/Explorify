@@ -69,20 +69,6 @@ class _LoginFormState extends State<LoginForm> {
               controller: passwordController,
               decoration: formDecoration('', Icons.lock),
             ),
-            const SizedBox(child: Config.spaceSmall),
-            Text(
-              "Password",
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            TextFormField(
-              // textInputAction: TextInputAction.continueAction,
-              validator: validatePassword,
-              controller: passwordController,
-              decoration: formDecoration('', Icons.lock),
-            ),
             Config.spaceSmall,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
