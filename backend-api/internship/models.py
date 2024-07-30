@@ -75,6 +75,8 @@ class InternshipApplication(models.Model):
     user = models.ForeignKey(User, models.DO_NOTHING, blank=True, null=True)
     # cover_letter = models.CharField(max_length=100)
     # cv = models.CharField(max_length=100)
+    cv = models.FileField(upload_to='cvs/', blank = True, null = True)
+    cover_letter = models.FileField(upload_to='cover_letter/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
