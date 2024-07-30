@@ -47,7 +47,7 @@ class MajorSerializer(serializers.ModelSerializer):
 class UserCompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = UserCompany
-        fields = ["user_company_id", "company_name", "start_date", "end_date"]
+        fields = "__all__"
 
 
 class UserEducationSerializer(serializers.ModelSerializer):
@@ -85,21 +85,47 @@ class UserAwardSerializer(serializers.ModelSerializer):
         fields = ["user_award_id", "award_name", "date", "description"]
 
 
-class CVDataSerializer(serializers.Serializer):
-    cv_id = serializers.IntegerField()
-    user = UsersSerializer()
-    user_contact_information = serializers.SerializerMethodField()
-    description = serializers.CharField(max_length=255)
-    job_title = serializers.CharField(max_length=255)
+from account.models import User, Profile
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ["profile_pic","website","city","country","date_of_birth","gender"]
+
+class ProfileUserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+    class Meta:
+        model = User
+        fields = ["first_name","last_name", "headline","profile"]
+
+
+class CVDataSerializer(serializers.ModelSerializer):
     user_companies = UserCompanySerializer(many=True)
     user_education = UserEducationSerializer(many=True)
     user_skill = SkillSerializer(many=True)
     user_major = MajorSerializer(many=True)
     user_language = LanguageSerializer(many=True)
     user_award = UserAwardSerializer(many=True)
-    references = serializers.CharField()
-    created_at = serializers.DateTimeField()
-    updated_at = serializers.DateTimeField()
+    user_contact_information = serializers.SerializerMethodField()
+    user = ProfileUserSerializer()
+
+    class Meta:
+        model = CV
+        fields = [
+            "cv_id",
+            "user",
+            "user_companies",
+            "user_education",
+            "user_skill",
+            "user_major",
+            "user_language",
+            "user_award",
+            "user_contact_information",
+            "description",
+            "job_title",
+            "references",
+            "created_at",
+            "updated_at",
+        ]
 
     def get_user_contact_information(self, obj):
         try:

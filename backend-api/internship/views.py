@@ -149,8 +149,6 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from .models import InternshipApplication
 from .serializers import AllInternshipApplicationSerializer, InternshipApplicationSerializer
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import AnonymousUser
 
 
 
@@ -197,52 +195,6 @@ class IsUser(BasePermission):
             and request.user.role.role_id == 1
         )
 
-# @permission_classes([IsAdminUser])
-class ApplyInternshipView(APIView): 
-    parser_classes = (MultiPartParser, FormParser)
-    serializer_class = InternshipApplicationSerializer
-
-    def post(self, request,pk, *args, **kwargs) : 
-        internship_post = get_object_or_404(InternshipPost, pk=pk)
-        data = request.data.copy()
-        data['internship_post'] = internship_post.pk
-        # return Response(None,200)
-        serializer = self.serializer_class(data=data)
-        if serializer.is_valid() : 
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            Response({"message": "Error"}, status=400 )
-        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-class FetchCvView(APIView) : 
-    def get(self, request, pk, *args, **kwargs) : 
-        application = get_object_or_404(InternshipApplication, pk=pk)
-        cv = application.cv
-        if not cv : 
-            raise Http404("Cv not found")
-
-        return FileResponse(cv.open('rb'), content_type = 'application/pdf', as_attachment=False)
-
-class FetchCoverLetterView(APIView) : 
-    def get(self, request, pk, *args, **kwargs) : 
-        application = get_object_or_404(InternshipApplication, pk=pk)
-        cover_letter = application.cover_letter
-        if not cover_letter: 
-            raise Http404("Cv not found")
-
-        return FileResponse(cover_letter.open('rb'), content_type = 'application/pdf', as_attachment=False)
-    
-
-# List Internship Post  // DONE
-# Check IsAdminUser
-# Internship POst -> List of Internship Application  // API List Internship Application (need Internship POST ID)
-# Click one In-Application -> Detail of Internship Application (User info, Url of CV) // Show detail of Internship application ()
-
-
-# to display list of internship application
-# @permission_classes([IsAdminUser])
 class ListInternshipApplication(APIView) :
     
     def get(self, request, pk, *args, **kwargs) : 
