@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import *
 
 urlpatterns = [
  
@@ -12,10 +13,18 @@ urlpatterns = [
 
     # for Internship view 
 
-    path('post/list/', views.view_post , name = 'view-post'),
+    path('post/list/job', views.view_post , name = 'view-post'),
     path('post/details/<int:postId>/', views.view_details_post, name = 'view-details'),
     path('post/create/',views.add_post, name='add-post'),
     path('post/update/<int:postId>/', views.update_post, name='update_post'),
     path('post/delete/<int:postId>/', views.delete_post, name='delete_post'),
-    
+
+     # application urls
+    path('internship/<int:pk>/apply/', ApplyInternshipView.as_view(), name="apply-internship"), 
+    path('internship/cv/<int:pk>/view/',FetchCvView.as_view(), name="fetch-cv"),
+    path('internship/cover_letter/<int:pk>/view/',FetchCoverLetterView.as_view(), name="fetch-coverLetter"),
+    path('internship/<int:pk>/applications/', ListInternshipApplication.as_view(), name="list-intern-application"),
+    path('internship/list/all/', views.all_application , name = 'all-application'),
 ]
+
+    
