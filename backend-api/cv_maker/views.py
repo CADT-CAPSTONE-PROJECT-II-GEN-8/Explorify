@@ -18,7 +18,7 @@ class CVFormAPIView(generics.GenericAPIView):
 
     def get(self, request):
         try:
-            user = User.objects.get(user_id=request.user.user_id)
+            user = User.objects.get(pk=request.user.pk)
         except User.DoesNotExist:
             return error_response(
                 message="User does not exist.", status_code=status.HTTP_404_NOT_FOUND
@@ -79,27 +79,39 @@ class CVFormAPIView(generics.GenericAPIView):
         serializer_data = CVDataSerializer(cv)
         context = {"cv": serializer_data.data, "image_url": image_url_with_scheme}
 
-        template = get_template("cv/cv.html")
-        html = template.render(context)
-
         try:
-            pdf = HTML(string=html).write_pdf(
-                stylesheets=[
-                    CSS(
-                        string="@page { size: A4 Portrait; margin: 5mm; page-break-after: always; }"
-                    )
-                ]
-            )
+            html_string = render_to_string('resume/resume1.html', context)
+
+            html = HTML(string=html_string)
+            pdf = html.write_pdf()
+
+            response = HttpResponse(pdf, content_type='application/pdf')
+            response['Content-Disposition'] = 'inline; filename="cv.pdf"'
+            # pdf = HTML(string=html).write_pdf(
+            #     stylesheets=[
+            #         CSS(
+            #             string="@page { size: A4 Portrait; margin: 5mm; page-break-after: always; }"
+            #         )
+            #     ]
+            # )
         except Exception as e:
             return error_response(
                 message= f"Failed to generate PDF: {str(e)}",
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-        response = HttpResponse(pdf, content_type="application/pdf")
-        response["Content-Transfer-Encoding"] = "utf-8"
-        response["Content-Disposition"] = 'attachment; filename="cv.pdf"'
+        # response = HttpResponse(pdf, content_type="application/pdf")
+        # response["Content-Transfer-Encoding"] = "utf-8"
+        # response["Content-Disposition"] = 'attachment; filename="cv.pdf"'
 
+
+# 
+        
+
+        # return response
+
+
+# 
         try:
             fss.delete(file)
         except Exception as e:

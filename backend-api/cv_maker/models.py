@@ -75,7 +75,7 @@ class Language(models.Model):
 
 class UserCompany(models.Model):
     user_company_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=128, blank=True)
     position = models.CharField(max_length=255, null=True)
     description = models.TextField(null=True)
@@ -89,7 +89,7 @@ class UserCompany(models.Model):
             raise ValidationError("End date cannot be before start date.")
 
     def __str__(self):
-        return f"Company {self.company_id} for User {self.user_id}"
+        return f"Company {self.user_company_id} for User {self.user_id}"
 
     class Meta:
         verbose_name = "User Company"
@@ -114,7 +114,7 @@ class School(models.Model):
 
 class UserEducation(models.Model):
     user_education_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     school = models.CharField(max_length=255, null=True)
     education_level = models.CharField(max_length=200, null=True)
     major = models.CharField(max_length=100, null=True)
@@ -153,7 +153,7 @@ class Major(models.Model):
 
 class UserAward(models.Model):
     user_award_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     award_name = models.CharField(max_length=255)
     certificate_file = models.FileField(upload_to="certificates/", blank=True)
     award_category = models.CharField(max_length=255, null=True, blank=True)

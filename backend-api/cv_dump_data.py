@@ -36,7 +36,7 @@ language = get_or_create_instance(Language, 'language_name', 'English')
 
 # Create a User Company
 user_company, created = UserCompany.objects.get_or_create(
-    user=user, 
+    #  
     company_name="Company", 
     start_date=date(2020, 1, 1), 
     end_date=date(2021, 1, 1)
@@ -48,19 +48,19 @@ school = get_or_create_instance(School, 'school_name', 'Example School')
 major = get_or_create_instance(Major, 'major_name', 'Computer Science')
 
 # Create a User Education
-user_education = UserEducation.objects.create(user=user, school=school, education_level=education_level, start_date=date(2016, 9, 1), end_date=date(2020, 6, 1))
+user_education = UserEducation.objects.create( school=school, education_level=education_level, start_date=date(2016, 9, 1), end_date=date(2020, 6, 1))
 
 # Create a User Award
-user_award = UserAward.objects.create(user=user, award_name='Best Employee', date=date(2022, 5, 1))
+user_award = UserAward.objects.create( award_name='Best Employee', date=date(2022, 5, 1))
 
 # Create a CV
-cv = CV.objects.create(user=user, description='My CV description', job_title='Software Developer')
+cv = CV.objects.create( user=user, description='My CV description', job_title='Software Developer')
 cv.user_education.add(user_education)
 cv.user_skill.add(skill)
 cv.user_language.add(language)
 cv.user_major.add(major)
 cv.user_award.add(user_award)
-
+cv.user_companies.add(user_company)
 # Save all the instances
 user.save()
 user_company.save()
