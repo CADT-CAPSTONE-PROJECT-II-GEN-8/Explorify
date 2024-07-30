@@ -84,6 +84,20 @@ class UserAwardSerializer(serializers.ModelSerializer):
         model = UserAward
         fields = ["user_award_id", "award_name", "date", "description"]
 
+
+from account.models import User, Profile
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ["profile_pic","website","city","country","date_of_birth","gender"]
+
+class ProfileUserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+    class Meta:
+        model = User
+        fields = ["first_name","last_name", "headline","profile"]
+
+
 class CVDataSerializer(serializers.ModelSerializer):
     user_companies = UserCompanySerializer(many=True)
     user_education = UserEducationSerializer(many=True)
@@ -92,13 +106,25 @@ class CVDataSerializer(serializers.ModelSerializer):
     user_language = LanguageSerializer(many=True)
     user_award = UserAwardSerializer(many=True)
     user_contact_information = serializers.SerializerMethodField()
-    # user = UsersSerializer()
+    user = ProfileUserSerializer()
+
     class Meta:
         model = CV
         fields = [
-            'cv_id', 'user', 'user_companies', 'user_education', 'user_skill', 
-            'user_major', 'user_language', 'user_award', 'user_contact_information', 
-            'description', 'job_title', 'references', 'created_at', 'updated_at'
+            "cv_id",
+            "user",
+            "user_companies",
+            "user_education",
+            "user_skill",
+            "user_major",
+            "user_language",
+            "user_award",
+            "user_contact_information",
+            "description",
+            "job_title",
+            "references",
+            "created_at",
+            "updated_at",
         ]
 
     def get_user_contact_information(self, obj):
@@ -107,6 +133,7 @@ class CVDataSerializer(serializers.ModelSerializer):
             return UsersContactSerializer(contact).data
         except ContactInformation.DoesNotExist:
             return None
+
 
 class ImageUploadSerializer(serializers.Serializer):
     image_file = serializers.ImageField()

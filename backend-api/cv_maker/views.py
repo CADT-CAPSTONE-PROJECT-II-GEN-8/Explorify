@@ -38,6 +38,13 @@ class CVFormAPIView(generics.GenericAPIView):
         )
 
     def post(self, request):
+        template = request.query_params.get("template")
+
+        if not template:
+            return Response(
+                {"error": "Template parameter is required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         try:
             user = User.objects.get(pk=request.user.pk)
             cv = CV.objects.get(user=user)
@@ -80,7 +87,7 @@ class CVFormAPIView(generics.GenericAPIView):
         context = {"cv": serializer_data.data, "image_url": image_url_with_scheme}
 
         try:
-            html_string = render_to_string('resume/resume1.html', context)
+            html_string = render_to_string(f'resume/resume{template}.html', context)
 
             html = HTML(string=html_string)
             pdf = html.write_pdf()

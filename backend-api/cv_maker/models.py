@@ -89,7 +89,7 @@ class UserCompany(models.Model):
             raise ValidationError("End date cannot be before start date.")
 
     def __str__(self):
-        return f"Company {self.user_company_id} for User {self.user_id}"
+        return f"Company {self.user_company_id} "
 
     class Meta:
         verbose_name = "User Company"
@@ -128,7 +128,7 @@ class UserEducation(models.Model):
             raise ValidationError("End date cannot be before start date.")
 
     def __str__(self):
-        return f"Education for User {self.user_id}"
+        return f" {self.school}"
 
     class Meta:
         verbose_name = "User Education"
@@ -163,7 +163,7 @@ class UserAward(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Award {self.award_name} for User {self.user_id}"
+        return f"Award {self.award_name}"
 
     class Meta:
         verbose_name = "User Award"

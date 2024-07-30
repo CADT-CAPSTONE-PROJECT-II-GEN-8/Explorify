@@ -252,12 +252,20 @@ def user_education_list(request):
         if serializer.is_valid():
             # serializer.validated_data["user"] = request.user
             data = serializer.save()
-            cv.user_education.add(data)
+            
             # Retrieve related objects
             school_instance = School.objects.get(pk=serializer.data["school"])
             major_instance = Major.objects.get(pk=serializer.data["major"])
             education_level_instance = EducationLevel.objects.get(
                 pk=serializer.data["education_level"]
+            )
+            
+            user_education = UserEducation.objects.create(
+                school=school_instance,
+                major=major_instance,
+                education_level=education_level_instance,
+                start_date=serializer.validated_data.get("start_date"),
+                end_date=serializer.validated_data.get("end_date")
             )
 
             # Serialize related objects
@@ -276,7 +284,7 @@ def user_education_list(request):
                 "start_date": serializer.data["start_date"],
                 "end_date": serializer.data["end_date"],
             }
-
+            cv.user_education.add(user_education)
             return success_response(
                 message="Create successfully",
                 data=data_response,
