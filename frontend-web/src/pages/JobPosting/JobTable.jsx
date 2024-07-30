@@ -8,10 +8,21 @@ import Header from "./Header";
 import JobBar from "./JobBar";
 const JobTable = () => {
   const [jobs, setJobs] = useState([]);
-
+  const getStatusClass = (status) => {
+    switch (status) {
+      case 'Closed':
+        return 'bg-red-500 text-white';
+      case 'Open':
+        return 'bg-amber-500 text-white';
+      case 'Filled':
+        return 'bg-grey-500 text-white';
+      default:
+        return 'bg-amber-100 text-amber-400';
+    }
+  };
   useEffect(() => {
     axios
-      .get("http://localhost:8989/api/v1/post/list/")
+      .get("http://localhost:8989/api/v1/post/list/job")
       .then((response) => setJobs(response.data))
       .catch((error) => console.error("Error fetching data", error));
   }, []);
@@ -40,12 +51,9 @@ const JobTable = () => {
                       </div>
                     </th>
                     <th scope="col" className="px-4 py-3">
-                      Position
+                      Job Title
                     </th>
-                    <th scope="col" className="px-4 py-3">
-                      Specialization
-                    </th>
-                    <th scope="col" className="px-4 py-3">
+                   <th scope="col" className="px-4 py-3">
                       Salary
                     </th>
                     <th scope="col" className="px-4 py-3">
@@ -89,13 +97,8 @@ const JobTable = () => {
                       >
                         {job.job_title}
                       </td>
-                      <td className="px-4 py-2">
-                        <span className="bg-amber-100 text-amber-400 text-xs font-medium px-2 py-0.5 rounded-full dark:bg-primary-900 dark:text-primary-300">
-                          {job.category}
-                        </span>
-                      </td>
-                      <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {job.salary}
+                     <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {job.salary} $
                       </td>
                       <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {job.job_duration}
@@ -103,9 +106,13 @@ const JobTable = () => {
                       <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {job.job_type}
                       </td>
-                      <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {job.status}
-                      </td>
+                    <td>
+                  <div className='pl-2 flex items-center'>
+                    <span className={`text-xs font-medium px-3 py-0.5 rounded-full  ${getStatusClass(job.status)}`}>
+                      {job.status}
+                      </span>
+                      </div>
+                    </td>
                       <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <div className="flex items-center">
                           <Link to={`/details/job/${job.internship_post_id}`}>

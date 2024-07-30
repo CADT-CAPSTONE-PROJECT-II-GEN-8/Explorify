@@ -24,7 +24,9 @@ const Sidebar = () => {
       <li>
           <Link to='/'>
           <a href="#" className="flex items-center p-2 text-base font-normal text-gray-700 hover:text-[#F27C1C] rounded-lg dark:text-white hover:bg-[#fce0c9] dark:hover:bg-gray-700 group">
-            <FaBars  className='w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white'></FaBars>
+          <svg className="w-6 h-6"  fill="grey" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
             <span className="ml-3">
              Dashboard       </span>
           </a>
@@ -34,7 +36,7 @@ const Sidebar = () => {
         <li>
           <Link to='/job/table'>
           <a href="#" className="flex items-center p-2 text-base font-normal text-gray-700 hover:text-[#F27C1C] rounded-lg dark:text-white hover:bg-[#fce0c9] dark:hover:bg-gray-700 group">
-            <FaBagShopping  className='w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white'></FaBagShopping>
+            <FaBagShopping  className='w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white'></FaBagShopping>
             <span className="ml-3">
             Jobs          </span>
           </a>
@@ -43,9 +45,9 @@ const Sidebar = () => {
 
 
         <li>
-          <Link to='/test'>
+          <Link to='/all/application/apply'>
           <a href="#" className="flex items-center p-2 text-base font-normal text-gray-700 hover:text-[#F27C1C] rounded-lg dark:text-white hover:bg-[#fce0c9] dark:hover:bg-gray-700 group">
-            <FaUserGroup  className='w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white'></FaUserGroup>
+            <FaUserGroup  className='w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#F27C1C] dark:group-hover:text-white'></FaUserGroup>
             <span className="ml-3">
              Candidates         </span>
           </a>
@@ -63,39 +65,6 @@ const Sidebar = () => {
           </a>
           </Link>
         </li>
-
-      
-
-      
-        <li>
-          <button type="button" className="flex items-center p-2 w-full text-base font-normal text-gray-700 hover:text-[#F27C1C] rounded-lg transition duration-75 group hover:bg-[#fce0c9] dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
-            <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-[#F27C1C] dark:text-gray-400 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
-            </svg>
-            <span className="flex-1 ml-3 text-left whitespace-nowrap">Authication</span>
-            <svg aria-hidden="true" className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </button>
-          <ul id="dropdown-pages" className="hidden py-2 space-y-2">
-            <li>
-            <Link to='/login'>
-              <a href="#" className="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-500  hover:text-[#F27C1C] hover:bg-[#fce0c9] rounded-lg">
-               Login
-                </a>
-                </Link>
-            </li>
-            <li>
-            <Link to='/register'>
-              <a href="#" className="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-500 hover:text-[#F27C1C] hover:bg-[#fce0c9] rounded-lg">
-                Register
-                </a>
-                </Link>
-            </li>
-            
-          </ul>
-        </li>
-       
       
       </ul>
 
