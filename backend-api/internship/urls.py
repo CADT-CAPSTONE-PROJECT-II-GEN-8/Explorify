@@ -23,6 +23,11 @@ urlpatterns = [
     # FOR ADMIN URL
     path('internship/<int:pk>/applications/', ListInternshipApplication.as_view(), name="list-intern-application"),
     path('internship/list/all/', views.all_application , name = 'all-application'),
+
+        # post count
+    path('internship/count/', ActiveInternPostView.as_view(), name="internship-count"), 
+    path('internship/application/count/', InternshipApplicationCountView.as_view(), name="application-count"), 
+    
 ]
 
     
