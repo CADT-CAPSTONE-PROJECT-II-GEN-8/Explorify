@@ -40,7 +40,7 @@ class CVFormAPIView(generics.GenericAPIView):
     def post(self, request):
         template = request.query_params.get("template")
 
-        if not template:
+        if not template or int(template) >=4:
             return Response(
                 {"error": "Template parameter is required."},
                 status=status.HTTP_400_BAD_REQUEST,
