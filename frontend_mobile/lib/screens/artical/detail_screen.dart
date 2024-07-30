@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/common/colors.dart';
 
 class DetailsScreen extends StatelessWidget {
   final Map<String, dynamic> item;
@@ -30,7 +31,7 @@ class DetailsScreen extends StatelessWidget {
           top: 40,
           left: 10,
           child: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back_ios, color: Colors.black),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -99,8 +100,9 @@ class DetailsScreen extends StatelessWidget {
                     child: Text(
                       "${item['category'] ?? 'No description available.'}",
                       style: TextStyle(
-                          color: Color.fromARGB(255, 242, 124, 28),
-                          fontSize: 14),
+                          color: AppColor.primary,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
                       textAlign: TextAlign.start,
                     ),
                   ),
