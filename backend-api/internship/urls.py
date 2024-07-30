@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 from .views import *
+from .views import *
+from internship.views import FetchCvView, FetchCoverLetterView
 
 urlpatterns = [
  

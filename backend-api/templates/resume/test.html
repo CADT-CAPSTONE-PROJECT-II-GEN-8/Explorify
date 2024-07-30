@@ -56,7 +56,7 @@
       }
 
       .leftPanel h2 {
-            color: #4A454B;
+          color: white;
           letter-spacing: 1px;
           font-size: 20px;
       }
@@ -77,7 +77,7 @@
           margin-top: 0.1cm;
           margin-bottom: 0.1cm;
           font-size: 20px;
-            color: #464A4E;
+            color: #000000;
       }
 
       .leftPanel,
@@ -94,7 +94,7 @@
       .smallText span,
       .smallText p,
       .smallText a {
-          font-size: 0.35cm;
+            font-size: 0.5cm;
       }
 
       .leftPanel .smallText,
@@ -102,7 +102,7 @@
       .leftPanel .smallText span,
       .leftPanel .smallText p,
       .smallText a {
-          font-size: 0.45cm;
+            font-size: 0.5cm;
       }
 
       .contactIcon {
@@ -119,7 +119,7 @@
 
       .bolded {
           font-weight: bold;
-            color: #464A4E;
+            color: white;
       }
 
       .white {
@@ -163,7 +163,7 @@
           display: flex;
           flex-direction: row;
           width: 100%;
-          height: 95%;
+          height: 100%;
       }
 
       .leftPanel {
@@ -173,7 +173,7 @@
           display: flex;
           flex-direction: column;
           flex-basis: 30%; /* or 30% if needed */
-          background-color: #fff;
+          background-color: #464a4e;
           padding: 0.7cm;
           height: 100%;
       }
@@ -191,14 +191,14 @@
               display: flex;
               flex-direction: row;
               width: 100%;
-              height: 95%;
+              height: 100%;
           }
 
           .leftPanel {
               flex-grow: 0;
               flex-shrink: 0;
-              flex-basis: 30%; /* or 30% if needed */
-            background-color: #fff;
+              flex-basis: 40%; /* or 30% if needed */
+              background-color: #464a4e;
               padding: 0.7cm;
               height: 100%;
           }
@@ -206,40 +206,43 @@
           .rightPanel {
               flex-grow: 0;
               flex-shrink: 0;
-              flex-basis: 70%; /* or 70% if needed */
+              flex-basis: 60%; /* or 70% if needed */
               padding: 0.7cm;
               height: 100%;
           }
-          .leftPanel .details {
-              width: 100%;
-              height: 100%;
-              display: flex;
-              flex-direction: column;
 
 
           }
       }
-
-      .leftPanel .profile-img {
+      .leftPanel .profile {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        margin-bottom: 1cm;
+      }
+      .leftPanel  .profile  .profile-img {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
           {% comment %} height: 4cm; {% endcomment %}
       }
-      .leftPanel .profile-img img {
+      .leftPanel  .profile  .profile-img img {
           background-color: #fff;
           width: 4cm !important;
           height: 4cm !important;
           margin-bottom: 0.7cm;
           border-radius: 50%;
-          {% comment %} border: 0.15cm solid white; {% endcomment %}
+          border: 0.15cm solid white;
           object-fit: cover;
           object-position: 50% 50%;
       }
+      
 
       .leftPanel .details {
           width: 100%;
           height: 100%;
           display: flex;
           flex-direction: column;
-          {% comment %} background-color: #fff; {% endcomment %}
 
       }
 
@@ -250,8 +253,8 @@
       }
 
       .bottomLineSeparator {
-            border-bottom: 0.05cm solid #464A4E;
-            padding-bottom: 20px;
+          border-bottom: 0.05cm solid white;
+          padding-bottom: 10px;
           /* Adjust the value as needed */
       }
 
@@ -263,9 +266,10 @@
 
 
       .bottomLineSeparatorTop {
-          border-bottom: 0.1cm solid #2b416a;
-          width: 20px;
+            border-bottom: 0.1cm solid #d7d5d5;
+            width: 250px;
           padding-bottom: 10px;
+            padding-top: 20px;
           /* Adjust the value as needed */
 
       }
@@ -301,7 +305,7 @@
       }
 
       .workExperience>ul>li:before {
-          background-color: #b8abab;
+          background-color: #464A4E;
           width: 0.05cm;
           content: '';
           position: absolute;
@@ -353,8 +357,8 @@
       /* Create two equal columns that floats next to each other */
       .column {
           float: left;
-          width: 40%;
-          padding: 10px;
+            width: 50%;
+          padding-top: 10px;
           /* Should be removed. Only for demonstration */
       }
 
@@ -364,26 +368,22 @@
           display: table;
           clear: both;
       }
-
-      
-      .topContainer {
-        border-top: 1cm solid #F0CFC3;
-        {% comment %} height: 1.5cm; {% endcomment %}
-        background-color: #f0cfc3;
-        width: 100%;
-        /* Adjust the value as needed */
-    }
     </style>
   </head>
 
   <body>
     <page size="A4">
-        <div class="topContainer"> </div>
       <div class="container">
         <!-- Left Pabel -->
         <div class="leftPanel">
-
-            <div class="profile-img"><img src="{{ image_url }}" /></div>
+            <div class="profile">
+                <div class="profile-img"><img src="{{ image_url }}" /></div>
+                <h2 class='upperCase' style="text-align: center; color:white ;font-size: 20px;">
+                    Byeon WooSeok<br>
+                    <span style="font-size: 18px; font-weight: normal; ">Computer Scientist</span>
+                
+                </h2>
+            </div>
             <!-- Contace -->
             <div class="item">
               <h2 class="bottomLineSeparator">CONTACT</h2>
@@ -393,9 +393,9 @@
                   <i
                     class="fa fa-phone contactIcon"
                     aria-hidden="true"
-                    style="color: #464a4e"
+                    style="color: white"
                   ></i>
-                  <span style="color: #464a4e; padding-left: 10px"
+                  <span style="color: white; padding-left: 10px"
                     >{{cv.user_contact_information.phone}}</span
                   >
                 </p>
@@ -404,11 +404,11 @@
                   <i
                     class="fa fa-envelope contactIcon"
                     aria-hidden="true"
-                    style="color: #464a4e"
+                    style="color: white"
                   ></i>
                   <a
                     href="{{cv.user_contact_information.email}}"
-                    style="color: #464a4e; padding-left: 10px"
+                    style="color: white; padding-left: 10px"
                   >
                     {{cv.user_contact_information.email}}
                   </a>
@@ -418,9 +418,9 @@
                   <i
                     class="fa fa-map-marker contactIcon"
                     aria-hidden="true"
-                    style="color: #464a4e"
+                    style="color: white"
                   ></i>
-                  <span style="color: #464a4e; padding-left: 10px">
+                  <span style="color: white; padding-left: 10px">
                     {{cv.user.profile.city}}, {{cv.user.profile.country}}</span
                   >
                 </p>
@@ -432,7 +432,7 @@
               <h2 class="bottomLineSeparator">EDUCATION</h2>
               {% for education in cv.user_education %}
               <div class="smallText" style="padding-top: 10px">
-                <p class="bolded #464a4e">{{education.education_level}} - {{education.school}}</p>
+                <p class="bolded white">{{education.education_level}} - {{education.school}}</p>
                 <p>{{education.start_date}} - {{education.end_date}}</p>
               </div>
               {% endfor %}
@@ -442,7 +442,7 @@
             <div class="item">
               <h2 class="bottomLineSeparator">SKILLS</h2>
               <div class="smallText" style="padding-top: 10px">
-                <div style="font-size: 20px; color: #464a4e">
+                <div style="font-size: 20px; color: white">
                   <ul>
                     {% for skill in cv.user_skill %}
                     <li><span>{{skill.skill_name}}</span></li>
@@ -456,7 +456,7 @@
             <div class="item">
               <h2 class="bottomLineSeparator">LANGUAGES</h2>
               <div class="smallText" style="padding-top: 10px">
-                <div style="font-size: 20px; color: #464a4e">
+                <div style="font-size: 20px; color: white">
                   <ul>
                     {% for lang in cv.user_language %}
                     <li><span>{{lang.language_name}}</span></li>
@@ -470,67 +470,65 @@
 
         <!-- Right Panel -->
         <div class="rightPanel">
-          <div style="padding-top: 20px">
-            <h2 style="font-size: 40px">
-              {{cv.user.first_name}} {{cv.user.last_name}}
-            </h2>
-
-            <div class="smallText">
-              <h2
-                style="
-                  padding-bottom: 80px;
-                  padding-top: 10px;
-                  color: #323b4c;
-                  font-size: 25px;
-                "
-              >
-                {{cv.job_title}} ( Internship )
-              </h2>
-            </div>
-          </div>
+          
 
           <!-- Profile -->
           <div>
-            <h2 class="bottomLineSeparatorRight" style="color: #323b4c">
+            <h2>
               ABOUT ME
             </h2>
             <div class="smallText" style="padding-top: 5px">
               <p>{{cv.description}}</p>
-              <p>Vivamus non magna quis neque viverra finibus quis a tortor.</p>
+             
             </div>
           </div>
 
-          <!-- Work Experience -->
-          <div class="workExperience">
-            <h2
-              class="bottomLineSeparatorRight"
-              style="padding-top: 20px; color: #323b4c"
-            >
-              WORK EXPERIENCE
-            </h2>
-            <ul>
-              {% for company in cv.user_companies %}
-              <li>
-                <div class="jobPosition">
-                  <span
-                    class="bolded"
-                    style="font-size: 16px; padding-bottom: 3px"
-                  >
-                    {{company.position}}
-                  </span>
-                  <span> {{company.start_date}} - {{company.end_date}} </span>
-                </div>
-                <div class="projectName bolded">
-                  <span>{{company.company_name}}</span>
-                </div>
-                <div class="smallText">
-                  <p>{{company.description}}</p>
-                </div>
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
+          <h2>EXPERIENCES</h2>
+          {% for company in cv.user_companies %}
+                    <div style="padding-bottom: 10px;">
+                        <div class="row">
+                            <div class="column">
+                                <p class="smallText"
+                                    style="font-size: 16px; font-weight:bold; color:#0B0B0B ; text-transform: uppercase; ">
+                                  {{company.company_name}}</p>
+                                <p class="smallText" style="font-size: 15px;  color:#0b0b0b">
+                                    {{company.position}}
+                                </p>
+                            </div>
+                            <div class="column">
 
+                                <p class="smallText" style="font-size: 16px; color:#0B0B0B; text-align: right;">
+                                    {{company.start_date}} - {{company.end_date}}</p>
+                            </div>
+                        </div>
+                        <p class="smallText" style="font-size: 14px;  color:rgb(96, 95, 95)">
+                            {{company.description}}
+                        </p>
+                    </div>
+                    {% endfor %}
+          
+                    <h2>EDUCATION</h2>
+                    {% for education in cv.user_education %}
+                              <div style="padding-bottom: 10px;">
+                                  <div class="row">
+                                      <div class="column">
+                                          <p class="smallText"
+                                              style="font-size: 16px; font-weight:bold; color:#0B0B0B ; text-transform: uppercase; ">
+                                            {{education.education_level}}</p>
+                                          <p class="smallText" style="font-size: 15px;  color:#0b0b0b">
+                                              {{education.school}}
+                                          </p>
+                                      </div>
+                                      <div class="column">
+          
+                                          <p class="smallText" style="font-size: 16px; color:#0B0B0B; text-align: right;">
+                                              {{education.start_date}} - {{education.end_date}}</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              {% endfor %}
+                    
+          
           <!-- Reference -->
           <div>
             <h2
