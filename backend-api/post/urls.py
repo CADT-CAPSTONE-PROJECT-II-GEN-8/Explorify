@@ -12,8 +12,10 @@ urlpatterns = [
     path("internship-posts/", internship_post_list_create, name="internship-post-list-create"),     # LIST and CREATE Internship Post
     path("internship-posts/<int:pk>/", internship_post_detail, name="internship-post-detail"),      # DETAIL, UPDATE and DELETE Internship Post
     
-    # User Apply
+    # User Apply URL
     path('internship-posts/<int:pk>/apply/', ApplyInternshipView.as_view(), name='apply'),
+    
+    # ADMIN URL
     path('application/<int:pk>/cv/', FetchCvView.as_view(), name='apply-cv'),
     path('application/<int:pk>/cover-letter/', FetchCoverLetterView.as_view(), name='apply-cover-letter'),
     
