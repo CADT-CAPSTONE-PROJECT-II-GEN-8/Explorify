@@ -454,15 +454,15 @@ class FetchCvView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, pk, *args, **kwargs):
         application = get_object_or_404(InternshipApplication, pk=pk)
-        # cv = application.cv
-        cv = "yes"
+        cv = application.cv
+        # cv = "yes"
         if not cv:
             raise Http404("Cv not found")
 
-        return Response(cv, 200)
-        # return FileResponse(
-        #     cv.open("rb"), content_type="application/pdf", as_attachment=False
-        # )
+        # return Response(cv, 200)
+        return FileResponse(
+            cv.open("rb"), content_type="application/pdf", as_attachment=False
+        )
 
 class FetchCoverLetterView(APIView):
     permission_classes = [IsAuthenticated]
@@ -470,11 +470,11 @@ class FetchCoverLetterView(APIView):
         application = get_object_or_404(InternshipApplication, pk=pk)
         
         
-        # cover_letter = application.cover_letter
-        cover_letter = "application"
-        # if not cover_letter:
-        #     raise Http404("Cv not found")
-        return Response(cover_letter, 200)
-        # return FileResponse(
-        #     cover_letter.open("rb"), content_type="application/pdf", as_attachment=False
-        # )
+        cover_letter = application.cover_letter
+        # cover_letter = "application"
+        if not cover_letter:
+            raise Http404("Cv not found")
+        # return Response(cover_letter, 200)
+        return FileResponse(
+            cover_letter.open("rb"), content_type="application/pdf", as_attachment=False
+        )

@@ -174,7 +174,10 @@ class InternshipPostSerializer(serializers.ModelSerializer):
     
     
 class InternshipApplicationSerializer(serializers.ModelSerializer):
+    cover_letter = serializers.FileField(required=True)
+    cv = serializers.FileField(required=True)
     class Meta:
         model = InternshipApplication
-        fields = ["user", "internship_post"]
+        fields = ["user", "internship_post", "cover_letter","cv"]
+    
         
