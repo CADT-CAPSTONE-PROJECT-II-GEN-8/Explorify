@@ -1,6 +1,6 @@
 import React , { useState, useEffect } from 'react';
 
-import axiosInstance from '../services/axiosConfig';
+import axiosInstance from 'src/utils/axiosInstance';
 
 
 const Navbar = () => {

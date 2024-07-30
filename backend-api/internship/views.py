@@ -227,7 +227,7 @@ class ActiveInternPostView(APIView) :
 
     def get(self, request, *agrs, **kwargs) : 
         user = request.user
-        active_post_count = InternshipPost.objects.filter(user = user, dealine_gt = timezone.now(), active = True).count() 
+        active_post_count = InternshipPost.objects.filter(user = user, active = 1).count() 
         return Response({'active_post_count' : active_post_count})
     
 # application count
@@ -236,7 +236,7 @@ class InternshipApplicationCountView(APIView) :
 
     def get(self, request, *agrs, **kwargs) : 
         user = request.user
-        active_posts = InternshipPost.objects.filter(user = user, dealine_gt = timezone.now(), active = True) 
+        active_posts = InternshipPost.objects.filter(user = user, active = 1) 
         applications_count = InternshipApplication.objects.filter(internship_post__in = active_posts).count()
         return Response({'application_count' : applications_count})
         

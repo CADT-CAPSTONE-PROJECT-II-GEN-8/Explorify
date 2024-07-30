@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import JobBar from "../JobPosting/JobBar";
+// import JobBar from "../JobPosting/JobBar";
 import Header from "../JobPosting/Header";
 
 const ListCandidate = () => {
