@@ -26,4 +26,9 @@ urlpatterns = [
     path('internship/cv/<int:pk>/view/',FetchCvView.as_view(), name="fetch-cv"),
     path('internship/cover_letter/<int:pk>/view/',FetchCoverLetterView.as_view(), name="fetch-coverLetter"),
     path('internship/<int:pk>/applications/', ListInternshipApplication.as_view(), name="list-intern-application"),
+
+        # post count
+    path('internship/count/', ActiveInternPostView.as_view(), name="internship-count"), 
+    path('internship/application/count/', InternshipApplicationCountView.as_view(), name="application-count"), 
+    
 ]

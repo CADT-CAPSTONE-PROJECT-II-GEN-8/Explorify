@@ -252,3 +252,24 @@ class ListInternshipApplication(APIView) :
         applications = InternshipApplication.objects.filter(internship_post = internship_post)
         serializer = InternshipApplicationSerializer(applications, many = True) 
         return Response(serializer.data, status=status.HTTP_200_OK) 
+    
+# active internship post count
+from django.utils import timezone
+class ActiveInternPostView(APIView) : 
+    permission_classes = [IsAuthenticated] 
+
+    def get(self, request, *agrs, **kwargs) : 
+        user = request.user
+        active_post_count = InternshipPost.objects.filter(user = user, dealine_gt = timezone.now(), active = True).count() 
+        return Response({'active_post_count' : active_post_count})
+    
+# application count
+class InternshipApplicationCountView(APIView) : 
+    permission_classes = [IsAuthenticated] 
+
+    def get(self, request, *agrs, **kwargs) : 
+        user = request.user
+        active_posts = InternshipPost.objects.filter(user = user, dealine_gt = timezone.now(), active = True) 
+        applications_count = InternshipApplication.objects.filter(internship_post__in = active_posts).count()
+        return Response({'application_count' : applications_count})
+        
