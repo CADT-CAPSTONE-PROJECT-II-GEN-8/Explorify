@@ -131,13 +131,14 @@ def internship_post_list(request):
     tags = request.query_params.getlist("tag")  # many tags
     if request.method == "GET":
         paginator = StandardResultsSetPagination()
-        posts = InternshipPost.objects.all()
+        posts = InternshipPost.objects.select_related('user__company_profile')
         if request.query_params:
+            
             posts = posts.filter(**request.query_params.dict())
         if tags:
             posts = posts.filter(tags__name__in=tags)
         result_page = paginator.paginate_queryset(posts, request)
-        serializer = InternshipPostSerializer(result_page, many=True)
+        serializer = InternshipPostDetail2Serializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)
 
 
