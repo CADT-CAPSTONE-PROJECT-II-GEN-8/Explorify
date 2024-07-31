@@ -1,7 +1,9 @@
 class APIEndPoint {
-  static final String baseUrl = 'http://10.0.2.2:8989/api';
-  static final String version = '/v1';
+  static const String baseUrl = 'http://10.0.2.2:8989/api';
+  static const String version = '/v1';
   static _AuthEndPoint authEndPoint = _AuthEndPoint();
+  static _InternshipEndPoint internEndPoint = _InternshipEndPoint();
+  static _CompanyEndPoint companyEndPoint = _CompanyEndPoint();
 }
 
 class _AuthEndPoint {
@@ -9,4 +11,12 @@ class _AuthEndPoint {
   final String login = "/account/generate/";
   final String getToken = "/account/login_with_otp/";
   final String getCV = "/cv-form-data/";
+}
+
+class _InternshipEndPoint {
+  final String getInternshipDetials = "/internship-posts/list/";
+}
+
+class _CompanyEndPoint {
+  final String getCompanyDetails = "/company/list/";
 }

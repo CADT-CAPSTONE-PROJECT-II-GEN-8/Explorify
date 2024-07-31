@@ -183,7 +183,8 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                 Config.spaceMedium,
 
                 // ----TAB VIEW----
-                SizedBox(
+                Container(
+                  padding: EdgeInsets.all(24),
                   height: MediaQuery.of(context).size.height,
                   child: TabBarView(
                     physics: NeverScrollableScrollPhysics(),

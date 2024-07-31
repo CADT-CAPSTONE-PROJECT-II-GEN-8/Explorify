@@ -3,13 +3,16 @@ import 'package:flutter/widgets.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
+import 'package:frontend_mobile/model/cv/user_model.dart';
 import 'package:frontend_mobile/model/internship/company_profile.dart';
 import 'package:frontend_mobile/model/internship/internship_posting.dart';
+import 'package:frontend_mobile/model/internship/tag_model.dart';
 import 'package:frontend_mobile/provider/company_info_provider.dart';
 import 'package:frontend_mobile/provider/job_detail_provider.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/home/filter_overlay.dart';
 import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
+import 'package:frontend_mobile/screens/home/services/internship_service.dart';
 import 'package:frontend_mobile/screens/home/widgets/category.dart';
 import 'package:frontend_mobile/screens/home/widgets/company_info.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_card.dart';
@@ -38,21 +41,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Internship> internshipList = [
     Internship(
-        internshipPostId: 01,
-        jobTitle: 'UX/UI Designer',
-        location: 'Cambodia, Phnom Penh',
-        status: 'Active',
-        jobDescription:
-            'responsible for creating user-centered designs for digital products, such as websites, mobile apps, and software interfaces. Their primary focus is on enhancing user satisfaction and usability by improving the accessibility, efficiency, and aesthetics of the product.',
-        jobDuration: "3 Months",
-        jobRequirement:
-            'Bachelor\'s degree in Graphic Design, Interaction Design, Human-Computer Interaction, or related field., Proven experience as a UI/UX Designer or similar role, with a strong portfolio showcasing your design projects., Proficiency in design tools such as Adobe XD, Sketch, Figma, or InVision., Solid understanding of user-centered design principles and best practices. ',
-        jobType: 'Full-Time',
-        qualification: 'Bachelor\'s Degree',
-        salary: '100\$ - 200\$',
-        active: true,
-        deadline: DateTime(2024, 6, 30),
-        userId: 1),
+      internshipPostId: 01,
+      jobTitle: 'UX/UI Designer',
+      location: 'Cambodia, Phnom Penh',
+      status: 'Active',
+      jobDescription:
+          'responsible for creating user-centered designs for digital products, such as websites, mobile apps, and software interfaces. Their primary focus is on enhancing user satisfaction and usability by improving the accessibility, efficiency, and aesthetics of the product.',
+      jobDuration: "3 Months",
+      jobRequirement:
+          'Bachelor\'s degree in Graphic Design, Interaction Design, Human-Computer Interaction, or related field., Proven experience as a UI/UX Designer or similar role, with a strong portfolio showcasing your design projects., Proficiency in design tools such as Adobe XD/ Sketc/ Figma, Solid understanding of user-centered design principles and best practices. ',
+      jobType: 'Full-Time',
+      qualification: 'Bachelor\'s Degree',
+      salary: '100\$ - 200\$',
+      active: true,
+      deadline: DateTime(2024, 6, 30),
+      user: User(
+        username: 'Linh',
+      ),
+      tags: [Tag(id: 1, name: 'Money')],
+    ),
     Internship(
       internshipPostId: 2,
       jobTitle: 'Content Marketing Intern',
@@ -68,7 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
       salary: '50\$ - 100\$',
       active: true,
       deadline: DateTime(2024, 7, 15),
-      userId: 2,
+      user: User(
+        username: 'Linh',
+      ),
+      tags: [Tag(id: 1, name: 'Money')],
     ),
     Internship(
       internshipPostId: 3,
@@ -85,7 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
       salary: 'Unpaid',
       active: true,
       deadline: DateTime(2024, 7, 7),
-      userId: 3,
+      user: User(
+        username: 'Linh',
+      ),
+      tags: [Tag(id: 1, name: 'Money')],
     ),
     Internship(
       internshipPostId: 4,
@@ -102,7 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
       salary: '120\$ - 200\$',
       active: true,
       deadline: DateTime(2024, 7, 10),
-      userId: 4,
+      user: User(
+        username: 'Linh',
+      ),
+      tags: [Tag(id: 1, name: 'Money')],
     ),
     Internship(
       internshipPostId: 5,
@@ -119,247 +135,228 @@ class _HomeScreenState extends State<HomeScreen> {
       salary: '75\$ - 125',
       active: true,
       deadline: DateTime(2024, 7, 1),
-      userId: 5,
+      user: User(
+        username: 'Linh',
+      ),
+      tags: [Tag(id: 1, name: 'Money')],
     ),
   ];
 
   final List<CompanyProfile> companyList = [
     CompanyProfile(
         image: AppImage.google,
-        companyId: 01,
+        companyId: 0,
         companyName: "Google Inc",
         description: "Giant tech company",
         location: "Canada, USA"),
     CompanyProfile(
       image: AppImage.facebook,
-      companyId: 2,
+      companyId: 1,
       companyName: "Meta Platforms Inc.",
       description: "Social media and technology company",
       location: "USA",
     ),
-    CompanyProfile(
-      image: AppImage.amazon,
-      companyId: 3,
-      companyName: "Amazon.com, Inc.",
-      description: "E-commerce and cloud computing company",
-      location: "USA",
-    ),
-    CompanyProfile(
-      image: AppImage.apple,
-      companyId: 4,
-      companyName: "Apple Inc.",
-      description: "Consumer electronics and software company",
-      location: "USA",
-    ),
-    CompanyProfile(
-      image: AppImage.microsoft,
-      companyId: 5,
-      companyName: "Microsoft Corporation",
-      description: "Multinational technology company",
-      location: "USA",
-    ),
   ];
+  InternshipService internshipService = InternshipService();
+  List<Internship> internshipData = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  // getInternship() async {
+  //   internshipData = await internshipService.getInternshipDetials(context);
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.grey.withOpacity(.4),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header AppBar
-            PrimaryCustomContainer(
-              child: Column(
-                children: [
-                  // -- APPBAR --
-                  const HomeAppBar(),
-                  Config.spaceMedium,
-                  // -- Search --
-                  // SearchContainer(
-                  //   text: AppText.enText['search-text']!,
-                  // ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: AppColor.white,
-                              prefixIcon: const Icon(Icons.search),
-                              hintText: 'Search ...',
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(
-                                    12.0), // Adjust as desired
-                              ),
+      body: FutureBuilder<List<dynamic>>(
+          future: internshipService.getInternshipDetials(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (snapshot.hasData) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Header AppBar
+                    PrimaryCustomContainer(
+                      child: Column(
+                        children: [
+                          // -- APPBAR --
+                          const HomeAppBar(),
+                          Config.spaceMedium,
+                          // -- Search --
+                          // SearchContainer(
+                          //   text: AppText.enText['search-text']!,
+                          // ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 24.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: AppColor.white,
+                                      prefixIcon: const Icon(Icons.search),
+                                      hintText: 'Search ...',
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius: BorderRadius.circular(
+                                            12.0), // Adjust as desired
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                    width:
+                                        10.0), // Spacing between search field and button
+                                IconButton(
+                                  icon: Container(
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: const BoxDecoration(
+                                        color: AppColor.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(12))),
+                                    child:
+                                        const Icon(Icons.filter_list_rounded),
+                                  ), // Change the icon if needed
+                                  onPressed: () {
+                                    // To Do: Navigate to Filter
+                                    // openFilterDelegate();
+                                    FilterOverLay(
+                                      context,
+                                      (Map<String, List<String>>
+                                          updatedOptions) {
+                                        // Callback function to update parent state
+                                        setState(() {
+                                          selectedOptions =
+                                              updatedOptions; // Update your state variable with selections
+                                        });
+                                      },
+                                    );
+                                  },
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                            width:
-                                10.0), // Spacing between search field and button
-                        IconButton(
-                          icon: Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: const BoxDecoration(
-                                color: AppColor.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                            child: const Icon(Icons.filter_list_rounded),
-                          ), // Change the icon if needed
-                          onPressed: () {
-                            // To Do: Navigate to Filter
-                            // openFilterDelegate();
-                            FilterOverLay(
-                              context,
-                              (Map<String, List<String>> updatedOptions) {
-                                // Callback function to update parent state
-                                setState(() {
-                                  selectedOptions =
-                                      updatedOptions; // Update your state variable with selections
-                                });
-                              },
-                            );
-                          },
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
+                    const SizedBox(
+                      height: 24,
+                    ),
 
-            //-- Body --
-            // --CATEGORY--
-            Padding(
-              padding: const EdgeInsets.only(left: 24),
-              child: Column(
-                children: [
-                  SectionHeading(title: AppText.enText['findjob-text']!),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  SizedBox(
-                    height: 118,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: internshipList.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          final internshipInfo = internshipList[index];
-                          return VerticleImage(
-                            internship: internshipInfo,
-                            image: AppImage.logo,
-                          );
-                        }),
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            // -- LIST OF JOB --
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SectionHeading(
-                    title: AppText.enText['recommended-text']!,
-                    showActionButton: true,
-                  ),
-                  // ListView.builder(itemBuilder: (context, index) {
-                  //   return FutureBuilder(
-                  //       future: this._fetchJob(index),
-                  //       builder: (context, snapshot) {
-                  //         switch (snapshot.connectionState) {
-                  //           case ConnectionState.none:
-                  //           // TODO: Handle this case.
-                  //           case ConnectionState.waiting:
-                  //             // TODO: Handle this case.
-                  //             return CircularProgressIndicator();
-                  //           case ConnectionState.active:
-                  //             return CircularProgressIndicator();
-                  //           // TODO: Handle this case.
-                  //           case ConnectionState.done:
-                  //             // TODO: Handle this case.
-                  //             if (snapshot.hasError) {
-                  //               return Text('Error: ${snapshot.error}');
-                  //             } else {
-                  //               var productInfo = snapshot.data;
-                  //               return ListTile(
-                  //                 leading: Icon(Icons.shopping_cart),
-                  //                 title: Text(productInfo!['name']),
-                  //                 subtitle:
-                  //                     Text('price: ${productInfo['price']}USD'),
-                  //               );
-                  //             }
-                  //         }
-                  //       });
-                  // })
-                  // const SizedBox(
-                  //   height: 12,
-                  // ),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: internshipList.length,
-                      scrollDirection: Axis.vertical,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final internshipInfo = internshipList[index];
-                        final companyInfo = companyList[index];
-                        double minSalary;
-                        double maxSalary;
-                        if (internshipInfo.salary.trim().toLowerCase() ==
-                            "unpaid") {
-                          // Handle unpaid case (set minSalary to 0 or a specific value)
-                          minSalary = 0; // Assuming unpaid means no salary
-                          maxSalary = 0;
-                        } else {
-                          List<String> salaryParts =
-                              internshipInfo.salary.split('-');
-                          minSalary = double.parse(
-                              salaryParts[0].trim().replaceAll('\$', ''));
-                          maxSalary = double.parse(
-                              salaryParts[1].trim().replaceAll('\$', ''));
-                        }
+                    //-- Body --
+                    // --CATEGORY--
+                    Padding(
+                      padding: const EdgeInsets.only(left: 24),
+                      child: Column(
+                        children: [
+                          SectionHeading(
+                              title: AppText.enText['findjob-text']!),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          SizedBox(
+                            height: 118,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: snapshot.data!.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  final internshipInfo = snapshot.data![index];
+                                  return VerticleImage(
+                                    internship: internshipInfo,
+                                    image: AppImage.logo,
+                                  );
+                                }),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    // -- LIST OF JOB --
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SectionHeading(
+                            title: AppText.enText['recommended-text']!,
+                            showActionButton: true,
+                          ),
+                          ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data!.length,
+                              scrollDirection: Axis.vertical,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                final internshipInfo = snapshot.data![index];
+                                final companyInfo = companyList[index];
+                                double minSalary;
+                                double maxSalary;
 
-                        return CustomCardInfo(
-                          jobImage: companyInfo.image,
-                          jobType: internshipInfo.jobType,
-                          companyName: companyInfo.companyName,
-                          positionName: internshipInfo.jobTitle,
-                          location: companyInfo.location,
-                          minSalary: minSalary,
-                          maxSalry: maxSalary,
-                          onTap: () {
-                            Provider.of<InternshipProvider>(context,
-                                    listen: false)
-                                .internshipInfo = internshipInfo;
-                            Provider.of<CompanyProfileProvider>(context,
-                                    listen: false)
-                                .companyProfile = companyInfo;
-                            Navigator.pushNamed(
-                                context, RouteManager.jobDetailScreen);
-                          },
-                        );
-                      }),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+                                if (internshipInfo.salary
+                                        .trim()
+                                        .toLowerCase() ==
+                                    "unpaid") {
+                                  // Handle unpaid case (set minSalary to 0 or a specific value)
+                                  minSalary =
+                                      0; // Assuming unpaid means no salary
+                                  maxSalary = 0;
+                                } else {
+                                  List<String> salaryParts =
+                                      internshipInfo.salary.split('-');
+                                  minSalary =
+                                      double.parse(salaryParts[0].trim());
+                                  maxSalary =
+                                      double.parse(salaryParts[1].trim());
+                                }
+                                return CustomCardInfo(
+                                  jobImage: companyInfo.image,
+                                  jobType: internshipInfo.jobType,
+                                  companyName: companyInfo.companyName,
+                                  positionName: internshipInfo.jobTitle,
+                                  location: companyInfo.location,
+                                  minSalary: minSalary,
+                                  maxSalry: maxSalary,
+                                  onTap: () {
+                                    Provider.of<InternshipProvider>(context,
+                                            listen: false)
+                                        .internshipInfo = internshipInfo;
+                                    Provider.of<CompanyProfileProvider>(context,
+                                            listen: false)
+                                        .companyProfile = companyInfo;
+                                    Navigator.pushNamed(
+                                        context, RouteManager.jobDetailScreen);
+                                  },
+                                );
+                              }),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              );
+            } else {
+              return Center(child: Text('No data'));
+            }
+          }),
     );
   }
 
+  // ignore: non_constant_identifier_names
   Future<dynamic> FilterOverLay(BuildContext context,
       Function(Map<String, List<String>>) onSelectOptions) {
     Map<String, List<String>> selectedOptions = {};

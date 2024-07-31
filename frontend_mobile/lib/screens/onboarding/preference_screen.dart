@@ -26,7 +26,6 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
 
   TextEditingController searchController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +62,8 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.popAndPushNamed(context, RouteManager.loginScreen);
+                  Navigator.popAndPushNamed(
+                      context, RouteManager.navigationMenu);
                 },
                 child: Row(
                   children: [

@@ -3,6 +3,7 @@ import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/provider/apply.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
+import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
 import 'package:frontend_mobile/screens/home/widgets/alert_dialog.dart';
 import 'package:provider/provider.dart';
 
@@ -36,18 +37,20 @@ class ApplyButton extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             } else {
               // Show confirmation dialog
-              showConfirmationDialog(
-                context,
-                type: ConfirmationType.warning,
-                title: AppText.enText['warning_title']!,
-                content: AppText.enText['warning_text']!,
-                positiveButtonText: AppText.enText['upload_text_button']!,
-                onPositivePressed: () {
-                  debugPrint("Upload Screen");
-                  Navigator.of(context)
-                      .pushReplacementNamed(RouteManager.accountScreen);
-                },
-              );
+              showConfirmationDialog(context,
+                  type: ConfirmationType.warning,
+                  title: AppText.enText['warning_title']!,
+                  content: AppText.enText['warning_text']!,
+                  positiveButtonText: AppText.enText['upload_text_button']!,
+                  onPositivePressed: () {
+                debugPrint("Upload Screen");
+                Navigator.of(context)
+                    .pushReplacementNamed(RouteManager.cvGenerateScreen);
+              }, onNegativeButtonPressed: () {
+                debugPrint("generate CV");
+                Navigator.of(context)
+                    .pushReplacementNamed(RouteManager.accountScreen);
+              });
             }
           },
           child: Container(

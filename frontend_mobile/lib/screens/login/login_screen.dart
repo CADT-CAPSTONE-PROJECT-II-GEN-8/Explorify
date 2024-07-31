@@ -200,15 +200,16 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       const Text("Don't have an account yet?"),
                       TextButton(
-                          onPressed: () {
-                            Navigator.popAndPushNamed(
-                                context, RouteManager.registerScreen);
-                          },
-                          child: const Text(
-                            "Register Now",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 9),
-                          ))
+                        onPressed: () {
+                          Navigator.popAndPushNamed(
+                              context, RouteManager.registerScreen);
+                        },
+                        child: const Text(
+                          "Register Now",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 9),
+                        ),
+                      ),
                     ],
                   ),
                   // Container(

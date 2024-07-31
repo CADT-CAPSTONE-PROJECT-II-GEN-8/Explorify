@@ -41,24 +41,6 @@ InputDecoration formDecoration({
   );
 }
 
-// const enabledBorder = OutlineInputBorder(
-//     borderRadius: BorderRadius.all(
-//       Radius.circular(12),
-//     ),
-//     borderSide: BorderSide(width: 1, color: Colors.orange));
-
-// const focusedBorder = UnderlineInputBorder(
-//     borderRadius: BorderRadius.all(
-//       Radius.circular(12),
-//     ),
-//     borderSide: BorderSide(width: 2, color: Colors.orange));
-
-// const errorBorder = UnderlineInputBorder(
-//     borderRadius: BorderRadius.all(
-//       Radius.circular(10),
-//     ),
-//     borderSide: BorderSide(width: 1, color: Colors.red));
-
 void showSnackBar(BuildContext context, String text) {
   // Hide the current SnackBar
   ScaffoldMessenger.of(context).hideCurrentSnackBar();

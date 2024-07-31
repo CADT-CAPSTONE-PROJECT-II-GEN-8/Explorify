@@ -7,7 +7,7 @@ class User {
   final String username;
   final String? firstName;
   final String? lastName;
-  final String email;
+  final String? email;
   final String? phone;
   final String? location;
   final String? school;
@@ -18,7 +18,7 @@ class User {
     required this.username,
     this.firstName,
     this.lastName,
-    required this.email,
+    this.email,
     this.phone,
     this.location,
     this.school,
@@ -51,11 +51,11 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      userId: map['user_id'] as int,
+      userId: map['user_id'] as int?,
       username: map['username'] as String,
       firstName: map['first_name'] as String?,
       lastName: map['last_name'] as String?,
-      email: map['email'] as String,
+      email: map['email'] as String?,
       phone: map['phone'] as String?,
       location: map['location'] as String?,
       school: map['school'] as String?,

@@ -56,7 +56,8 @@ class _VerifyPageState extends State<VerifyPage> {
                               width: 250,
                             ),
                           ),
-                          SizedBox(height: 40), // Space for the back button
+                          const SizedBox(
+                              height: 40), // Space for the back button
                           Text(
                             AppText.enText['verify_title']!,
                             style: Theme.of(context).textTheme.headlineLarge,
@@ -77,7 +78,7 @@ class _VerifyPageState extends State<VerifyPage> {
                                 print(userInputData.username);
                                 print(userInputData.password);
                               },
-                              child: Text("Resend $otpCode")),
+                              child: const Text("Resend")),
                           Config.spaceSmall,
                           // Row for separate OTP boxes
                           Form(
