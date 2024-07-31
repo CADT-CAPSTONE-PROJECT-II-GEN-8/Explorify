@@ -1,6 +1,29 @@
-import React from 'react';
+import React , { useState, useEffect } from 'react';
+
+import axiosInstance from 'src/utils/axiosInstance';
+
 
 const Navbar = () => {
+  const [activePostCount, setActivePostCount] = useState(0);
+  const [applicationCount, setApplicationCount] = useState(0);
+
+  useEffect(() => {
+    const fetchCounts = async () => {
+      try {
+        const [activePostResponse, applicationResponse] = await Promise.all([
+          axiosInstance.get('internship/count/'),
+          axiosInstance.get('internship/application/count/')
+        ]);
+
+        setActivePostCount(activePostResponse.data.active_post_count);
+        setApplicationCount(applicationResponse.data.application_count);
+      } catch (error) {
+        console.error("Error fetching counts", error);
+      }
+    };
+
+    fetchCounts();
+  }, []);
   return (
     <>
       <div className=" flex flex-col lg:flex-row w-full lg:space-x-4 space-y-6 lg:space-y-0 mb-2 lg:mb-4">
@@ -24,7 +47,7 @@ const Navbar = () => {
                 </svg>
               </div>
               <div className="flex flex-col">
-                <div className="text-xl font-bold">23</div>
+                <div className="text-xl font-bold">{activePostCount ?? 23}</div>
                 <div className="text-xs uppercase font-light text-gray-800">
                   Posted job
                 </div>
@@ -53,7 +76,7 @@ const Navbar = () => {
                 </svg>
               </div>
               <div className="flex flex-col">
-                <div className="text-xl font-bold">23</div>
+                <div className="text-xl font-bold">{applicationCount ?? 23}</div>
                 <div className="text-xs uppercase font-light text-gray-500">
                   Application
                 </div>

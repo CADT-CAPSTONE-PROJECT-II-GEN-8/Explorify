@@ -75,6 +75,10 @@ class InternshipApplication(models.Model):
     user = models.ForeignKey(User, models.DO_NOTHING, blank=True, null=True)
     # cover_letter = models.CharField(max_length=100)
     # cv = models.CharField(max_length=100)
+    cv = models.FileField(upload_to='cvs/', blank = True, null = True)
+    cover_letter = models.FileField(upload_to='cover_letter/', blank=True, null=True)
+    is_approved = models.BooleanField(default=True)  
+    is_rejected = models.BooleanField(default=False)  
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -94,13 +98,13 @@ class InternshipPost(models.Model):
     job_description = models.TextField(blank=True)
     job_requirement = models.TextField(blank=True)
     JOB_TYPE_CHOICES = [
-        ("FT", "Full-time"),
-        ("PT", "Part-time"),
-        ("CT", "Contract"),
-        ("IN", "Internship"),
+        ("Full-time", "Full-time"),
+        ("Part-time", "Part-time"),
+        ("Contract", "Contract"),
+        ("Internship", "Internship"),
     ]
     job_type = models.CharField(
-        max_length=100, choices=JOB_TYPE_CHOICES, blank=True, default="FT"
+        max_length=100, choices=JOB_TYPE_CHOICES, blank=True, default="Full-time"
     )
     job_duration = models.CharField(max_length=100, blank=True)
     qualification = models.CharField(max_length=100, blank=True)
@@ -128,6 +132,7 @@ class InternshipPost(models.Model):
             models.Index(fields=["job_title"]),
             models.Index(fields=["location"]),
         ]
+        
 
     def __str__(self):
         return f"{self.job_title}"

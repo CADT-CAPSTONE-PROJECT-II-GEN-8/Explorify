@@ -143,3 +143,100 @@ def delete_post(request, postId):
     post.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
+# views : internship application
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
+from .models import InternshipApplication
+from .serializers import AllInternshipApplicationSerializer, InternshipApplicationSerializer
+
+
+
+""" class ApplyInternshipView(generics.CreateAPIView) : 
+    queryset = InternshipApplication.objects.all()
+    serializer_class = InternshipApplicationSerializer
+    # permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        if isinstance(user, AnonymousUser) : 
+            raise ValueError("cannot assign anonymous User to internship application")
+        serializer.save(user = user)
+
+    def post(self, request, *args, **kwargs) : 
+       if not request.user.is_authenticated : 
+           return Response({"detail" : "Authentication credentials were not provided."}, status=status.HTTP_401_UNAUTHORIZED)
+       return self.create(request, *args, **kwargs) """
+
+from rest_framework import status
+from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
+from rest_framework.decorators import permission_classes, api_view
+from django.http import HttpResponse, Http404, FileResponse
+from .serializers import InternshipApplicationSerializer
+import mimetypes
+from rest_framework.permissions import BasePermission, IsAuthenticated, AllowAny
+
+class IsAdminUser(BasePermission):
+    def has_permission(self, request, *args, **kwargs):
+        return (
+            request.user
+            and request.user.is_authenticated
+            and request.user.role.role_id < 3
+        )
+class IsUser(BasePermission):
+    def has_permission(request):
+        return (
+            request.user
+            and request.user.is_authenticated
+            and request.user.role.role_id == 1
+        )
+
+class ListInternshipApplication(APIView) :
+    
+    def get(self, request, pk, *args, **kwargs) : 
+        internship_post = get_object_or_404(InternshipPost, pk = pk)
+        applications = InternshipApplication.objects.filter(internship_post = internship_post)
+        serializer = InternshipApplicationSerializer(applications, many = True) 
+        return Response(serializer.data, status=status.HTTP_200_OK) 
+
+
+@api_view(['GET'])
+def all_application(request):
+     # checking for the parameters from the URL
+    if request.query_params:
+        post = InternshipApplication.objects.filter(**request.query_params.dict())
+    else:
+        post = InternshipApplication.objects.all()
+ 
+    # if there is something in items else raise error
+    if post:
+        serializer = AllInternshipApplicationSerializer(post, many=True)
+        return Response(serializer.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    
+# active internship post count
+from django.utils import timezone
+class ActiveInternPostView(APIView) : 
+    permission_classes = [IsAuthenticated] 
+
+    def get(self, request, *agrs, **kwargs) : 
+        user = request.user
+        active_post_count = InternshipPost.objects.filter(user = user, active = 1).count() 
+        return Response({'active_post_count' : active_post_count})
+    
+# application count
+class InternshipApplicationCountView(APIView) : 
+    permission_classes = [IsAuthenticated] 
+
+    def get(self, request, *agrs, **kwargs) : 
+        user = request.user
+        active_posts = InternshipPost.objects.filter(user = user, active = 1) 
+        applications_count = InternshipApplication.objects.filter(internship_post__in = active_posts).count()
+        return Response({'application_count' : applications_count})
+        

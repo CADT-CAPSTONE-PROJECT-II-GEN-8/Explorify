@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/screens/company/list_company_screen.dart';
+import 'package:frontend_mobile/screens/cv_generate/resume_screen.dart';
 import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
 import 'package:frontend_mobile/screens/history/history_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
+import 'package:frontend_mobile/screens/home/notification.dart';
 import 'package:frontend_mobile/screens/login/check_email.dart';
 import 'package:frontend_mobile/screens/login/success_screen.dart';
 import 'package:frontend_mobile/screens/login/verify_screen.dart';
@@ -24,6 +26,7 @@ import 'package:frontend_mobile/screens/profile/change_password.dart';
 import 'package:frontend_mobile/screens/profile/edit_profile.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/education.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/select_language.dart';
+import 'package:frontend_mobile/screens/profile/faq_screen.dart';
 import 'package:frontend_mobile/screens/profile/language.dart';
 import 'package:frontend_mobile/screens/profile/profile_screen.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/work_experince.dart';
@@ -64,8 +67,11 @@ class RouteManager {
   static const String teamScreen = '/team';
   static const String historyScreen = '/history';
   static const String articleScreen = '/article';
+  static const String resumeScreen = '/profile/resume';
   static const String listCompanyScreen = '/company/list_company';
   static const String search = '/search';
+  static const String notificationScreen = '/home/notification';
+  static const String termAndConditionScreen = '/profile/termAndCondition';
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -138,6 +144,13 @@ class RouteManager {
             builder: (context) => const ListCompanyScreen());
       case search:
         return MaterialPageRoute(builder: (context) => const SearchScreen());
+      case resumeScreen:
+        return MaterialPageRoute(builder: (context) => const CVScreen());
+      case notificationScreen:
+        return MaterialPageRoute(
+            builder: (context) => const NotificationScreen());
+      case termAndConditionScreen:
+        return MaterialPageRoute(builder: (context) => const FAQScreen());
       case historyScreen:
         return MaterialPageRoute(builder: (context) => const HistoryScreen());
       case articleScreen:

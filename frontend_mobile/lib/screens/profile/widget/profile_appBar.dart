@@ -16,16 +16,16 @@ class ProfileAppBar extends StatelessWidget {
       child: Column(
         children: [
           CustomProfileAppBar(
-            showBackArrow: true,
+            showBackArrow: false,
             title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //SizedBox(width: 2),
                 Text(
                   "Your Profile",
                   style: Theme.of(context)
                       .textTheme
-                      .titleLarge!
+                      .headlineMedium!
                       .copyWith(color: AppColor.white),
                 ),
               ],
@@ -38,8 +38,8 @@ class ProfileAppBar extends StatelessWidget {
                 onPressed: () {},
                 icon: Image.asset(
                   "assets/images/profile_img.png",
-                  width: 64,
-                  height: 64,
+                  width: 78,
+                  height: 82,
                 ),
               ),
               SizedBox(width: 10),
@@ -65,7 +65,7 @@ class ProfileAppBar extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 2,
+            height: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -7,11 +7,12 @@ import JobDetail from 'src/pages/JobPosting/JobDetail';
 import EditJob from 'src/pages/JobPosting/EditJob';
 import DeleteJob from 'src/pages/JobPosting/DeleteJob';
 import Test from 'src/components/Test';
-import CompanyTable from 'src/pages/CompanyPost/CompanyTable';
 import ViewDetail from 'src/pages/CompanyPost/ViewDetail';
 import Edit from 'src/pages/CompanyPost/Edit';
 import DeleteProfile from 'src/pages/CompanyPost/DeleteProfile';
 import { ProtectedRoute } from './ProtectedRouteComponent';
+import Profile from 'src/pages/CompanyProfile/Profile';
+import LisCandidate from 'src/pages/Candidate/ListCandidate';
 
 export const protectedRoutes = [
   {
@@ -86,7 +87,7 @@ export const protectedRoutes = [
         path: '/company/profile',
         element: (
           <Main>
-            <CompanyTable />
+           <Profile/>
           </Main>
         ),
       },
@@ -114,6 +115,18 @@ export const protectedRoutes = [
           </Main>
         ),
       },
+
+
+      // for list application 
+      {
+        path: '/all/application/apply',
+        element: (
+          <Main>
+            <LisCandidate />
+          </Main>
+        ),
+      },
+
     ],
   },
 ];

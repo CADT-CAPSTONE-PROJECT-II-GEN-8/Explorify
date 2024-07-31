@@ -117,7 +117,7 @@ class TagsSerializer(serializers.ModelSerializer):
 
 
 from account.serializers import UsersSerializer
-from internship.models import InternshipPost
+from internship.models import InternshipApplication, InternshipPost
 from PIL import Image as PILImage
 import io
 from django.core.files.base import ContentFile
@@ -171,3 +171,13 @@ class InternshipPostSerializer(serializers.ModelSerializer):
         img_io.seek(0)
 
         return ContentFile(img_io.read(), name=image.name)
+    
+    
+class InternshipApplicationSerializer(serializers.ModelSerializer):
+    cover_letter = serializers.FileField(required=True)
+    cv = serializers.FileField(required=True)
+    class Meta:
+        model = InternshipApplication
+        fields = ["user", "internship_post", "cover_letter","cv"]
+    
+        

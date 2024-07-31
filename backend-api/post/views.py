@@ -425,3 +425,56 @@ def favorite_delete(request, pk):
         )
 
 # DONE CHECKING AND TESTING
+
+
+#NEW
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.views import APIView
+
+from django.http import FileResponse, Http404
+from django.shortcuts import get_object_or_404
+class ApplyInternshipView(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+    serializer_class = InternshipApplicationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk, *args, **kwargs):
+        internship_post = get_object_or_404(InternshipPost, pk=pk)
+        data = request.data.copy()
+        data['internship_post'] = internship_post.pk
+        data['user'] = request.user.pk
+        
+        serializer = self.serializer_class(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response({"message": "Error", "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+class FetchCvView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, pk, *args, **kwargs):
+        application = get_object_or_404(InternshipApplication, pk=pk)
+        cv = application.cv
+        # cv = "yes"
+        if not cv:
+            raise Http404("Cv not found")
+
+        # return Response(cv, 200)
+        return FileResponse(
+            cv.open("rb"), content_type="application/pdf", as_attachment=False
+        )
+
+class FetchCoverLetterView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, pk, *args, **kwargs):
+        application = get_object_or_404(InternshipApplication, pk=pk)
+        
+        
+        cover_letter = application.cover_letter
+        # cover_letter = "application"
+        if not cover_letter:
+            raise Http404("Cv not found")
+        # return Response(cover_letter, 200)
+        return FileResponse(
+            cover_letter.open("rb"), content_type="application/pdf", as_attachment=False
+        )
