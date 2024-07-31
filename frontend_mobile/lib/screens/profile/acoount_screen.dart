@@ -88,7 +88,6 @@ class _AccountScreenState extends State<AccountScreen> {
                               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus id commodo egestas metus interdum dolor.',
                           onTrailingTap: () {
                             Navigator.pushNamed(
-                            Navigator.pushNamed(
                                 context, RouteManager.aboutMeScreen);
                           },
                         ),
@@ -97,7 +96,6 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: Icons.work,
                           title: 'Work experience',
                           onTrailingTap: () {
-                            Navigator.pushNamed(
                             Navigator.pushNamed(
                                 context, RouteManager.workExperinceScreen);
                           },
@@ -109,7 +107,6 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: Icons.work,
                           title: 'Education',
                           onTrailingTap: () {
-                            Navigator.pushNamed(
                             Navigator.pushNamed(
                                 context, RouteManager.eduInfoScreen);
                           },
@@ -124,7 +121,6 @@ class _AccountScreenState extends State<AccountScreen> {
                               'Leadership Teamwork Visioner Target oriented Consistent',
                           onTrailingTap: () {
                             Navigator.pushNamed(
-                            Navigator.pushNamed(
                                 context, RouteManager.skillScreen);
                           },
                         ),
@@ -135,7 +131,6 @@ class _AccountScreenState extends State<AccountScreen> {
                           subTitle: 'English Koren Khmer Chinese',
                           onTrailingTap: () {
                             Navigator.pushNamed(
-                            Navigator.pushNamed(
                                 context, RouteManager.languageMainScreen);
                           },
                         ),
@@ -144,7 +139,6 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: Icons.book_online_outlined,
                           title: 'Appreciation',
                           onTrailingTap: () {
-                            Navigator.pushNamed(
                             Navigator.pushNamed(
                                 context, RouteManager.appreciationScreen);
                           },
