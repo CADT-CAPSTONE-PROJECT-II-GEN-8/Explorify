@@ -43,7 +43,9 @@ class InternshipApplicationSerializer(serializers.ModelSerializer) :
 class AllInternshipApplicationSerializer(serializers.ModelSerializer) : 
     # user = UsersSerializer()
     # internship_post = InternshipPostSerialzer()
+    username = serializers.CharField(source='user.username', read_only=True)
+    job_title = serializers.CharField(source='internship_post.job_title', read_only=True)
     class Meta : 
         model = InternshipApplication
-        fields = ('internship_application_id','internship_post','user','cv','cover_letter','is_approved','is_rejected')
+        fields = ('internship_application_id','job_title','username','cv','cover_letter','is_approved','is_rejected')
         internship_application_id = serializers.IntegerField(required=False)
