@@ -14,7 +14,13 @@ urlpatterns = [
     path('generate/', LoginView.as_view(), name='generate'),    # Generate OTP Login
     path('login_with_otp/', LoginWithOtpView.as_view(), name='login_with_otp'),   # Login with OTP
     path('logout/', user_logout, name='logout'),   # Logout
-       
+
     path('change_password/', change_password, name='change_password'),
+    
+    # ADMIN WEB
+    path('company-profile/', update_company_profile, name='update_profile'),      # PUT : DONE
+    
+    # MOBILE AND WEB UPDATE PROFILE
+    path('profile/', update_user_info, name='update_user_info'),   # PUT :DONE
     
 ]

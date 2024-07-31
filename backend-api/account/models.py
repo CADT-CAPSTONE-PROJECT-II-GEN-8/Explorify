@@ -135,7 +135,7 @@ class User(AbstractUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.username})"
-      
+    
 
 class ContactInformation(models.Model):
     contact_information_id = models.BigAutoField(primary_key=True)
