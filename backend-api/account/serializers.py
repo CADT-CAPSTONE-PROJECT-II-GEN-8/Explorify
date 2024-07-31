@@ -117,6 +117,7 @@ class CompanyProfileRegistrationSerializer(serializers.ModelSerializer):
 
         return company_profile
 
+
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

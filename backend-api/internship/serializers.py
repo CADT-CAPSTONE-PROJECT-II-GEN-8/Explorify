@@ -14,6 +14,13 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
         company_id = serializers.IntegerField(required=False)
 
 
+class MobileCompanyProfileSerializer(serializers.ModelSerializer):
+    
+    class Meta: 
+        model = CompanyProfile
+        fields = ('company_id','user','company_name','description','location','head_office','employee_size','company_type','specialization','company_website','company_pic')  
+        company_id = serializers.IntegerField(required=False)
+
 
 class InternshipPostSerialzer(serializers.ModelSerializer):
     class Meta: 

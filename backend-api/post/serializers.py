@@ -125,6 +125,37 @@ class UsernameOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username']
+
+from internship.models import CompanyProfile
+
+class CompanyProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompanyProfile
+        fields = ['company_name', 'description', 'location', 'head_office', 'employee_size', 'company_type', 'specialization', 'company_website', 'company_pic']
+
+class UserSerializer(serializers.ModelSerializer):
+    company_profile = CompanyProfileSerializer()
+
+    class Meta:
+        model = User
+        fields = [ 'company_profile']
+
+class InternshipPostDetail2Serializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = InternshipPost
+        fields = "__all__"
+class InternshipPostDetailSerializer(serializers.ModelSerializer):
+    user = UsernameOnlySerializer(required=False)
+    tags = TagsSerializer(many=True, read_only=True)
+    deadline = serializers.DateField(required=False)
+    thumbnails = serializers.ImageField(required=False)
+
+    class Meta:
+        model = InternshipPost
+        fields = "__all__"
+        
 class InternshipPostSerializer(serializers.ModelSerializer):
     user = UsernameOnlySerializer(required=False)
     tags = TagsSerializer(many=True, read_only=True)

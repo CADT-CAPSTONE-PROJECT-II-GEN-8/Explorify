@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-// import JobBar from "../JobPosting/JobBar";
 import Header from "../JobPosting/Header";
 
 const ListCandidate = () => {
@@ -32,7 +31,7 @@ const ListCandidate = () => {
     <section className="py-10 sm:py-5">
       <div className="mx-auto max-w-screen-2xl lg:px-1">
         <div className="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
-          <JobBar />
+        
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-[#F27C1C] uppercase bg-[#fef2e8] dark:bg-gray-700 dark:text-gray-400">

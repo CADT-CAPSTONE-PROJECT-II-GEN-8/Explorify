@@ -20,7 +20,7 @@ def view_company(request):
  
     # if there is something in items else raise error
     if company:
-        serializer = CompanyProfileSerializer(company, many=True)
+        serializer = MobileCompanyProfileSerializer(company, many=True)
         return Response(serializer.data)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -30,7 +30,7 @@ def view_details(request, companyId=None):
     try:
         if companyId is not None:
             company = CompanyProfile.objects.get(pk=companyId)
-            serializer = CompanyProfileSerializer(company)
+            serializer = MobileCompanyProfileSerializer(company)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -148,7 +148,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from .models import InternshipApplication
-from .serializers import AllInternshipApplicationSerializer, InternshipApplicationSerializer
+from .serializers import AllInternshipApplicationSerializer, InternshipApplicationSerializer, MobileCompanyProfileSerializer
 
 
 

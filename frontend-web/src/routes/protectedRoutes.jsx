@@ -13,6 +13,7 @@ import DeleteProfile from 'src/pages/CompanyPost/DeleteProfile';
 import { ProtectedRoute } from './ProtectedRouteComponent';
 import Profile from 'src/pages/CompanyProfile/Profile';
 import LisCandidate from 'src/pages/Candidate/ListCandidate';
+import CV from 'src/pages/Candidate/CV';
 
 export const protectedRoutes = [
   {
@@ -79,7 +80,7 @@ export const protectedRoutes = [
         path: '/test',
         element: (
           <Main>
-            <Test />
+            <CV />
           </Main>
         ),
       },
