@@ -191,7 +191,7 @@ def internship_post_detail(request, pk=None):
         try:
             post = InternshipPost.objects.select_related('user__company_profile').get(pk=pk)
         except InternshipPost.DoesNotExist:
-            return error_response(message="Not Found", status=404)
+            return error_response(message="Not Found", status_code=404)
         serializer = InternshipPostDetail2Serializer(post)
     
         return success_response(
