@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/model/article/article_model.dart';
 import 'package:frontend_mobile/screens/artical/detail_screen.dart';
+import 'package:frontend_mobile/screens/artical/services/article_service.dart';
 
 class ArticleScreen extends StatefulWidget {
   const ArticleScreen({super.key});
@@ -27,48 +29,9 @@ final List<String> title = [
 int selectedIndex = 0;
 
 class _ArticleScreenState extends State<ArticleScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: 100,
-        backgroundColor: const Color.fromARGB(255, 249, 198, 157),
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     color: Colors.grey[100],
-        //     image: DecorationImage(
-        //       image: AssetImage("assets/images/upper_style.png"),
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
-        // ),
-        title: _buildText(),
-      ),
-      body: _buildBody(),
-    );
-  }
-
+  ArticleService articleService = ArticleService();
+  List<Post> postData = [];
   Future<List<Map<String, dynamic>>> getData() async {
-    // use to call the api
-
-    //   try {
-    //   final response =
-    //       await http.get(Uri.parse("https://fakestoreapi.com/products"));
-
-    //   if (response.statusCode == 200) {
-    //     List list = json.decode(response.body);
-    //     List<Map<String, dynamic>> items =
-    //         list.map((e) => e as Map<String, dynamic>).toList();
-    //     return items;
-    //   } else {
-    //     throw Exception("Failed to load data");
-    //   }
-    // } catch (e) {
-    //   throw Exception("Error fetching data: ${e.toString()}");
-    // }
-
     // Sample data
     List<Map<String, dynamic>> sampleData = [
       {
@@ -119,6 +82,29 @@ class _ArticleScreenState extends State<ArticleScreen> {
     ];
 
     return Future.delayed(const Duration(seconds: 2), () => sampleData);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        centerTitle: true,
+        toolbarHeight: 100,
+        backgroundColor: const Color.fromARGB(255, 249, 198, 157),
+        // flexibleSpace: Container(
+        //   decoration: BoxDecoration(
+        //     color: Colors.grey[100],
+        //     image: DecorationImage(
+        //       image: AssetImage("assets/images/upper_style.png"),
+        //       fit: BoxFit.cover,
+        //     ),
+        //   ),
+        // ),
+        title: _buildText(),
+      ),
+      body: _buildBody(),
+    );
   }
 
   Widget _buildText() {
@@ -258,8 +244,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   Widget _buildApi() {
     return Center(
-      child: FutureBuilder<List<Map<String, dynamic>>>(
-        future: getData(),
+      child: FutureBuilder<List<dynamic>>(
+        future: articleService.getPostDetials(context),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text("Error: ${snapshot.error}");
@@ -274,7 +260,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
     );
   }
 
-  Widget _buildListView(List<Map<String, dynamic>> items) {
+  Widget _buildListView(List<dynamic> items) {
     return ListView.builder(
       itemCount: items.length,
       itemBuilder: (context, index) {
@@ -283,7 +269,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
     );
   }
 
-  Widget _buildItem(Map<String, dynamic> item) {
+  Widget _buildItem(Post item) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
@@ -315,7 +301,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
-                    image: CachedNetworkImageProvider(item['image']),
+                    image: CachedNetworkImageProvider(
+                        "https://www.chieflearningofficer.com/wp-content/uploads/2023/05/AdobeStock_577015054.jpeg"),
                     fit: BoxFit.cover,
                     onError: (error, stackTrace) => Container(
                       color: Colors.white,
@@ -334,7 +321,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            "${item['title']}",
+                            "${item.title}",
                             style: const TextStyle(
                               color: Color.fromARGB(255, 242, 124, 28),
                               fontSize: 16,
@@ -351,7 +338,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      "${item['category']}",
+                      "${item.slug}",
                       style: TextStyle(
                         color: Colors.grey[800],
                         fontSize: 12,

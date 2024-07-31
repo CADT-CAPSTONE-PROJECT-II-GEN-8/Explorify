@@ -148,6 +148,13 @@ class _HomeScreenState extends State<HomeScreen> {
       description: "Social media and technology company",
       location: "USA",
     ),
+    CompanyProfile(
+      companyPic: AppImage.facebook,
+      companyId: 2,
+      companyName: "Meta Platforms Inc.",
+      description: "Social media and technology company",
+      location: "USA",
+    ),
   ];
   InternshipService internshipService = InternshipService();
   List<Internship> internshipData = [];

@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/model/article/article_model.dart';
 
 class DetailsScreen extends StatelessWidget {
-  final Map<String, dynamic> item;
+  final Post item;
 
   const DetailsScreen({super.key, required this.item});
 
@@ -13,7 +14,7 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDetail(Map<String, dynamic> item, BuildContext context) {
+  Widget _buildDetail(Post item, BuildContext context) {
     return Stack(
       children: [
         Container(
@@ -21,7 +22,7 @@ class DetailsScreen extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.4,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: CachedNetworkImageProvider(item['image']),
+              image: CachedNetworkImageProvider("https://www.chieflearningofficer.com/wp-content/uploads/2023/05/AdobeStock_577015054.jpeg"),
               fit: BoxFit.cover,
             ),
           ),
@@ -69,7 +70,7 @@ class DetailsScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            "${item['title']}",
+                            "${item.title}",
                             style: const TextStyle(
                               color: Color.fromARGB(255, 21, 11, 61),
                               fontSize: 20,
@@ -97,7 +98,7 @@ class DetailsScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 30),
                     child: Text(
-                      "${item['category'] ?? 'No description available.'}",
+                      "${item.slug ?? 'No description available.'}",
                       style: const TextStyle(
                           color: Color.fromARGB(255, 242, 124, 28),
                           fontSize: 14),
@@ -108,7 +109,7 @@ class DetailsScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 30),
                     child: Text(
-                      "${item['description'] ?? 'No description available.'}",
+                      "${item.content ?? 'No description available.'}",
                       style: const TextStyle(color: Colors.black, fontSize: 14),
                       textAlign: TextAlign.start,
                     ),
