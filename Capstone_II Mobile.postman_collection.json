@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "Authentication",
+			"name": "1. Authentication",
 			"item": [
 				{
 					"name": "User",
@@ -201,6 +201,31 @@
 						},
 						{
 							"name": "Login-otp",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Parse the JSON response\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"// Check if the response is successful\r",
+											"if (response.result === \"Success\" && response.status_code === 200) {\r",
+											"    // Save tokens to environment variables\r",
+											"    pm.environment.set(\"access_token\", response.body.access_token);\r",
+											"    // pm.environment.set(\"refresh_token\", response.body.refresh_token);\r",
+											"    \r",
+											"    // // Optional: Save other user details\r",
+											"    // pm.environment.set(\"user_name\", response.body.user_name);\r",
+											"    // pm.environment.set(\"email\", response.body.email);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
 								"auth": {
 									"type": "noauth"
@@ -212,7 +237,7 @@
 									"formdata": [
 										{
 											"key": "code",
-											"value": "321522",
+											"value": "454648",
 											"type": "text"
 										},
 										{
@@ -285,6 +310,9 @@
 						{
 							"name": "Generate OTP login",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -501,7 +529,7 @@
 			]
 		},
 		{
-			"name": "CV",
+			"name": "2. CV",
 			"item": [
 				{
 					"name": "CV-Pre_Set data",
@@ -917,16 +945,6 @@
 										{
 											"name": "List user company",
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "StfmjaQLb0PXHNvfKUCMUFEvtNuBcI",
-															"type": "string"
-														}
-													]
-												},
 												"method": "GET",
 												"header": [
 													{
@@ -953,16 +971,6 @@
 										{
 											"name": "Create user company",
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{authToken}}",
-															"type": "string"
-														}
-													]
-												},
 												"method": "POST",
 												"header": [],
 												"body": {
@@ -1113,16 +1121,6 @@
 										{
 											"name": "Update",
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{authToken}}",
-															"type": "string"
-														}
-													]
-												},
 												"method": "PUT",
 												"header": [],
 												"body": {
@@ -1194,16 +1192,6 @@
 										{
 											"name": "List user education",
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{authToken}}",
-															"type": "string"
-														}
-													]
-												},
 												"method": "GET",
 												"header": [],
 												"url": {
@@ -1224,16 +1212,6 @@
 										{
 											"name": "Create user education",
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{authToken}}",
-															"type": "string"
-														}
-													]
-												},
 												"method": "POST",
 												"header": [],
 												"body": {
@@ -1562,16 +1540,6 @@
 				{
 					"name": "GET CV DATA USER SAVE",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{authToken}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -1657,16 +1625,6 @@
 				{
 					"name": "Generate CV File",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "mKhBnlGOWp8fC1Izudg0B69eWmP8QG",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1675,12 +1633,12 @@
 								{
 									"key": "image_file",
 									"type": "file",
-									"src": "/C:/Users/unsre/Pictures/Screenshots/Screenshot 2024-06-11 140056.png"
+									"src": "/C:/Users/unsre/Pictures/Screenshots/Screenshot (1).png"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/{{VERSION}}/cv-form-data/",
+							"raw": "{{BASE_URL}}/{{VERSION}}/cv-form-data/?template=10",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -1688,6 +1646,12 @@
 								"{{VERSION}}",
 								"cv-form-data",
 								""
+							],
+							"query": [
+								{
+									"key": "template",
+									"value": "10"
+								}
 							]
 						}
 					},
@@ -1696,7 +1660,7 @@
 			]
 		},
 		{
-			"name": "Social Authentication",
+			"name": "3. Social Authentication",
 			"item": [
 				{
 					"name": "Register",
@@ -1790,26 +1754,16 @@
 				{
 					"name": "get current user",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "VkxGXT5OdrwEaqLmDG6ykdvCiutowt",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/{{VERSION}}/auth/currentUser/",
+							"raw": "{{BASE_URL}}/{{VERSION}}/account/currentUser/",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"{{VERSION}}",
-								"auth",
+								"account",
 								"currentUser",
 								""
 							]
@@ -1851,141 +1805,131 @@
 			]
 		},
 		{
-			"name": "Post/Article",
+			"name": "4. Post/Article",
 			"item": [
 				{
-					"name": "Mobile",
-					"item": [
-						{
-							"name": "List",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BASE_URL}}/{{VERSION}}/posts/list/",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"posts",
-										"list",
-										""
-									],
-									"query": [
-										{
-											"key": "tag",
-											"value": "tag",
-											"disabled": true
-										}
-									]
+					"name": "List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
 								}
-							},
-							"response": []
+							]
 						},
-						{
-							"name": "View Detail",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BASE_URL}}/{{VERSION}}/posts/1/",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"posts",
-										"1",
-										""
-									]
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/posts/list/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"posts",
+								"list",
+								""
+							],
+							"query": [
+								{
+									"key": "tag",
+									"value": "tag",
+									"disabled": true
 								}
-							},
-							"response": []
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "View Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/posts/1/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"posts",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
-			"name": "Internship Post",
+			"name": "5. Internship Post",
 			"item": [
 				{
-					"name": "Mobile",
-					"item": [
-						{
-							"name": "List",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BASE_URL}}/{{VERSION}}/internship-posts/list/",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"internship-posts",
-										"list",
-										""
-									],
-									"query": [
-										{
-											"key": "tag",
-											"value": "tag",
-											"disabled": true
-										}
-									]
+					"name": "List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
 								}
-							},
-							"response": []
+							]
 						},
-						{
-							"name": "View Detail",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{BASE_URL}}/{{VERSION}}/internship-posts/1/",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"internship-posts",
-										"1",
-										""
-									]
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/internship-posts/list/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"internship-posts",
+								"list",
+								""
+							],
+							"query": [
+								{
+									"key": "tag",
+									"value": "tag",
+									"disabled": true
 								}
-							},
-							"response": []
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "View Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/internship-posts/1/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"internship-posts",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
-			"name": "Comments",
+			"name": "6. Comments",
 			"item": [
 				{
 					"name": "List with replies",
@@ -2068,7 +2012,7 @@
 			]
 		},
 		{
-			"name": "Reply",
+			"name": "7. Reply",
 			"item": [
 				{
 					"name": "List",
@@ -2143,7 +2087,7 @@
 			]
 		},
 		{
-			"name": "Favorite",
+			"name": "8. Favorite",
 			"item": [
 				{
 					"name": "List",
@@ -2253,6 +2197,188 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "9. Apply For Internship",
+			"item": [
+				{
+					"name": "Apply",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cover_letter",
+									"type": "file",
+									"src": "/C:/Users/unsre/Downloads/cv.pdf"
+								},
+								{
+									"key": "cv",
+									"type": "file",
+									"src": "/C:/Users/unsre/Downloads/cv.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/internship-posts/1/apply/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"internship-posts",
+								"1",
+								"apply",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show CV",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/application/4/cv/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"application",
+								"4",
+								"cv",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Cover Letter",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/application/4/cover-letter/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"application",
+								"4",
+								"cover-letter",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "10. Update user info",
+			"item": [
+				{
+					"name": "Update Info",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "22\n",
+									"type": "text"
+								},
+								{
+									"key": "headline",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/account/profile/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"account",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
