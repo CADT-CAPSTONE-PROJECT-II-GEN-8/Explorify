@@ -9,13 +9,13 @@ import 'package:frontend_mobile/utils/error_handling.dart';
 import 'package:http/http.dart' as http;
 
 class CompanyService {
-  Future<List<CompanyProfile>> getInternshipDetials(
+  Future<List<CompanyProfile>> getCompanyDetails(
       BuildContext context) async {
     List<CompanyProfile> company = [];
     try {
       http.Response response = await http.get(Uri.parse(APIEndPoint.baseUrl +
           APIEndPoint.version +
-          APIEndPoint.internEndPoint.getInternshipDetials));
+          APIEndPoint.companyEndPoint.getCompanyDetails));
 
       if (!context.mounted) return company;
       httpErrorHandle(

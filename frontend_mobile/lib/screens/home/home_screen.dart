@@ -6,10 +6,12 @@ import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/model/cv/user_model.dart';
 import 'package:frontend_mobile/model/internship/company_profile.dart';
 import 'package:frontend_mobile/model/internship/internship_posting.dart';
+import 'package:frontend_mobile/model/internship/internwithcompany_model.dart';
 import 'package:frontend_mobile/model/internship/tag_model.dart';
 import 'package:frontend_mobile/provider/company_info_provider.dart';
 import 'package:frontend_mobile/provider/job_detail_provider.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
+import 'package:frontend_mobile/screens/home/services/company_service.dart';
 import 'package:frontend_mobile/screens/home/services/internship_service.dart';
 import 'package:frontend_mobile/screens/home/widgets/category.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_card.dart';
@@ -135,29 +137,31 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<CompanyProfile> companyList = [
     CompanyProfile(
-      companyPic: AppImage.google,
-      companyId: 0,
-      companyName: "Google Inc",
-      description: "Giant tech company",
-      location: "Canada, USA",
-    ),
+        companyPic: AppImage.google,
+        companyId: 0,
+        companyName: "Google Inc",
+        description: "Giant tech company",
+        location: "Canada, USA",
+        userId: 1),
     CompanyProfile(
-      companyPic: AppImage.facebook,
-      companyId: 1,
-      companyName: "Meta Platforms Inc.",
-      description: "Social media and technology company",
-      location: "USA",
-    ),
+        companyPic: AppImage.facebook,
+        companyId: 1,
+        companyName: "Meta Platforms Inc.",
+        description: "Social media and technology company",
+        location: "USA",
+        userId: 1),
     CompanyProfile(
-      companyPic: AppImage.facebook,
-      companyId: 2,
-      companyName: "Meta Platforms Inc.",
-      description: "Social media and technology company",
-      location: "USA",
-    ),
+        companyPic: AppImage.facebook,
+        companyId: 2,
+        companyName: "Meta Platforms Inc.",
+        description: "Social media and technology company",
+        location: "USA",
+        userId: 1),
   ];
   InternshipService internshipService = InternshipService();
+  CompanyService companyService = CompanyService();
   List<Internship> internshipData = [];
+  List<CompanyProfile> companyData = [];
   @override
   void initState() {
     super.initState();
@@ -179,6 +183,18 @@ class _HomeScreenState extends State<HomeScreen> {
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (snapshot.hasData) {
+              internshipData = snapshot.data as List<Internship>;
+
+              // List<InternshipWithCompany> combinedData = [];
+              // for (var internship in internshipData) {
+              //   final company = companyList.firstWhere(
+              //     (company) => company.userId == internship.user.userId,
+              //   );
+              //   combinedData.add(InternshipWithCompany(
+              //     internship: internship,
+              //     company: company,
+              //   ));
+              // }
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -267,10 +283,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 118,
                             child: ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: snapshot.data!.length,
+                                itemCount: internshipData.length,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
-                                  final internshipInfo = snapshot.data![index];
+                                  final internshipInfo = internshipData[index];
                                   return VerticleImage(
                                     internship: internshipInfo,
                                     image: AppImage.logo,
@@ -296,12 +312,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           ListView.builder(
                               shrinkWrap: true,
-                              itemCount: snapshot.data!.length,
+                              itemCount: internshipData.length,
                               scrollDirection: Axis.vertical,
                               physics: const BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
-                                final internshipInfo = snapshot.data![index];
-                                final companyInfo = companyList[index];
+                                final internshipInfo = internshipData[index];
+                                final companyData = companyList[index];
+                                // final companyInfo = companyData[index].userId ==
+                                //         internshipData[index].user.userId
+                                //     ? companyData[index]
+                                //     : null;
                                 double minSalary;
                                 double maxSalary;
 
@@ -322,11 +342,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                       double.parse(salaryParts[1].trim());
                                 }
                                 return CustomCardInfo(
-                                  jobImage: companyInfo.companyPic,
+                                  jobImage: companyData.companyPic,
                                   jobType: internshipInfo.jobType,
-                                  companyName: companyInfo.companyName,
+                                  companyName: companyData.companyName,
                                   positionName: internshipInfo.jobTitle,
-                                  location: companyInfo.location,
+                                  location: companyData.location,
                                   minSalary: minSalary,
                                   maxSalry: maxSalary,
                                   onTap: () {
@@ -335,7 +355,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         .internshipInfo = internshipInfo;
                                     Provider.of<CompanyProfileProvider>(context,
                                             listen: false)
-                                        .companyProfile = companyInfo;
+                                        .companyProfile = companyData;
                                     Navigator.pushNamed(
                                         context, RouteManager.jobDetailScreen);
                                   },

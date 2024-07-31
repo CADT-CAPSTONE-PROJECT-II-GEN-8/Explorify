@@ -1,5 +1,6 @@
 class CompanyProfile {
   int companyId;
+  int userId;
   String companyName;
   String description;
   String location;
@@ -11,6 +12,7 @@ class CompanyProfile {
   String companyPic;
 
   CompanyProfile({
+    required this.userId,
     required this.companyId,
     required this.companyName,
     required this.description,
@@ -24,12 +26,13 @@ class CompanyProfile {
   });
 
   factory CompanyProfile.fromMap(Map<String, dynamic> json) => CompanyProfile(
-        companyId: json["company_id"],
+        userId: json["user"] as int,
+        companyId: json["company_id"] as int,
         companyName: json["company_name"],
         description: json["description"],
         location: json["location"],
         headOffice: json["head_office"],
-        employeeSize: json["employee_size"],
+        employeeSize: json["employee_size"] as int,
         companyType: json["company_type"],
         specialization: json["specialization"],
         companyWebsite: json["company_website"],
@@ -37,6 +40,7 @@ class CompanyProfile {
       );
 
   Map<String, dynamic> toMap() => {
+        "user": userId,
         "company_id": companyId,
         "company_name": companyName,
         "description": description,
