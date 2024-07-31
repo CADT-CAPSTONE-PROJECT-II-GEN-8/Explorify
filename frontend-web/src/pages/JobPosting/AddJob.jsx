@@ -5,7 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Swal from 'sweetalert2';
-
+import axiosInstance from 'src/utils/axiosInstance';
 const AddJob = () => {
   const jobTypeChoices = [
     { value: "Full-time", label: "Full-time" },
@@ -51,9 +51,7 @@ const AddJob = () => {
     setLoading(true);
     setMessage(null);
     try {
-      const res = await axios.post('http://localhost:8989/api/v1/post/create/', jobData, {
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const res = await axiosInstance.post('internship-posts/', jobData);
 
       // show success alert 
       Swal.fire({

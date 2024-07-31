@@ -6,7 +6,7 @@ import DeleteJob from "./DeleteJob";
 import Header from "./Header";
 import Pagination from "./Pagination";
 import Search from "./Search";
-
+import axiosInstance from "src/utils/axiosInstance";
 const JobTable = () => {
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
@@ -15,11 +15,12 @@ const JobTable = () => {
   const [itemsPerPage, setItemsPerPage] = useState(2);
 
   useEffect(() => {
-    axios
-      .get('http://localhost:8989/api/v1/post/list/job')
+    axiosInstance
+      .get('internship-posts/')
       .then((response) => {
-        setJobs(response.data);
-        setFilteredJobs(response.data); // Initialize filteredJobs with the full list
+        setJobs(response.data.results);
+        console.log(response.data);
+        setFilteredJobs(response.data.results); // Initialize filteredJobs with the full list
       })
       .catch((error) => console.error('Error fetching data', error));
   }, []);
@@ -28,7 +29,7 @@ const JobTable = () => {
     // Filter jobs based on the search term
     setFilteredJobs(
       jobs.filter(job =>
-        job.job_title.toLowerCase().includes(searchTerm.toLowerCase())
+        job.job_title = job.job_title
       )
     );
     setCurrentPage(1); // Reset to first page when search term changes
