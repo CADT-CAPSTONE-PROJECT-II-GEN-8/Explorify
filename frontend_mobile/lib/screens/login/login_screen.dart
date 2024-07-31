@@ -5,7 +5,6 @@ import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
-import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/utils/config.dart';
 import 'package:frontend_mobile/widget/login_form.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -37,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         _currentUser = account!;
         _currentUser.authentication.then((value) {
-          print("Custom Log:${value.accessToken}");
+          debugPrint("Custom Log:${value.accessToken}");
           _login("google", value.accessToken!);
         });
       });
@@ -52,11 +51,11 @@ class _LoginPageState extends State<LoginPage> {
     try {
       Response response = await dio.post("http://192.168.1.143:8000/api/login",
           data: data, onSendProgress: (count, total) {
-        print("Count:$count");
+        debugPrint("Count:$count");
       });
       debugPrint(response.data);
     } on DioException catch (e) {
-      print(e.response);
+      debugPrint('${e.response}');
     }
   }
 
@@ -77,14 +76,14 @@ class _LoginPageState extends State<LoginPage> {
          Permissions: ${accessToken.permissions}
          Declined permissions: ${accessToken.declinedPermissions}
          ''';
-          print(_message);
+          debugPrint(_message);
           _login("facebook", accessToken.token);
         });
         break;
       case FacebookLoginStatus.cancel:
         break;
       case FacebookLoginStatus.error:
-        print("FB Error: ${result.error}");
+        debugPrint("FB Error: ${result.error}");
         break;
     }
   }

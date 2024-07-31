@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/text.dart';
@@ -52,8 +51,8 @@ class CompanyInfo extends StatelessWidget {
             const SizedBox(
               height: 12,
             ),
-            BulletList(
-              const [
+            const BulletList(
+              [
                 'Sed ut perspiciatis unde omnis iste natus error sit.',
                 'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur & adipisci velit.',
                 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.'

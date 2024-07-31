@@ -4,7 +4,7 @@ class DangerButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String buttonText;
 
-  const DangerButton({
+  const DangerButton({super.key, 
     required this.onPressed,
     required this.buttonText,
   });
@@ -22,7 +22,7 @@ class DangerButton extends StatelessWidget {
       ),
       child: Text(
         buttonText,
-        style: TextStyle(color: Colors.white), // Text style
+        style: const TextStyle(color: Colors.white), // Text style
       ),
     );
   }

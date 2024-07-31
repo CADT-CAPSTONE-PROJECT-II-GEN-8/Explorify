@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/screens/history/widgets/custom_danger_button.dart';
 import 'package:frontend_mobile/screens/history/widgets/remove_btn.dart';
 
 class ArticleSavedScreen extends StatelessWidget {
-  const ArticleSavedScreen({Key? key}) : super(key: key);
+  const ArticleSavedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

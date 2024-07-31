@@ -1,11 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:frontend_mobile/common/api_constants.dart';
 import 'package:frontend_mobile/model/cv/user_model.dart';
-import 'package:frontend_mobile/model/user/OTP_model.dart';
-import 'package:frontend_mobile/model/user/token_model.dart';
 import 'package:frontend_mobile/provider/user_provider.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/login/logic/otp_logic.dart';
@@ -13,7 +10,6 @@ import 'package:frontend_mobile/screens/login/services/token_service.dart';
 import 'package:frontend_mobile/screens/login/verify_screen.dart';
 import 'package:frontend_mobile/utils/constant.dart';
 import 'package:frontend_mobile/utils/error_handling.dart';
-import 'package:frontend_mobile/widget/app_progress_indicator.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -112,7 +108,7 @@ class AuthService {
           showSnackBar(context, 'Email Sent!');
           final data = jsonDecode(response.body);
           String code = data['body']['code'] ?? 'non';
-          print("Success $code");
+          debugPrint("Success $code");
           otpProvider.code = code; // Update the code in the Provider
           // Navigator.pushNamed(context, RouteManager.verifyScreen,
           // arguments: {'username': username, 'password': password});

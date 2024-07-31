@@ -5,7 +5,6 @@ import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/provider/apply.dart';
 import 'package:frontend_mobile/provider/company_info_provider.dart';
 import 'package:frontend_mobile/provider/job_detail_provider.dart';
-import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
 import 'package:frontend_mobile/screens/home/widgets/apply_button.dart';
 import 'package:frontend_mobile/screens/home/widgets/tab_bar.dart';
 import 'package:frontend_mobile/screens/home/widgets/text_tile.dart';
@@ -27,7 +26,6 @@ class _JobDetailScreenState extends State<JobDetailScreen>
   late TabController tabController;
   @override
   void initState() {
-    // TODO: implement initState
     tabController = TabController(
       length: 2,
       vsync: this,
@@ -37,7 +35,6 @@ class _JobDetailScreenState extends State<JobDetailScreen>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     tabController.dispose();
   }
@@ -92,7 +89,7 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(
-                          companyInfo!.image,
+                          companyInfo!.companyPic,
                         ),
                       ),
                     ),
@@ -184,10 +181,10 @@ class _JobDetailScreenState extends State<JobDetailScreen>
 
                 // ----TAB VIEW----
                 Container(
-                  padding: EdgeInsets.all(24),
+                  padding: const EdgeInsets.all(24),
                   height: MediaQuery.of(context).size.height,
                   child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     controller: tabController,
                     children: const [JobInfo(), CompanyInfo()],
                   ),

@@ -30,7 +30,7 @@ class DetailsScreen extends StatelessWidget {
           top: 40,
           left: 10,
           child: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -51,7 +51,7 @@ class DetailsScreen extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),
-                    offset: Offset(0, 4),
+                    offset: const Offset(0, 4),
                     blurRadius: 8,
                   ),
                 ],
@@ -70,7 +70,7 @@ class DetailsScreen extends StatelessWidget {
                         Expanded(
                           child: Text(
                             "${item['title']}",
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Color.fromARGB(255, 21, 11, 61),
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -81,7 +81,7 @@ class DetailsScreen extends StatelessWidget {
                           onTap: () {
                             // Implement save functionality if needed
                           },
-                          child: Row(
+                          child: const Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Icon(Icons.bookmark_border),
@@ -93,23 +93,23 @@ class DetailsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 30),
                     child: Text(
                       "${item['category'] ?? 'No description available.'}",
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Color.fromARGB(255, 242, 124, 28),
                           fontSize: 14),
                       textAlign: TextAlign.start,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 30),
                     child: Text(
                       "${item['description'] ?? 'No description available.'}",
-                      style: TextStyle(color: Colors.black, fontSize: 14),
+                      style: const TextStyle(color: Colors.black, fontSize: 14),
                       textAlign: TextAlign.start,
                     ),
                   ),

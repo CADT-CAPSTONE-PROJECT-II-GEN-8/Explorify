@@ -10,23 +10,14 @@ import 'package:frontend_mobile/model/internship/tag_model.dart';
 import 'package:frontend_mobile/provider/company_info_provider.dart';
 import 'package:frontend_mobile/provider/job_detail_provider.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
-import 'package:frontend_mobile/screens/home/filter_overlay.dart';
-import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
 import 'package:frontend_mobile/screens/home/services/internship_service.dart';
 import 'package:frontend_mobile/screens/home/widgets/category.dart';
-import 'package:frontend_mobile/screens/home/widgets/company_info.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_card.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_header.dart';
-import 'package:frontend_mobile/screens/home/widgets/custom_notification.dart';
 import 'package:frontend_mobile/screens/home/widgets/home_appBar.dart';
-import 'package:frontend_mobile/screens/home/widgets/search_bar.dart';
 import 'package:frontend_mobile/screens/home/widgets/section_header_categories.dart';
 import 'package:frontend_mobile/screens/home/widgets/section_heading.dart';
-import 'package:frontend_mobile/screens/home/widgets/search_bar.dart';
 import 'package:frontend_mobile/utils/config.dart';
-import 'package:frontend_mobile/widget/app_bar.dart';
-import 'package:frontend_mobile/widget/custom_container.dart';
-import 'package:http/retry.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -144,13 +135,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<CompanyProfile> companyList = [
     CompanyProfile(
-        image: AppImage.google,
-        companyId: 0,
-        companyName: "Google Inc",
-        description: "Giant tech company",
-        location: "Canada, USA"),
+      companyPic: AppImage.google,
+      companyId: 0,
+      companyName: "Google Inc",
+      description: "Giant tech company",
+      location: "Canada, USA",
+    ),
     CompanyProfile(
-      image: AppImage.facebook,
+      companyPic: AppImage.facebook,
       companyId: 1,
       companyName: "Meta Platforms Inc.",
       description: "Social media and technology company",
@@ -161,7 +153,6 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Internship> internshipData = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -324,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       double.parse(salaryParts[1].trim());
                                 }
                                 return CustomCardInfo(
-                                  jobImage: companyInfo.image,
+                                  jobImage: companyInfo.companyPic,
                                   jobType: internshipInfo.jobType,
                                   companyName: companyInfo.companyName,
                                   positionName: internshipInfo.jobTitle,
@@ -350,7 +341,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               );
             } else {
-              return Center(child: Text('No data'));
+              return const Center(child: Text('No data'));
             }
           }),
     );

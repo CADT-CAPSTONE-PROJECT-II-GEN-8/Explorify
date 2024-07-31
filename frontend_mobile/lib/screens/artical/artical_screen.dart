@@ -34,7 +34,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: 100,
-        backgroundColor: Color.fromARGB(255, 249, 198, 157),
+        backgroundColor: const Color.fromARGB(255, 249, 198, 157),
         // flexibleSpace: Container(
         //   decoration: BoxDecoration(
         //     color: Colors.grey[100],
@@ -122,7 +122,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
   }
 
   Widget _buildText() {
-    return Column(
+    return const Column(
       children: [
         Text(
           'Article',
@@ -142,7 +142,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
       children: [
         _buildMenuBar(),
         _buildTextTitles(),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Expanded(
           child: IndexedStack(
             index: selectedIndex,
@@ -160,8 +160,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
   }
 
   Widget _buildTextTitles() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 25, top: 15),
+    return const Padding(
+      padding: EdgeInsets.only(left: 25, top: 15),
       child: Align(
         alignment: Alignment.centerLeft, // Aligns the container to the left
         child: Text(
@@ -200,7 +200,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -210,8 +210,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? Color.fromARGB(255, 255, 244, 233)
-                          : Color.fromARGB(153, 247, 247, 245),
+                          ? const Color.fromARGB(255, 255, 244, 233)
+                          : const Color.fromARGB(153, 247, 247, 245),
                       borderRadius: BorderRadius.circular(15),
                       // border: isSelected
                       //     ? Border.all(
@@ -228,8 +228,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
                       child: Icon(
                         buttonIcon[index],
                         color: isSelected
-                            ? Color.fromARGB(255, 250, 86, 4)
-                            : Color.fromARGB(255, 21, 11, 61),
+                            ? const Color.fromARGB(255, 250, 86, 4)
+                            : const Color.fromARGB(255, 21, 11, 61),
                         size: 25,
                       ),
                     ),
@@ -239,7 +239,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                     title[index],
                     style: TextStyle(
                       color: isSelected
-                          ? Color.fromARGB(255, 250, 86, 4)
+                          ? const Color.fromARGB(255, 250, 86, 4)
                           : Colors.black,
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
@@ -267,7 +267,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
           if (snapshot.connectionState == ConnectionState.done) {
             return _buildListView(snapshot.data ?? []);
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         },
       ),
@@ -285,7 +285,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   Widget _buildItem(Map<String, dynamic> item) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white, // Set the background color to white
         borderRadius: BorderRadius.circular(26.0),
@@ -325,7 +325,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                   ),
                 ),
               ),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -335,7 +335,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                         Expanded(
                           child: Text(
                             "${item['title']}",
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Color.fromARGB(255, 242, 124, 28),
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -343,13 +343,13 @@ class _ArticleScreenState extends State<ArticleScreen> {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.bookmark_border,
                           color: Color.fromARGB(255, 82, 75, 107),
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       "${item['category']}",
                       style: TextStyle(
@@ -357,7 +357,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                         fontSize: 12,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     InkWell(
                       onTap: () {
                         Navigator.push(
@@ -379,12 +379,12 @@ class _ArticleScreenState extends State<ArticleScreen> {
                             ),
                           ),
                           Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               color: Color.fromARGB(153, 247, 247, 245),
                             ),
-                            padding: EdgeInsets.all(6),
-                            child: Icon(Icons.arrow_forward_ios_rounded,
+                            padding: const EdgeInsets.all(6),
+                            child: const Icon(Icons.arrow_forward_ios_rounded,
                                 size: 16,
                                 color: Color.fromARGB(255, 21, 11, 61)),
                           ),

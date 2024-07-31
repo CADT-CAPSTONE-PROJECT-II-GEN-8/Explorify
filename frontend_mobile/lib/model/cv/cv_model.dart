@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:frontend_mobile/model/cv/user_company_model.dart';
 import 'package:frontend_mobile/model/cv/language_model.dart';
 import 'package:frontend_mobile/model/cv/major_model.dart';

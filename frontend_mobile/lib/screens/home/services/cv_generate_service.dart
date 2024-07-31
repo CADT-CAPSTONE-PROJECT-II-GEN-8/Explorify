@@ -22,8 +22,8 @@ class CvGenerateService {
           // 'Authorization': 'Bearer $token'
         },
       );
-      print(response.body);
-      print("got data");
+      debugPrint(response.body);
+      debugPrint("got data");
       if (!context.mounted) return cv;
       httpErrorHandle(
         response: response,
@@ -40,7 +40,7 @@ class CvGenerateService {
       );
     } catch (e) {
       showSnackBar(context, e.toString());
-      print("Error fetching data: $e"); // Log the error message
+      debugPrint("Error fetching data: $e"); // Log the error message
     }
     return cv;
   }

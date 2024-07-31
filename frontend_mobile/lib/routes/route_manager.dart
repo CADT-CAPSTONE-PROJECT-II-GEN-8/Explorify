@@ -8,7 +8,6 @@ import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
 import 'package:frontend_mobile/screens/home/notification.dart';
 import 'package:frontend_mobile/screens/login/check_email.dart';
 import 'package:frontend_mobile/screens/login/success_screen.dart';
-import 'package:frontend_mobile/screens/login/verify_screen.dart';
 import 'package:frontend_mobile/screens/onboarding/loading_screen.dart';
 import 'package:frontend_mobile/screens/login/login_screen.dart';
 import 'package:frontend_mobile/screens/login/register_screen.dart';
@@ -80,7 +79,7 @@ class RouteManager {
       case loadingScreen:
         return MaterialPageRoute(builder: (context) => const LoadingPage());
       case preferenceScreen:
-        return MaterialPageRoute(builder: (context) => PreferenceScreen());
+        return MaterialPageRoute(builder: (context) => const PreferenceScreen());
       case loginScreen:
         return MaterialPageRoute(builder: (context) => const LoginPage());
       case registerScreen:

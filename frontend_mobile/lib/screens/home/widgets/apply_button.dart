@@ -3,7 +3,6 @@ import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/provider/apply.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
-import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
 import 'package:frontend_mobile/screens/home/widgets/alert_dialog.dart';
 import 'package:provider/provider.dart';
 

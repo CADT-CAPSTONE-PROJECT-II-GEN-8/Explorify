@@ -9,7 +9,7 @@ class PreferenceScreen extends StatefulWidget {
   const PreferenceScreen({super.key});
 
   @override
-  _PreferenceScreenState createState() => _PreferenceScreenState();
+  State<PreferenceScreen> createState() => _PreferenceScreenState();
 }
 
 class _PreferenceScreenState extends State<PreferenceScreen> {

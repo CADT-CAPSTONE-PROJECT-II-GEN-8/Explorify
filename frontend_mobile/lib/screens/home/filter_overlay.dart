@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:frontend_mobile/common/colors.dart';
-import 'package:frontend_mobile/common/image_strings.dart';
-import 'package:frontend_mobile/screens/home/widgets/section_header_categories.dart';
+
 import 'dart:core';
 
 

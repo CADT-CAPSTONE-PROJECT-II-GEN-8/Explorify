@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
-import 'package:frontend_mobile/model/user/OTP_model.dart';
-import 'package:frontend_mobile/routes/route_manager.dart';
+
 import 'package:frontend_mobile/screens/login/logic/otp_logic.dart';
 import 'package:frontend_mobile/screens/login/logic/user_input_logic.dart';
 import 'package:frontend_mobile/screens/login/services/auth_service.dart';
@@ -10,9 +9,9 @@ import 'package:frontend_mobile/utils/config.dart';
 import 'package:provider/provider.dart';
 
 class VerifyPage extends StatefulWidget {
-  String username;
-  String password;
-  VerifyPage({
+  final String username;
+  final String password;
+  const VerifyPage({
     super.key,
     required this.username,
     required this.password,
@@ -75,8 +74,8 @@ class _VerifyPageState extends State<VerifyPage> {
                                     context: context,
                                     username: widget.username,
                                     password: widget.password);
-                                print(userInputData.username);
-                                print(userInputData.password);
+                                debugPrint(userInputData.username);
+                                debugPrint(userInputData.password);
                               },
                               child: const Text("Resend")),
                           Config.spaceSmall,
@@ -109,7 +108,7 @@ class _VerifyPageState extends State<VerifyPage> {
                               //     context, RouteManager.loginScreen);
                               authService.getToken(
                                   context: context, username: widget.username);
-                              print("token ${widget.username}");
+                              debugPrint("token ${widget.username}");
                             },
                             style: Theme.of(context).elevatedButtonTheme.style,
                             child: Text(AppText.enText['continue_button']!),

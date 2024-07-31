@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
-import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/screens/history/widgets/articles_saved.dart';
 import 'package:frontend_mobile/screens/history/widgets/internship_apply_history.dart';
 import 'package:frontend_mobile/screens/history/widgets/internship_save_history.dart';

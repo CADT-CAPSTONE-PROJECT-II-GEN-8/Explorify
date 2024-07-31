@@ -18,7 +18,6 @@
 //             onPressed: () {
 //               // navigate to upload CV screen
 //               Navigator.pop(context);
-//               // TODO: Add navigation to upload CV screen
 //             },
 //             child: const Text('Upload CV'),
 //           ),
@@ -71,23 +70,17 @@ Future<void> showConfirmationDialog(BuildContext context,
     context: context,
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
-      String dialogTitle = "";
-      String dialogContent = "";
       String positiveButtonLabel = "";
       VoidCallback? positiveButtonAction;
       VoidCallback? negativeButtonAction;
       switch (type) {
         case ConfirmationType.warning:
-          dialogTitle = title;
-          dialogContent = content;
-          positiveButtonLabel = positiveButtonText ?? "Yes";
+          positiveButtonLabel = positiveButtonText;
           positiveButtonAction = onPositivePressed;
           negativeButtonAction = onNegativeButtonPressed;
           break;
         case ConfirmationType.success:
-          dialogTitle = title ?? "Success";
-          dialogContent = content ?? "Your action was successful.";
-          positiveButtonLabel = positiveButtonText ?? "Ok";
+          positiveButtonLabel = positiveButtonText;
           break;
       }
 
@@ -196,7 +189,7 @@ Future<void> showConfirmationDialog(BuildContext context,
                   shape: BoxShape.circle,
                 ),
                 child: IconButton(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   icon: const Icon(
                     Icons.close,
                     color: AppColor.white,
