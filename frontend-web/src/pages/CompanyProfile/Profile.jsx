@@ -41,12 +41,10 @@ const Profile = () => {
         <div className="container flex flex-col items-center px-5 py-16 mx-auto md:flex-row lg:px-28">
           <div className="flex flex-col items-start mb-16 text-left lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 md:mb-0">
             <h2 className="mb-8 text-xs font-semibold tracking-widest text-black uppercase title-font">
-              {" "}
-              IT Solution{" "}
+              {companyData.company_name}
             </h2>
             <h1 className="mb-8 text-xl font-black tracking-tighter text-black md:text-3xl title-font">
-              {" "}
-              IT Solution{" "}
+             {compan}
             </h1>
             <p className="mb-8 text-base leading-relaxed text-left text-blueGray-600 ">
               {" "}
@@ -182,6 +180,7 @@ const Profile = () => {
               <p className="mt-6 text-lg dark:text-neutral-200">
                 Address: Hello
               </p>
+              <a href="https://www.google.com.kh/maps/place/Cambodia+Academy+of+Digital+Technology+(CADT)/@11.6459053,104.9051856,14z/data=!4m6!3m5!1s0x3109516bdea989b3:0x372d2c5e0e14b706!8m2!3d11.6530599!4d104.9116944!16s%2Fg%2F11byygmxw3?entry=ttu">
               <iframe
                 src={`https://www.google.com/maps/embed?pb=${encodeURIComponent}`}
                 className="rounded-lg w-full h-64 pt-5"
@@ -191,6 +190,7 @@ const Profile = () => {
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Company Location"
               />
+              </a>
             </div>
           </section>
         </article>
