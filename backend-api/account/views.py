@@ -258,7 +258,6 @@ class CurrentUser(APIView):
         serializer = UsersSerializer(self.request.user)
         return Response(serializer.data)
 
-
 # for company
 @api_view(["POST"])
 def register_company_profile(request):
@@ -335,24 +334,28 @@ def user_logout(request):
         return Response({"error": str(e)}, status=500)
 
 
-@api_view(["PUT"])
+
+from internship.serializers import CompanyProfileSerializer
+@api_view(["GET","PUT"])
 @permission_classes([IsAuthenticated])
-def update_company_profile(request):
+def get_update_company_profile(request):
     try:
         company_profile = CompanyProfile.objects.get(user=request.user)
     except CompanyProfile.DoesNotExist:
         return error_response(
             message= "CompanyProfile not found", status_code=status.HTTP_404_NOT_FOUND
         )
-
-    serializer = UpdateCompanyProfileSerializer(company_profile, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return success_response(
-            message="Update successfully!", data=serializer.data, status_code=200
-        )
-    return error_response(message=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST)
-
+    if request.method == "GET":
+        serializer = CompanyProfileSerializer(company_profile)
+        return success_response(message="Get Successfully", data=serializer.data)
+    elif request.method == "PUT":
+        serializer = UpdateCompanyProfileSerializer(company_profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return success_response(
+                message="Update successfully!", data=serializer.data, status_code=200
+            )
+        return error_response(message=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])

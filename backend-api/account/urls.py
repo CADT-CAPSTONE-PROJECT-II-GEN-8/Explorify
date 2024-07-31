@@ -18,9 +18,12 @@ urlpatterns = [
     path('change_password/', change_password, name='change_password'),
     
     # ADMIN WEB
-    path('company-profile/', update_company_profile, name='update_profile'),      # PUT : DONE
+    path('company-profile/', get_update_company_profile, name='get_update_company_profile'),      #GET & PUT : DONE
     
     # MOBILE AND WEB UPDATE PROFILE
     path('profile/', update_user_info, name='update_user_info'),   # PUT :DONE
+    
+    
+    
     
 ]
