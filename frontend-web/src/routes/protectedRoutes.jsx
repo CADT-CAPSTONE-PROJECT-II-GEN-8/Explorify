@@ -1,19 +1,18 @@
 import Main from 'src/components/Main';
 import Dashboard from "src/Page/Dashboard";
-import UI from 'src/pages/CompanyProfile/UI';
-import JobTable from 'src/pages/JobPosting/JobTable';
-import AddJob from 'src/pages/JobPosting/AddJob';
-import JobDetail from 'src/pages/JobPosting/JobDetail';
-import EditJob from 'src/pages/JobPosting/EditJob';
-import DeleteJob from 'src/pages/JobPosting/DeleteJob';
-import Test from 'src/components/Test';
-import ViewDetail from 'src/pages/CompanyPost/ViewDetail';
-import Edit from 'src/pages/CompanyPost/Edit';
-import DeleteProfile from 'src/pages/CompanyPost/DeleteProfile';
-import { ProtectedRoute } from './ProtectedRouteComponent';
-import Profile from 'src/pages/CompanyProfile/Profile';
 import LisCandidate from 'src/pages/Candidate/ListCandidate';
-import CV from 'src/pages/Candidate/CV';
+import DeleteProfile from 'src/pages/CompanyPost/DeleteProfile';
+import ViewDetail from 'src/pages/CompanyPost/ViewDetail';
+import Edit from 'src/pages/CompanyProfile/Edit';
+import Profile from 'src/pages/CompanyProfile/Profile';
+import UI from 'src/pages/CompanyProfile/UI';
+import AddJob from 'src/pages/JobPosting/AddJob';
+import DeleteJob from 'src/pages/JobPosting/DeleteJob';
+import EditJob from 'src/pages/JobPosting/EditJob';
+import JobDetail from 'src/pages/JobPosting/JobDetail';
+import JobTable from 'src/pages/JobPosting/JobTable';
+import { ProtectedRoute } from './ProtectedRouteComponent';
+import TotalCadidate from 'src/pages/Candidate/TotalCadidate';
 
 export const protectedRoutes = [
   {
@@ -77,10 +76,10 @@ export const protectedRoutes = [
         ),
       },
       {
-        path: '/test',
+        path: '/totle/application',
         element: (
           <Main>
-            <CV />
+            <TotalCadidate />
           </Main>
         ),
       },
@@ -88,7 +87,7 @@ export const protectedRoutes = [
         path: '/company/profile',
         element: (
           <Main>
-           <Profile/>
+            <Profile />
           </Main>
         ),
       },
@@ -101,7 +100,7 @@ export const protectedRoutes = [
         ),
       },
       {
-        path: '/edit/company/:companyId',
+        path: '/edit/company/profile',
         element: (
           <Main>
             <Edit />

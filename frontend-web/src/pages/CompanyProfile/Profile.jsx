@@ -6,6 +6,7 @@ import { FaBuilding, FaIndustry, FaLink, FaTasks } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import axiosInstance from "src/utils/axiosInstance";
 import { useState, useEffect } from "react";
+import Spinner from "src/components/SmallComponents/Spinner";
 const Profile = () => {
   // const { companyId } = useParams();
   const [companyData, setCompanyData] = useState(null);
@@ -30,7 +31,7 @@ const Profile = () => {
   }
 
   if (!companyData) {
-    return <div className="text-center mt-4">Loading...</div>;
+    return <Spinner/>
   }
 
   return (
@@ -44,28 +45,18 @@ const Profile = () => {
               {companyData.company_name}
             </h2>
             <h1 className="mb-8 text-xl font-black tracking-tighter text-black md:text-3xl title-font">
-             {compan}
+             {companyData.company_name}
             </h1>
             <p className="mb-8 text-base leading-relaxed text-left text-blueGray-600 ">
-              {" "}
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.{" "}
+             {companyData.description}
             </p>
             <div className="flex flex-col justify-center lg:flex-row">
-              <Link to="/">
+              <Link to="/edit/company/profile">
                 <button
                   type="button"
                   class="text-white bg-amber-500  inline-flex items-center hover:text-white border  hover:bg-amber-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                 >
-                  Back to home
+                  Update Profile
                 </button>
               </Link>
             </div>
@@ -97,7 +88,7 @@ const Profile = () => {
               <h3 class="text-md font-bold">
                 Head Office
                 <br />
-                <span className="font-normal text-center"> HEoo </span>
+                <span className="font-normal text-center">{companyData.head_office}</span>
               </h3>
             </div>
 
@@ -111,7 +102,7 @@ const Profile = () => {
               <h3 class="text-md font-bold">
                 Industry
                 <br />
-                <span className="font-normal text-center">Hello </span>
+                <span className="font-normal text-center">{companyData.company_type}</span>
               </h3>
             </div>
 
@@ -125,7 +116,7 @@ const Profile = () => {
               <h3 class="text-md font-bold">
                 Spectailization
                 <br />
-                <span className="font-normal text-center">Hello </span>
+                <span className="font-normal text-center">{companyData.specialization}</span>
               </h3>
             </div>
 
@@ -150,7 +141,7 @@ const Profile = () => {
                 Company size
                 <br />
                 <span className="font-normal text-center">
-                  Our company have Hello staff
+                  Our company has {companyData.employee_size} staff 
                 </span>
               </h3>
             </div>
@@ -166,7 +157,7 @@ const Profile = () => {
                 Website
                 <br />
                 <span className="font-normal text-center pt-2 text-blue-500 hover:underline">
-                  Hello{" "}
+                  {companyData.company_website}
                 </span>
               </h3>
             </div>
@@ -178,7 +169,7 @@ const Profile = () => {
             </h1>
             <div>
               <p className="mt-6 text-lg dark:text-neutral-200">
-                Address: Hello
+                Address: {companyData.location}
               </p>
               <a href="https://www.google.com.kh/maps/place/Cambodia+Academy+of+Digital+Technology+(CADT)/@11.6459053,104.9051856,14z/data=!4m6!3m5!1s0x3109516bdea989b3:0x372d2c5e0e14b706!8m2!3d11.6530599!4d104.9116944!16s%2Fg%2F11byygmxw3?entry=ttu">
               <iframe
