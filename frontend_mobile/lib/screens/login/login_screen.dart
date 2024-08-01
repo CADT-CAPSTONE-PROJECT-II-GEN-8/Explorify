@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
     data["access_token"] = token;
     data["provider"] = provider;
     try {
-      Response response = await dio.post("http://192.168.1.143:8000/api/login",
+      Response response = await dio.post("http://192.168.1.143:8000/api/v1/account/generate/",
           data: data, onSendProgress: (count, total) {
         debugPrint("Count:$count");
       });

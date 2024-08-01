@@ -63,7 +63,7 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
               TextButton(
                 onPressed: () {
                   Navigator.popAndPushNamed(
-                      context, RouteManager.navigationMenu);
+                      context, RouteManager.loginScreen);
                 },
                 child: Row(
                   children: [
