@@ -1,18 +1,17 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaEye, FaPenAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import axiosInstance from "src/utils/axiosInstance";
 import DeleteJob from "./DeleteJob";
 import Header from "./Header";
-import Pagination from "./Pagination";
-import Search from "./Search";
-import axiosInstance from "src/utils/axiosInstance";
+import Search from "src/components/Search";
+import Pagination from "src/components/Pagination";
 const JobTable = () => {
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(2);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   useEffect(() => {
     axiosInstance
@@ -29,7 +28,7 @@ const JobTable = () => {
     // Filter jobs based on the search term
     setFilteredJobs(
       jobs.filter(job =>
-        job.job_title = job.job_title
+        job.job_title.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
     setCurrentPage(1); // Reset to first page when search term changes
@@ -67,21 +66,21 @@ const JobTable = () => {
       <section className="py-10 sm:py-5">
         <div className="mx-auto max-w-screen-2xl lg:px-1">
           <div className="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
-              {/* Use Search component */}
-              <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4">
-               <div className="w-full md:w-1/2">
-                 <Search searchTerm={searchTerm} onSearchChange={handleSearchChange} />
-                    </div>
-                    <Link to='/job/create'>
-                        <button type="button" class="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-amber-600 hover:bg-primary-800 focus:ring-[#f7ac70]  focus:border-[#f7ac70] dark:bg-primary-600 ">
-                          <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                             <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                               </svg>
-                              Add new post
-                               </button>
-                                 </Link>
-                                    </div>
-  
+            {/* Use Search component */}
+            <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4">
+              <div className="w-full md:w-1/2">
+                <Search searchTerm={searchTerm} onSearchChange={handleSearchChange} />
+              </div>
+              <Link to='/job/create'>
+                <button type="button" class="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-amber-600 hover:bg-primary-800 focus:ring-[#f7ac70]  focus:border-[#f7ac70] dark:bg-primary-600 ">
+                  <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                  </svg>
+                  Add new post
+                </button>
+              </Link>
+            </div>
+
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-[#F27C1C] uppercase bg-[#fef2e8] dark:bg-gray-700 dark:text-gray-400">
@@ -104,6 +103,7 @@ const JobTable = () => {
                     <th scope="col" className="px-4 py-3">Job Type</th>
                     <th scope="col" className="px-4 py-3">Status</th>
                     <th scope="col" className="px-4 py-3">Action</th>
+                    <th scope="col" className="px-4 py-3">Total Applied</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,7 +140,7 @@ const JobTable = () => {
                         {job.job_type}
                       </td>
                       <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <div className='pl-2 flex items-center'>
+                        <div className=' flex items-center'>
                           <span className={`text-xs font-medium px-3 py-0.5 rounded-full ${getStatusClass(job.status)}`}>
                             {job.status}
                           </span>
@@ -155,6 +155,16 @@ const JobTable = () => {
                             <FaPenAlt className="mr-3 text-blue-600" />
                           </Link>
                           <DeleteJob jobId={job.internship_post_id} />
+                        </div>
+                      </td>
+                      <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <div className='pl-2 flex items-center'>
+                          <Link to='/totle/application'>
+                          <a href="">
+                            10
+                          </a>
+                          </Link>
+                          
                         </div>
                       </td>
                     </tr>
