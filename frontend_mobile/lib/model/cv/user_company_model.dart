@@ -1,61 +1,48 @@
+// To parse this JSON data, do
+//
+//     final userCompany = userCompanyFromMap(jsonString);
+
 import 'dart:convert';
 
-import 'package:frontend_mobile/model/cv/user_model.dart';
-import 'package:frontend_mobile/model/internship/company_profile.dart';
+UserCompany userCompanyFromMap(String str) =>
+    UserCompany.fromMap(json.decode(str));
 
-// Assuming you have models for User and CompanyProfile
+String userCompanyToMap(UserCompany data) => json.encode(data.toMap());
 
 class UserCompany {
-  final int userCompanyId;
-  final User user;
-  final CompanyProfile company;
-  final DateTime startDate;
-  final DateTime endDate;
+  int userCompanyId;
+  String companyName;
+  String position;
+  String description;
+  DateTime startDate;
+  DateTime endDate;
 
   UserCompany({
     required this.userCompanyId,
-    required this.user,
-    required this.company,
+    required this.companyName,
+    required this.position,
+    required this.description,
     required this.startDate,
     required this.endDate,
   });
-  UserCompany copyWith({
-    int? userCompanyId,
-    User? user,
-    CompanyProfile? company,
-    DateTime? startDate,
-    DateTime? endDate,
-  }) {
-    return UserCompany(
-      userCompanyId: userCompanyId ?? this.userCompanyId,
-      user: user ?? this.user,
-      company: company ?? this.company,
-      startDate: startDate ?? this.startDate,
-      endDate: endDate ?? this.endDate,
-    );
-  }
 
-  factory UserCompany.fromMap(Map<String, dynamic> map) {
-    return UserCompany(
-      userCompanyId: map['user_company_id'] as int,
-      user: User.fromMap(map['user'] as Map<String, dynamic>),
-      company: CompanyProfile.fromMap(map['company'] as Map<String, dynamic>),
-      startDate: DateTime.parse(map['start_date'] as String),
-      endDate: DateTime.parse(map['end_date'] as String),
-    );
-  }
+  factory UserCompany.fromMap(Map<String, dynamic> json) => UserCompany(
+        userCompanyId: json["user_company_id"] ?? '',
+        companyName: json["company_name"] ?? '',
+        position: json["position"] ?? '',
+        description: json["description"] ?? '',
+        startDate: DateTime.parse(json["start_date"]),
+        endDate: DateTime.parse(json["end_date"]),
+      );
+
   Map<String, dynamic> toMap() => {
-        'user_company_id': userCompanyId,
-        'user': user.toMap(), // Assuming User has a toMap method
-        'company':
-            company.toMap(), // Assuming CompanyProfile has a toMap method
-        'start_date': startDate.toIso8601String(),
-        'end_date': endDate.toIso8601String(),
+        "user_company_id": userCompanyId,
+        "company_name": companyName,
+        "position": position,
+        "description": description,
+        "start_date":
+            "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
+        "end_date":
+            "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
       };
-
-  String toJson() => json.encode(toMap());
-
-  @override
-  String toString() =>
-      'UserCompany {userCompanyId: $userCompanyId, userId: ${user.userId}}';
 }

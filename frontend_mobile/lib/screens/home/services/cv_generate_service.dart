@@ -10,8 +10,17 @@ import 'package:http/http.dart' as http;
 
 class CvGenerateService {
   // fetch all cv information
-  Future<List<CV>> getCV(BuildContext context) async {
-    List<CV> cv = [];
+  Future<CV> getCV(BuildContext context) async {
+    CV cv = CV(
+        cvId: 0,
+        userEducation: [],
+        userSkill: [],
+        userMajor: [],
+        userLanguage: [],
+        userAward: [],
+        description: 'none',
+        jobTitle: 'none',
+        userCompany: []);
     TokenService tokenService = TokenService();
     final token = await tokenService.getAccessToken();
     debugPrint('$token');
@@ -32,13 +41,13 @@ class CvGenerateService {
         response: response,
         context: context,
         onSuccess: () {
-          for (int i = 0; i < jsonDecode(response.body).length; i++) {
-            cv.add(
-              CV.fromJson(
-                jsonEncode(jsonDecode(response.body)[i]),
-              ),
-            );
-          }
+          final resBody = json.decode(response.body);
+          final body = resBody['body'];
+
+          // CV.fromJson(
+          //   jsonEncode(jsonDecode(response.body)[i]),
+          // ),
+          CV.fromMap(body);
         },
       );
     } catch (e) {
