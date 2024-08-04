@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend_mobile/model/article/article_model.dart';
+import 'package:frontend_mobile/common/colors.dart';
+import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/screens/artical/detail_screen.dart';
-import 'package:frontend_mobile/screens/artical/services/article_service.dart';
+import 'package:frontend_mobile/screens/profile/widget/custom_accAppBar.dart';
 
 class ArticleScreen extends StatefulWidget {
   const ArticleScreen({super.key});
@@ -29,10 +30,15 @@ final List<String> title = [
 int selectedIndex = 0;
 
 class _ArticleScreenState extends State<ArticleScreen> {
-  ArticleService articleService = ArticleService();
-  List<Post> postData = [];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white, // Change the background color to white
+      body: _buildBody(),
+    );
+  }
+
   Future<List<Map<String, dynamic>>> getData() async {
-    // Sample data
     List<Map<String, dynamic>> sampleData = [
       {
         'title': 'Future of Work Trends',
@@ -110,13 +116,17 @@ class _ArticleScreenState extends State<ArticleScreen> {
   Widget _buildText() {
     return const Column(
       children: [
-        Text(
-          'Article',
-          style: TextStyle(
-            letterSpacing: 0.5,
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 25,
+        Image.asset(AppImage.upperStyle),
+        const CustomAccountAppBar(
+          showBackArrow: true,
+          leadingIconColor: Colors.black,
+          title: Text(
+            "Artical",
+            style: TextStyle(
+              color: AppColor.black,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],
@@ -126,9 +136,29 @@ class _ArticleScreenState extends State<ArticleScreen> {
   Widget _buildBody() {
     return Column(
       children: [
+        Image.asset(AppImage.upperStyle),
+        const Column(
+          children: [
+            CustomAccountAppBar(
+              showBackArrow: false,
+              leadingIconColor: Colors.black,
+              title: Padding(
+                padding: EdgeInsets.only(left: 80),
+                child: Text(
+                  "Artical",
+                  style: TextStyle(
+                    color: AppColor.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
         _buildMenuBar(),
         _buildTextTitles(),
-        const SizedBox(height: 20),
+        SizedBox(height: 15),
         Expanded(
           child: IndexedStack(
             index: selectedIndex,
@@ -147,7 +177,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   Widget _buildTextTitles() {
     return const Padding(
-      padding: EdgeInsets.only(left: 25, top: 15),
+      padding: EdgeInsets.only(left: 25, top: 5),
       child: Align(
         alignment: Alignment.centerLeft, // Aligns the container to the left
         child: Text(
@@ -199,16 +229,13 @@ class _ArticleScreenState extends State<ArticleScreen> {
                           ? const Color.fromARGB(255, 255, 244, 233)
                           : const Color.fromARGB(153, 247, 247, 245),
                       borderRadius: BorderRadius.circular(15),
-                      // border: isSelected
-                      //     ? Border.all(
-                      //         color: Color.fromARGB(255, 250, 86, 4),
-                      //         width: 2,
-                      //       )
-                      //     : null,
-                      // // border: Border.all(
-                      //   color: Colors.orange,
-                      //   width: 1.5,
-                      // ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
+                        ),
+                      ],
                     ),
                     child: Center(
                       child: Icon(
@@ -275,14 +302,13 @@ class _ArticleScreenState extends State<ArticleScreen> {
       decoration: BoxDecoration(
         color: Colors.white, // Set the background color to white
         borderRadius: BorderRadius.circular(26.0),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Color.fromRGBO(0, 0, 0, 0.08),
-        //     spreadRadius: 0,
-        //     blurRadius: 12,
-        //     offset: Offset(0, 4), // changes position of shadow
-        //   ),
-        // ],
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: Offset(0, 5),
+          ),
+        ],
       ),
       child: Card(
         shape: RoundedRectangleBorder(
@@ -306,8 +332,6 @@ class _ArticleScreenState extends State<ArticleScreen> {
                     fit: BoxFit.cover,
                     onError: (error, stackTrace) => Container(
                       color: Colors.white,
-                      // Optionally, you can add an error icon here
-                      // child: Icon(Icons.error, size: 50),
                     ),
                   ),
                 ),

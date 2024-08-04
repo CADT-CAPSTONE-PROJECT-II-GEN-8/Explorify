@@ -95,7 +95,11 @@ class _LoginFormState extends State<LoginForm> {
               ),
               obscureText: isObscureProvider.isObscure,
             ),
+<<<<<<< HEAD
             const SizedBox(height: 12),
+=======
+            Config.spaceSmall,
+>>>>>>> mobile/ArticalScreen
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
