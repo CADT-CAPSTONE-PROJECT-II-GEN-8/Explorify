@@ -90,31 +90,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
     return Future.delayed(const Duration(seconds: 2), () => sampleData);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: 100,
-        backgroundColor: const Color.fromARGB(255, 249, 198, 157),
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     color: Colors.grey[100],
-        //     image: DecorationImage(
-        //       image: AssetImage("assets/images/upper_style.png"),
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
-        // ),
-        title: _buildText(),
-      ),
-      body: _buildBody(),
-    );
-  }
-
   Widget _buildText() {
-    return const Column(
+    return Column(
       children: [
         Image.asset(AppImage.upperStyle),
         const CustomAccountAppBar(
@@ -216,7 +193,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -226,8 +203,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? const Color.fromARGB(255, 255, 244, 233)
-                          : const Color.fromARGB(153, 247, 247, 245),
+                          ? Color.fromARGB(255, 255, 244, 233)
+                          : Color.fromARGB(153, 247, 247, 245),
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
@@ -241,8 +218,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
                       child: Icon(
                         buttonIcon[index],
                         color: isSelected
-                            ? const Color.fromARGB(255, 250, 86, 4)
-                            : const Color.fromARGB(255, 21, 11, 61),
+                            ? Color.fromARGB(255, 250, 86, 4)
+                            : Color.fromARGB(255, 21, 11, 61),
                         size: 25,
                       ),
                     ),
@@ -252,7 +229,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                     title[index],
                     style: TextStyle(
                       color: isSelected
-                          ? const Color.fromARGB(255, 250, 86, 4)
+                          ? Color.fromARGB(255, 250, 86, 4)
                           : Colors.black,
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
@@ -271,8 +248,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   Widget _buildApi() {
     return Center(
-      child: FutureBuilder<List<dynamic>>(
-        future: articleService.getPostDetials(context),
+      child: FutureBuilder<List<Map<String, dynamic>>>(
+        future: getData(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text("Error: ${snapshot.error}");
@@ -280,14 +257,14 @@ class _ArticleScreenState extends State<ArticleScreen> {
           if (snapshot.connectionState == ConnectionState.done) {
             return _buildListView(snapshot.data ?? []);
           } else {
-            return const CircularProgressIndicator();
+            return CircularProgressIndicator();
           }
         },
       ),
     );
   }
 
-  Widget _buildListView(List<dynamic> items) {
+  Widget _buildListView(List<Map<String, dynamic>> items) {
     return ListView.builder(
       itemCount: items.length,
       itemBuilder: (context, index) {
@@ -296,9 +273,9 @@ class _ArticleScreenState extends State<ArticleScreen> {
     );
   }
 
-  Widget _buildItem(Post item) {
+  Widget _buildItem(Map<String, dynamic> item) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white, // Set the background color to white
         borderRadius: BorderRadius.circular(26.0),
@@ -327,8 +304,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
-                    image: CachedNetworkImageProvider(
-                        "https://www.chieflearningofficer.com/wp-content/uploads/2023/05/AdobeStock_577015054.jpeg"),
+                    image: CachedNetworkImageProvider(item['image']),
                     fit: BoxFit.cover,
                     onError: (error, stackTrace) => Container(
                       color: Colors.white,
@@ -336,7 +312,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -345,8 +321,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            "${item.title}",
-                            style: const TextStyle(
+                            "${item['title']}",
+                            style: TextStyle(
                               color: Color.fromARGB(255, 242, 124, 28),
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -354,21 +330,21 @@ class _ArticleScreenState extends State<ArticleScreen> {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        const Icon(
+                        Icon(
                           Icons.bookmark_border,
                           color: Color.fromARGB(255, 82, 75, 107),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     Text(
-                      "${item.slug}",
+                      "${item['category']}",
                       style: TextStyle(
                         color: Colors.grey[800],
                         fontSize: 12,
                       ),
                     ),
-                    const SizedBox(height: 5),
+                    SizedBox(height: 5),
                     InkWell(
                       onTap: () {
                         Navigator.push(
@@ -390,12 +366,12 @@ class _ArticleScreenState extends State<ArticleScreen> {
                             ),
                           ),
                           Container(
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: Color.fromARGB(153, 247, 247, 245),
                             ),
-                            padding: const EdgeInsets.all(6),
-                            child: const Icon(Icons.arrow_forward_ios_rounded,
+                            padding: EdgeInsets.all(6),
+                            child: Icon(Icons.arrow_forward_ios_rounded,
                                 size: 16,
                                 color: Color.fromARGB(255, 21, 11, 61)),
                           ),
