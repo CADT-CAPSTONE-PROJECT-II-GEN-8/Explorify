@@ -7,14 +7,15 @@ import 'package:frontend_mobile/model/cv/skill_model.dart';
 import 'package:frontend_mobile/model/cv/user_award_model.dart';
 import 'package:frontend_mobile/model/cv/user_education.dart';
 import 'package:frontend_mobile/model/cv/user_model.dart';
+import 'package:http/http.dart';
 
 // Assuming you have models for User, UserCompany, UserEducation, Skill, Major, Language, and UserAward
 
 class CV {
   final int cvId;
   final User? user;
-  final String? description;
-  final String? jobTitle;
+  final String description;
+  final String jobTitle;
   final List<UserCompany>? userCompany;
   final List<UserEducation>? userEducation;
   final List<Skill>? userSkill;
@@ -25,8 +26,8 @@ class CV {
   CV({
     required this.cvId,
     this.user,
-    this.description,
-    this.jobTitle,
+    required this.description,
+    required this.jobTitle,
     this.userCompany,
     required this.userEducation,
     required this.userSkill,
@@ -64,18 +65,21 @@ class CV {
   factory CV.fromMap(Map<String, dynamic> map) {
     return CV(
       cvId: map['cv_id'] as int,
-      user: map['user'] != null
+      user: map['user'] != null && map['user'] is Map<String, dynamic>
           ? User.fromMap(map['user'] as Map<String, dynamic>)
           : null, // Assuming User has a fromMap factory
-      description: map['description'] as String?,
-      jobTitle: map['job_title'] as String?,
-      userCompany: map['user_companies'] != null
-          ? List<UserCompany>.from(
-              (map['user_companies'] as List<dynamic>).map(
-                (item) => UserCompany.fromMap(item as Map<String, dynamic>),
-              ),
-            )
-          : null,
+      description: map['description'] as String,
+      jobTitle: map['job_title'] as String,
+      userCompany:
+          map['user_companies'] != null && map['user_companies'] is List
+              ? List<UserCompany>.from(
+                  (map['user_companies'] as List<dynamic>).map(
+                    (item) => item is Map<String, dynamic>
+                        ? UserCompany.fromMap(item)
+                        : 'Invalid map format for user_companies',
+                  ),
+                )
+              : null,
       userEducation: map['user_education'] != null
           ? List<UserEducation>.from(
               (map['user_education'] as List<dynamic>).map(
