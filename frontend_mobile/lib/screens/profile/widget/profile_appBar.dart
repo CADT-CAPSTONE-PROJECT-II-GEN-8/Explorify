@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/text.dart';
+import 'package:frontend_mobile/provider/user_provider.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/profile/widget/costom_appBar.dart';
+import 'package:provider/provider.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({
@@ -11,6 +13,8 @@ class ProfileAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final user = userProvider.user;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
@@ -47,14 +51,14 @@ class ProfileAppBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppText.enText['profile_name']!,
+                    user.username,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge!
                         .copyWith(color: AppColor.white),
                   ),
                   Text(
-                    AppText.enText['profile_email']!,
+                    user.email,
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge!
@@ -64,7 +68,7 @@ class ProfileAppBar extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Row(

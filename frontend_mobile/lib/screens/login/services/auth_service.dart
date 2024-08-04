@@ -21,10 +21,8 @@ class AuthService {
       required String username,
       required String password,
       required String email}) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
-      User user = User(email: email, username: username);
       // trim input and convert to lowercase
       email = email.trim().toLowerCase();
       var response = await http.post(
@@ -175,13 +173,13 @@ class AuthService {
     }
   }
 
-  Future<void> getToken({
-    required BuildContext context,
-    required String username, 
-    required String otpCode
-  }) async {
+  Future<void> getToken(
+      {required BuildContext context,
+      required String username,
+      required String otpCode}) async {
     final otpProvider = Provider.of<OtpProvider>(context, listen: false);
     final tokenService = TokenService();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
       debugPrint(username);
@@ -210,7 +208,9 @@ class AuthService {
         onSuccess: () async {
           final data = jsonDecode(response.body);
           final body = data['body'] ?? {};
-
+          userProvider.setUser(body);
+          print("email" + userProvider.user.email);
+          print("username" + userProvider.user.username);
           // Extract tokens from the response body
           String accessToken = body['access_token'] ?? '';
           String refreshToken = body['refresh_token'] ?? '';

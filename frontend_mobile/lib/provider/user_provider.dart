@@ -1,22 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_mobile/model/cv/user_model.dart';
+import 'package:frontend_mobile/model/user/user_model.dart';
 
 class UserProvider extends ChangeNotifier {
-  User _user = User(
-      userId: 0,
-      username: '',
-      email: '',
-      firstName: '',
-      lastName: '',
-      phone: '',
-      location: '',
-      school: '',
-      headline: '');
+  late User _user;
 
   User get user => _user;
 
-  void setUser(String user) {
-    _user = User.fromJson(user);
+  void setUser(Map<String, dynamic> body) {
+    final user = User.fromMap(body);
+    _user = user;
     notifyListeners();
   }
 

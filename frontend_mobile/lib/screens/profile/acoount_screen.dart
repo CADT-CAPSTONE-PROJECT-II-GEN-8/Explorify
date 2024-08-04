@@ -49,7 +49,7 @@ class _AccountScreenState extends State<AccountScreen> {
           children: [
             Image.asset(AppImage.upperStyle),
             // Header AppBar
-            CustomAccountAppBar(
+            const CustomAccountAppBar(
               showBackArrow: true,
               leadingIconColor: Colors.black,
               title: Row(
