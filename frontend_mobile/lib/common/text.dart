@@ -48,7 +48,7 @@ class AppText {
     'warning_text':
         'You don\'t have a CV uploaded yet. Would you like to upload one now?',
     'upload_text_button': 'Upload CV',
-    'cancel_text': 'Cancel',
+    'cancel_text': 'Generate CV',
     'success_upload_title': 'Successful',
     'success_upload_text':
         'Your CV has been uploaded successfully. The company will review your application and get back to you soon.',
@@ -87,5 +87,7 @@ class AppText {
     'contact': 'Contact Us',
     'contact_sub':
         'If you have any questions about these terms, please contact us at [Contact Information].',
+    'article_screen_title': 'Article',
+    'history_screen_title': 'History',
   };
 }

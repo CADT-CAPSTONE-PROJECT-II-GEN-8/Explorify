@@ -26,7 +26,7 @@ class CustomCardInfo extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.only(bottom: 24),
         child: Container(
           padding: const EdgeInsets.all(18),
           alignment: Alignment.center,
@@ -46,11 +46,14 @@ class CustomCardInfo extends StatelessWidget {
                       CircleAvatar(
                         backgroundColor: AppColor.textAccent.withOpacity(.1),
                         child: Image.asset(
-                          jobImage,
+                          'assets/images/briefcase.png',
                           fit: BoxFit.cover,
                           width: 24,
                           height: 24,
                         ),
+                      ),
+                      const SizedBox(
+                        width: 12,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,10 +82,15 @@ class CustomCardInfo extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      "$minSalary\$ - $maxSalry\$",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
+                    child: minSalary == 0 && maxSalry == 0
+                        ? Text(
+                            "Unpaid",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          )
+                        : Text(
+                            "$minSalary\$ - $maxSalry\$",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                   ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(

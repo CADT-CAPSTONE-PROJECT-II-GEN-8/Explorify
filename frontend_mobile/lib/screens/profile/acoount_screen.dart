@@ -49,7 +49,7 @@ class _AccountScreenState extends State<AccountScreen> {
           children: [
             Image.asset(AppImage.upperStyle),
             // Header AppBar
-            CustomAccountAppBar(
+            const CustomAccountAppBar(
               showBackArrow: true,
               leadingIconColor: Colors.black,
               title: Row(
@@ -141,6 +141,17 @@ class _AccountScreenState extends State<AccountScreen> {
                           onTrailingTap: () {
                             Navigator.pushNamed(
                                 context, RouteManager.appreciationScreen);
+                          },
+                          subTitle:
+                              'Manager at Amazon Inc (Jan 2015 - Feb 2022)',
+                        ),
+                        SizedBox(height: 30.0),
+                        ProfileInfoBox(
+                          icon: Icons.work,
+                          title: 'Resume',
+                          onTrailingTap: () {
+                            Navigator.pushNamed(
+                                context, RouteManager.languageMainScreen);
                           },
                           subTitle:
                               'Manager at Amazon Inc (Jan 2015 - Feb 2022)',

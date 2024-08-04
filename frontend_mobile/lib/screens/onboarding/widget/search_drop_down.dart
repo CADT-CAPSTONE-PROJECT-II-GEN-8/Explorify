@@ -10,8 +10,8 @@ class SearchDropdown extends StatefulWidget {
     required this.techSkills,
     required this.softSkills,
     required this.onItemsSelected,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _SearchDropdownState createState() => _SearchDropdownState();

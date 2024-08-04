@@ -12,7 +12,7 @@ class AboutMeScreen extends StatefulWidget {
 }
 
 class _AboutMeScreenState extends State<AboutMeScreen> {
-  TextEditingController _longDescriptionController = TextEditingController();
+  final TextEditingController _longDescriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _AboutMeScreenState extends State<AboutMeScreen> {
                               hintText: 'Write your long description here...',
                               border: InputBorder.none,
                             ),
-                            style: TextStyle(fontSize: 12.0),
+                            style: const TextStyle(fontSize: 12.0),
                           ),
                         ),
                       ),
@@ -83,7 +83,7 @@ class _AboutMeScreenState extends State<AboutMeScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () {},
-                        child: Text('Save'),
+                        child: const Text('Save'),
                       ),
                     ],
                   ),

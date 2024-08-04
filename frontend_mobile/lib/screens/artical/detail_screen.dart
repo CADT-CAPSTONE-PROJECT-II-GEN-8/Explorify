@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/model/article/article_model.dart';
 
 class DetailsScreen extends StatelessWidget {
-  final Map<String, dynamic> item;
+  final Post item;
 
-  const DetailsScreen({Key? key, required this.item}) : super(key: key);
+  const DetailsScreen({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDetail(Map<String, dynamic> item, BuildContext context) {
+  Widget _buildDetail(Post item, BuildContext context) {
     return Stack(
       children: [
         Container(
@@ -21,7 +22,7 @@ class DetailsScreen extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.4,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: CachedNetworkImageProvider(item['image']),
+              image: CachedNetworkImageProvider("https://www.chieflearningofficer.com/wp-content/uploads/2023/05/AdobeStock_577015054.jpeg"),
               fit: BoxFit.cover,
             ),
           ),
@@ -30,7 +31,7 @@ class DetailsScreen extends StatelessWidget {
           top: 40,
           left: 10,
           child: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -51,7 +52,7 @@ class DetailsScreen extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),
-                    offset: Offset(0, 4),
+                    offset: const Offset(0, 4),
                     blurRadius: 8,
                   ),
                 ],
@@ -69,8 +70,8 @@ class DetailsScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            "${item['title']}",
-                            style: TextStyle(
+                            "${item.title}",
+                            style: const TextStyle(
                               color: Color.fromARGB(255, 21, 11, 61),
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -81,7 +82,7 @@ class DetailsScreen extends StatelessWidget {
                           onTap: () {
                             // Implement save functionality if needed
                           },
-                          child: Row(
+                          child: const Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Icon(Icons.bookmark_border),
@@ -93,23 +94,23 @@ class DetailsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 30),
                     child: Text(
-                      "${item['category'] ?? 'No description available.'}",
-                      style: TextStyle(
+                      "${item.slug ?? 'No description available.'}",
+                      style: const TextStyle(
                           color: Color.fromARGB(255, 242, 124, 28),
                           fontSize: 14),
                       textAlign: TextAlign.start,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 30),
                     child: Text(
-                      "${item['description'] ?? 'No description available.'}",
-                      style: TextStyle(color: Colors.black, fontSize: 14),
+                      "${item.content ?? 'No description available.'}",
+                      style: const TextStyle(color: Colors.black, fontSize: 14),
                       textAlign: TextAlign.start,
                     ),
                   ),

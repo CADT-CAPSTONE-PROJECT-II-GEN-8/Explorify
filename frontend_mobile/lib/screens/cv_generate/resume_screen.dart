@@ -2,19 +2,19 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class CVScreen extends StatefulWidget {
-  const CVScreen({Key? key}) : super(key: key);
+  const CVScreen({super.key});
 
   @override
-  _CVScreenState createState() => _CVScreenState();
+  State<CVScreen> createState() => _CVScreenState();
 }
 
 class _CVScreenState extends State<CVScreen> {
   int _current = 0;
   dynamic _selectedIndex = {};
 
-  CarouselController _carouselController = CarouselController();
+  final CarouselController _carouselController = CarouselController();
 
-  List<Map<String, String>> _products = [
+  final List<Map<String, String>> _products = [
     {
       'title': 'Free',
       'image':
@@ -38,8 +38,8 @@ class _CVScreenState extends State<CVScreen> {
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: 80,
-        backgroundColor: Color.fromARGB(255, 234, 155, 121),
-        title: Text(
+        backgroundColor: const Color.fromARGB(255, 234, 155, 121),
+        title: const Text(
           'RESUME',
           style: TextStyle(
             letterSpacing: 0.5,
@@ -58,7 +58,7 @@ class _CVScreenState extends State<CVScreen> {
       children: [
         Expanded(child: _buildCVScroll()),
         _buildBottom(),
-        SizedBox(
+        const SizedBox(
           height: 150,
         )
       ],
@@ -66,7 +66,7 @@ class _CVScreenState extends State<CVScreen> {
   }
 
   Widget _buildCVScroll() {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 420.0, // Set fixed height
       child: CarouselSlider(
@@ -93,19 +93,19 @@ class _CVScreenState extends State<CVScreen> {
                   });
                 },
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 300),
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 245, 228, 212),
+                    color: const Color.fromARGB(255, 245, 228, 212),
                     borderRadius: BorderRadius.circular(20),
                     border: _selectedIndex == product
                         ? Border.all(
-                            color: Color.fromARGB(255, 250, 199, 154), width: 3)
+                            color: const Color.fromARGB(255, 250, 199, 154), width: 3)
                         : null,
                     boxShadow: _selectedIndex == product
                         ? [
-                            BoxShadow(
-                              color: const Color.fromARGB(255, 251, 215, 187),
+                            const BoxShadow(
+                              color: Color.fromARGB(255, 251, 215, 187),
                               blurRadius: 30,
                               offset: Offset(0, 10),
                             )
@@ -114,7 +114,7 @@ class _CVScreenState extends State<CVScreen> {
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.2),
                               blurRadius: 20,
-                              offset: Offset(0, 5),
+                              offset: const Offset(0, 5),
                             )
                           ],
                   ),
@@ -123,7 +123,7 @@ class _CVScreenState extends State<CVScreen> {
                       children: [
                         Container(
                           height: 330,
-                          margin: EdgeInsets.only(top: 20),
+                          margin: const EdgeInsets.only(top: 20),
                           clipBehavior: Clip.hardEdge,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -133,10 +133,10 @@ class _CVScreenState extends State<CVScreen> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Text(
                           product['title']!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color.fromARGB(255, 216, 104, 56),
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -162,10 +162,10 @@ class _CVScreenState extends State<CVScreen> {
           // Perform an action when the button is pressed
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color.fromARGB(255, 236, 116, 52),
+          backgroundColor: const Color.fromARGB(255, 236, 116, 52),
           elevation: 2,
-          minimumSize: Size(350, 60), // Adjust the width and height as needed
-          padding: EdgeInsets.symmetric(
+          minimumSize: const Size(350, 60), // Adjust the width and height as needed
+          padding: const EdgeInsets.symmetric(
               vertical: 15,
               horizontal: 30), // Add padding for a bigger touch area
         ),

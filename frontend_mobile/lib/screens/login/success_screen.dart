@@ -33,7 +33,7 @@ class _SuccessPageState extends State<SuccessPage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 40), // Space for the back button
+                          const SizedBox(height: 40), // Space for the back button
                           Text(
                             AppText.enText['success_title']!,
                             style: Theme.of(context).textTheme.headlineLarge,

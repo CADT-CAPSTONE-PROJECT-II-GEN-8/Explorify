@@ -36,16 +36,20 @@ class ApplyButton extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             } else {
               // Show confirmation dialog
-              showConfirmationDialog(
-                context,
-                type: ConfirmationType.warning,
-                title: AppText.enText['warning_title']!,
-                content: AppText.enText['warning_text']!,
-                positiveButtonText: AppText.enText['upload_text_button']!,
-                onPositivePressed: () {
-                  debugPrint("Upload Screen");
-                },
-              );
+              showConfirmationDialog(context,
+                  type: ConfirmationType.warning,
+                  title: AppText.enText['warning_title']!,
+                  content: AppText.enText['warning_text']!,
+                  positiveButtonText: AppText.enText['upload_text_button']!,
+                  onPositivePressed: () {
+                debugPrint("Upload Screen");
+                Navigator.of(context)
+                    .pushReplacementNamed(RouteManager.cvGenerateScreen);
+              }, onNegativeButtonPressed: () {
+                debugPrint("generate CV");
+                Navigator.of(context)
+                    .pushReplacementNamed(RouteManager.accountScreen);
+              });
             }
           },
           child: Container(

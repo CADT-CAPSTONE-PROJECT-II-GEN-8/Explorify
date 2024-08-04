@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/text.dart';
+import 'package:frontend_mobile/provider/user_provider.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/profile/widget/costom_appBar.dart';
+import 'package:provider/provider.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({
@@ -11,6 +13,8 @@ class ProfileAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final user = userProvider.user;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
@@ -47,14 +51,14 @@ class ProfileAppBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppText.enText['profile_name']!,
+                    user.username,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge!
                         .copyWith(color: AppColor.white),
                   ),
                   Text(
-                    AppText.enText['profile_email']!,
+                    user.email,
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge!
@@ -64,72 +68,64 @@ class ProfileAppBar extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(width: 10),
-                  Text(
-                    "Country",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: AppColor.white),
-                  ),
-                  SizedBox(width: 60),
-                  Text(
-                    "Job Title",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: AppColor.white),
-                  ),
-                  SizedBox(width: 60),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                          context, RouteManager.editProfileScreen);
-                    },
-                    borderRadius: BorderRadius.circular(
-                        20.0), // Adjust the radius as needed
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white
-                            .withOpacity(0.2), // Transparent white color
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Adjust the radius as needed
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Edit Profile",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(color: AppColor.white),
-                          ),
-                          const SizedBox(width: 6),
-                          const Icon(
-                            Icons.edit,
-                            color: AppColor.white,
-                            size: 14,
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+              Text(
+                "Country",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(color: AppColor.white),
               ),
+              Text(
+                "Job Title",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(color: AppColor.white),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.popAndPushNamed(
+                      context, RouteManager.editProfileScreen);
+                },
+                borderRadius:
+                    BorderRadius.circular(20.0), // Adjust the radius as needed
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 2.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white
+                        .withOpacity(0.2), // Transparent white color
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Adjust the radius as needed
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Edit Profile",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: AppColor.white),
+                      ),
+                      const SizedBox(width: 8),
+                      const Icon(
+                        Icons.edit,
+                        color: AppColor.white,
+                        size: 14,
+                      ),
+                    ],
+                  ),
+                ),
+              )
             ],
-          )
+          ),
         ],
       ),
     );

@@ -4,7 +4,7 @@ import 'package:frontend_mobile/screens/history/widgets/custom_danger_button.dar
 import 'package:frontend_mobile/screens/history/widgets/remove_btn.dart';
 
 class InternshipApplyScreen extends StatelessWidget {
-  const InternshipApplyScreen({Key? key}) : super(key: key);
+  const InternshipApplyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
