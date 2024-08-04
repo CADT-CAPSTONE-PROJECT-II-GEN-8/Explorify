@@ -177,7 +177,8 @@ class AuthService {
 
   Future<void> getToken({
     required BuildContext context,
-    required String username, required String otpCode
+    required String username, 
+    required String otpCode
   }) async {
     final otpProvider = Provider.of<OtpProvider>(context, listen: false);
     final tokenService = TokenService();

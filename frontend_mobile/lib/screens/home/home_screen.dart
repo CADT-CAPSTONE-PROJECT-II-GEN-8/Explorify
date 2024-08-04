@@ -32,132 +32,132 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   Map<String, List<String>> selectedOptions = {}; // State variable
 
-  final List<Internship> internshipList = [
-    Internship(
-      internshipPostId: 01,
-      jobTitle: 'UX/UI Designer',
-      location: 'Cambodia, Phnom Penh',
-      status: 'Active',
-      jobDescription:
-          'responsible for creating user-centered designs for digital products, such as websites, mobile apps, and software interfaces. Their primary focus is on enhancing user satisfaction and usability by improving the accessibility, efficiency, and aesthetics of the product.',
-      jobDuration: "3 Months",
-      jobRequirement:
-          'Bachelor\'s degree in Graphic Design, Interaction Design, Human-Computer Interaction, or related field., Proven experience as a UI/UX Designer or similar role, with a strong portfolio showcasing your design projects., Proficiency in design tools such as Adobe XD/ Sketc/ Figma, Solid understanding of user-centered design principles and best practices. ',
-      jobType: 'Full-Time',
-      qualification: 'Bachelor\'s Degree',
-      salary: '100\$ - 200\$',
-      active: true,
-      deadline: DateTime(2024, 6, 30),
-      user: User(
-        username: 'Linh',
-      ),
-      tags: [Tag(id: 1, name: 'Money')],
-    ),
-    Internship(
-      internshipPostId: 2,
-      jobTitle: 'Content Marketing Intern',
-      location: 'Thailand, Bangkok',
-      status: 'Active',
-      jobDescription:
-          'Create and manage engaging content for social media, website, and blog. Assist with content marketing campaigns.',
-      jobDuration: "4 Months",
-      jobRequirement:
-          'Excellent written and verbal communication skills., Strong understanding of SEO principles., Experience with social media marketing platforms., Proficiency in content creation tools.',
-      jobType: 'Part-Time',
-      qualification: 'Bachelor\'s Degree (Preferred)',
-      salary: '50\$ - 100\$',
-      active: true,
-      deadline: DateTime(2024, 7, 15),
-      user: User(
-        username: 'Linh',
-      ),
-      tags: [Tag(id: 1, name: 'Money')],
-    ),
-    Internship(
-      internshipPostId: 3,
-      jobTitle: 'Digital Marketing Analyst',
-      location: 'Vietnam, Hanoi',
-      status: 'Active',
-      jobDescription:
-          'Analyze marketing data to identify trends and measure campaign performance. Develop and implement digital marketing strategies.',
-      jobDuration: "5 Months",
-      jobRequirement:
-          'Bachelor\'s degree in Marketing or related field., Experience with web analytics tools., Knowledge of digital marketing channels., Strong analytical and problem-solving skills.',
-      jobType: 'Intern',
-      qualification: 'Bachelor\'s Degree',
-      salary: 'Unpaid',
-      active: true,
-      deadline: DateTime(2024, 7, 7),
-      user: User(
-        username: 'Linh',
-      ),
-      tags: [Tag(id: 1, name: 'Money')],
-    ),
-    Internship(
-      internshipPostId: 4,
-      jobTitle: 'Graphic Designer',
-      location: 'Singapore',
-      status: 'Active',
-      jobDescription:
-          'Create visually appealing graphics for marketing materials, presentations, and social media.',
-      jobDuration: "3 Months",
-      jobRequirement:
-          'Bachelor\'s degree in Graphic Design or related field., Strong portfolio showcasing design skills., Proficiency in design software such as Adobe Photoshop Illustrator and InDesign.',
-      jobType: 'Full-Time',
-      qualification: 'Bachelor\'s Degree',
-      salary: '120\$ - 200\$',
-      active: true,
-      deadline: DateTime(2024, 7, 10),
-      user: User(
-        username: 'Linh',
-      ),
-      tags: [Tag(id: 1, name: 'Money')],
-    ),
-    Internship(
-      internshipPostId: 5,
-      jobTitle: 'Digital Business Intern',
-      location: 'Indonesia, Jakarta',
-      status: 'Active',
-      jobDescription:
-          'Identify and develop new business opportunities. Conduct market research and competitor analysis. Prepare presentations and proposals.',
-      jobDuration: "6 Months",
-      jobRequirement:
-          'Bachelor\'s degree in Business Administration or related field., Strong communication and interpersonal skills., Experience with business development activities (a plus).',
-      jobType: 'Intern',
-      qualification: 'Bachelor\'s Degree (In Progress)',
-      salary: '75\$ - 125',
-      active: true,
-      deadline: DateTime(2024, 7, 1),
-      user: User(
-        username: 'Linh',
-      ),
-      tags: [Tag(id: 1, name: 'Money')],
-    ),
-  ];
+  // final List<Internship> internshipList = [
+  //   Internship(
+  //     internshipPostId: 01,
+  //     jobTitle: 'UX/UI Designer',
+  //     location: 'Cambodia, Phnom Penh',
+  //     status: 'Active',
+  //     jobDescription:
+  //         'responsible for creating user-centered designs for digital products, such as websites, mobile apps, and software interfaces. Their primary focus is on enhancing user satisfaction and usability by improving the accessibility, efficiency, and aesthetics of the product.',
+  //     jobDuration: "3 Months",
+  //     jobRequirement:
+  //         'Bachelor\'s degree in Graphic Design, Interaction Design, Human-Computer Interaction, or related field., Proven experience as a UI/UX Designer or similar role, with a strong portfolio showcasing your design projects., Proficiency in design tools such as Adobe XD/ Sketc/ Figma, Solid understanding of user-centered design principles and best practices. ',
+  //     jobType: 'Full-Time',
+  //     qualification: 'Bachelor\'s Degree',
+  //     salary: '100\$ - 200\$',
+  //     active: true,
+  //     deadline: DateTime(2024, 6, 30),
+  //     user: User(
+  //       username: 'Linh',
+  //     ),
+  //     tags: [Tag(id: 1, name: 'Money')],
+  //   ),
+  //   Internship(
+  //     internshipPostId: 2,
+  //     jobTitle: 'Content Marketing Intern',
+  //     location: 'Thailand, Bangkok',
+  //     status: 'Active',
+  //     jobDescription:
+  //         'Create and manage engaging content for social media, website, and blog. Assist with content marketing campaigns.',
+  //     jobDuration: "4 Months",
+  //     jobRequirement:
+  //         'Excellent written and verbal communication skills., Strong understanding of SEO principles., Experience with social media marketing platforms., Proficiency in content creation tools.',
+  //     jobType: 'Part-Time',
+  //     qualification: 'Bachelor\'s Degree (Preferred)',
+  //     salary: '50\$ - 100\$',
+  //     active: true,
+  //     deadline: DateTime(2024, 7, 15),
+  //     user: User(
+  //       username: 'Linh',
+  //     ),
+  //     tags: [Tag(id: 1, name: 'Money')],
+  //   ),
+  //   Internship(
+  //     internshipPostId: 3,
+  //     jobTitle: 'Digital Marketing Analyst',
+  //     location: 'Vietnam, Hanoi',
+  //     status: 'Active',
+  //     jobDescription:
+  //         'Analyze marketing data to identify trends and measure campaign performance. Develop and implement digital marketing strategies.',
+  //     jobDuration: "5 Months",
+  //     jobRequirement:
+  //         'Bachelor\'s degree in Marketing or related field., Experience with web analytics tools., Knowledge of digital marketing channels., Strong analytical and problem-solving skills.',
+  //     jobType: 'Intern',
+  //     qualification: 'Bachelor\'s Degree',
+  //     salary: 'Unpaid',
+  //     active: true,
+  //     deadline: DateTime(2024, 7, 7),
+  //     user: User(
+  //       username: 'Linh',
+  //     ),
+  //     tags: [Tag(id: 1, name: 'Money')],
+  //   ),
+  //   Internship(
+  //     internshipPostId: 4,
+  //     jobTitle: 'Graphic Designer',
+  //     location: 'Singapore',
+  //     status: 'Active',
+  //     jobDescription:
+  //         'Create visually appealing graphics for marketing materials, presentations, and social media.',
+  //     jobDuration: "3 Months",
+  //     jobRequirement:
+  //         'Bachelor\'s degree in Graphic Design or related field., Strong portfolio showcasing design skills., Proficiency in design software such as Adobe Photoshop Illustrator and InDesign.',
+  //     jobType: 'Full-Time',
+  //     qualification: 'Bachelor\'s Degree',
+  //     salary: '120\$ - 200\$',
+  //     active: true,
+  //     deadline: DateTime(2024, 7, 10),
+  //     user: User(
+  //       username: 'Linh',
+  //     ),
+  //     tags: [Tag(id: 1, name: 'Money')],
+  //   ),
+  //   Internship(
+  //     internshipPostId: 5,
+  //     jobTitle: 'Digital Business Intern',
+  //     location: 'Indonesia, Jakarta',
+  //     status: 'Active',
+  //     jobDescription:
+  //         'Identify and develop new business opportunities. Conduct market research and competitor analysis. Prepare presentations and proposals.',
+  //     jobDuration: "6 Months",
+  //     jobRequirement:
+  //         'Bachelor\'s degree in Business Administration or related field., Strong communication and interpersonal skills., Experience with business development activities (a plus).',
+  //     jobType: 'Intern',
+  //     qualification: 'Bachelor\'s Degree (In Progress)',
+  //     salary: '75\$ - 125\$',
+  //     active: true,
+  //     deadline: DateTime(2024, 7, 1),
+  //     companyProfile: CompanyProfile(
+  //       username: 'Linh', userId: null,
+  //     ),
+  //     tags: [Tag(id: 1, name: 'Money')],
+  //   ),
+  // ];
 
-  final List<CompanyProfile> companyList = [
-    CompanyProfile(
-        companyPic: AppImage.google,
-        companyId: 0,
-        companyName: "Google Inc",
-        description: "Giant tech company",
-        location: "Canada, USA",
-        userId: 1),
-    CompanyProfile(
-        companyPic: AppImage.facebook,
-        companyId: 1,
-        companyName: "Meta Platforms Inc.",
-        description: "Social media and technology company",
-        location: "USA",
-        userId: 1),
-    CompanyProfile(
-        companyPic: AppImage.facebook,
-        companyId: 2,
-        companyName: "Meta Platforms Inc.",
-        description: "Social media and technology company",
-        location: "USA",
-        userId: 1),
-  ];
+  // final List<CompanyProfile> companyList = [
+  //   CompanyProfile(
+  //       companyPic: AppImage.google,
+  //       companyId: 0,
+  //       companyName: "Google Inc",
+  //       description: "Giant tech company",
+  //       location: "Canada, USA",
+  //       userId: 1),
+  //   CompanyProfile(
+  //       companyPic: AppImage.facebook,
+  //       companyId: 1,
+  //       companyName: "Meta Platforms Inc.",
+  //       description: "Social media and technology company",
+  //       location: "USA",
+  //       userId: 1),
+  //   CompanyProfile(
+  //       companyPic: AppImage.facebook,
+  //       companyId: 2,
+  //       companyName: "Meta Platforms Inc.",
+  //       description: "Social media and technology company",
+  //       location: "USA",
+  //       userId: 27),
+  // ];
   InternshipService internshipService = InternshipService();
   CompanyService companyService = CompanyService();
   List<Internship> internshipData = [];
@@ -317,7 +317,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               physics: const BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
                                 final internshipInfo = internshipData[index];
-                                final companyData = companyList[index];
+                                final companyData =
+                                    internshipInfo.user.companyProfile;
                                 // final companyInfo = companyData[index].userId ==
                                 //         internshipData[index].user.userId
                                 //     ? companyData[index]
@@ -353,6 +354,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Provider.of<InternshipProvider>(context,
                                             listen: false)
                                         .internshipInfo = internshipInfo;
+                                    debugPrint(internshipInfo.jobDescription);
                                     Provider.of<CompanyProfileProvider>(context,
                                             listen: false)
                                         .companyProfile = companyData;

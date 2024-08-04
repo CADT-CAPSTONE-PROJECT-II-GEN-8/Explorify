@@ -1,6 +1,4 @@
 class CompanyProfile {
-  int companyId;
-  int userId;
   String companyName;
   String description;
   String location;
@@ -12,8 +10,6 @@ class CompanyProfile {
   String companyPic;
 
   CompanyProfile({
-    required this.userId,
-    required this.companyId,
     required this.companyName,
     required this.description,
     required this.location,
@@ -26,9 +22,7 @@ class CompanyProfile {
   });
 
   factory CompanyProfile.fromMap(Map<String, dynamic> json) => CompanyProfile(
-        userId: json["user"] as int,
-        companyId: json["company_id"] as int,
-        companyName: json["company_name"],
+        companyName: json["company_name"] as String,
         description: json["description"],
         location: json["location"],
         headOffice: json["head_office"],
@@ -36,12 +30,10 @@ class CompanyProfile {
         companyType: json["company_type"],
         specialization: json["specialization"],
         companyWebsite: json["company_website"],
-        companyPic: json["company_pic"],
+        companyPic: json["company_pic"] as String ?? '',
       );
 
   Map<String, dynamic> toMap() => {
-        "user": userId,
-        "company_id": companyId,
         "company_name": companyName,
         "description": description,
         "location": location,
@@ -52,4 +44,21 @@ class CompanyProfile {
         "company_website": companyWebsite,
         "company_pic": companyPic,
       };
+}
+
+class MyUser {
+  final CompanyProfile companyProfile;
+
+  MyUser({
+    required this.companyProfile,
+  });
+
+  factory MyUser.fromJson(Map<String, dynamic> json) => MyUser(
+        companyProfile: CompanyProfile.fromMap(json['company_profile']),
+      );
+  Map<String, dynamic> toMap() {
+    return {
+      'company_profile': companyProfile.toMap(),
+    };
+  }
 }

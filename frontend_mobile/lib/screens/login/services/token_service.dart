@@ -74,7 +74,7 @@ class TokenService {
         String accessToken = response.data['access_token'];
         String refreshToken = response.data['refresh_token'];
         await saveTokens(accessToken, refreshToken);
-        print(accessToken);
+        debugPrint(accessToken);
       } else {
         throw Exception('Failed to verify OTP');
       }

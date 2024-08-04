@@ -22,7 +22,7 @@ class InternshipService {
         onSuccess: () async {
           // showSnackBar(context, 'Success Display!');
           final data = jsonDecode(response.body);
-          // debugPrint('$data');
+          debugPrint('$data');
           final List<dynamic> internshipsData = data['results'];
           // debugPrint('My Internship details: $internshipsData');
           for (int i = 0; i < data['results'].length; i++) {

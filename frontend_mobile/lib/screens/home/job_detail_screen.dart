@@ -86,12 +86,18 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                   Container(
                     width: 54,
                     height: 54,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          companyInfo!.companyPic,
-                        ),
-                      ),
+                    // decoration: BoxDecoration(
+                    //   image: DecorationImage(
+                    //     image: AssetImage(
+                    //       'assets/images/briefcase.png',
+                    //     ),
+                    //   ),
+                    // ),
+                    child: Image.asset(
+                      'assets/images/briefcase.png',
+                      height: 54,
+                      width: 54,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   const SizedBox(
@@ -101,7 +107,7 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        companyInfo.companyName,
+                        companyInfo!.companyName,
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.w500,
                             color: AppColor.primary),

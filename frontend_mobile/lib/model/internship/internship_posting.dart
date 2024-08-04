@@ -1,4 +1,5 @@
 import 'package:frontend_mobile/model/cv/user_model.dart';
+import 'package:frontend_mobile/model/internship/company_profile.dart';
 import 'package:frontend_mobile/model/internship/tag_model.dart';
 
 class Internship {
@@ -14,8 +15,8 @@ class Internship {
   final String salary; // Assuming this is a string for now
   final bool active;
   final DateTime deadline;
-  final User user;
-  final List<Tag> tags;
+  final MyUser user;
+  final List<Tag>? tags;
 
   Internship(
       {required this.internshipPostId,
@@ -31,7 +32,7 @@ class Internship {
       required this.active,
       required this.deadline,
       required this.user,
-      required this.tags});
+      this.tags});
 
   factory Internship.fromJson(Map<String, dynamic> json) => Internship(
         internshipPostId: json['internship_post_id'] as int,
@@ -46,10 +47,10 @@ class Internship {
         salary: json['salary'] as String,
         active: json['active'] as bool,
         deadline: DateTime.parse(json['deadline'] as String),
-        user: User.fromMap(json['user'] as Map<String, dynamic>),
-        tags: (json['tags'] as List)
-            .map((tagJson) => Tag.fromMap(tagJson))
-            .toList(),
+        user: MyUser.fromJson(json['user'] as Map<String, dynamic>),
+        // tags: (json['tags'] as List)
+        //     .map((tagJson) => Tag.fromMap(tagJson))
+        // .toList(),
       );
 
   Map<String, dynamic> toMap() => {
@@ -66,6 +67,6 @@ class Internship {
         'active': active,
         'deadline': deadline.toString(), // Convert DateTime to String
         'user': user.toMap(),
-        'tags': tags.map((tag) => tag.toMap()).toList(),
+        'tags': tags!.map((tag) => tag.toMap()).toList(),
       };
 }

@@ -5,5 +5,5 @@ class Repository {
   Repository(this.authService);
 
   Future<void> getToken(context, username) =>
-      authService.getToken(context: context, username: username);
+      authService.getToken(context: context, username: username, otpCode: '');
 }
