@@ -52,14 +52,14 @@ class User {
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       userId: map['user_id'] as int?,
-      username: map['company_profile'] as String,
-      firstName: map['first_name'] as String?,
-      lastName: map['last_name'] as String?,
-      email: map['email'] as String?,
-      phone: map['phone'] as String?,
-      location: map['location'] as String?,
-      school: map['school'] as String?,
-      headline: map['headline'] as String?,
+      username: map['company_profile'] as String? ?? '',
+      firstName: map['first_name'] as String? ?? '',
+      lastName: map['last_name'] as String? ?? '',
+      email: map['email'] as String? ?? '',
+      phone: map['phone'] as String? ?? '',
+      location: map['location'] as String? ?? '',
+      school: map['school'] as String? ?? '',
+      headline: map['headline'] as String? ?? '',
     );
   }
 
