@@ -1,4 +1,6 @@
+import json
 from rest_framework.decorators import api_view
+
 
 from internship.models import CompanyProfile, InternshipPost
 from internship.serializers import CompanyProfileSerializer, InternshipPostSerialzer
@@ -148,7 +150,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from .models import InternshipApplication
-from .serializers import AllInternshipApplicationSerializer, InternshipApplicationSerializer, MobileCompanyProfileSerializer
+from .serializers import AllInternshipApplicationSerializer, EmailSerializer, InternshipApplicationSerializer, MobileCompanyProfileSerializer
 
 
 
@@ -240,3 +242,23 @@ class InternshipApplicationCountView(APIView) :
         applications_count = InternshipApplication.objects.filter(internship_post__in = active_posts).count()
         return Response({'application_count' : applications_count})
         
+#  Email Sending 
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import InternshipApplication
+from .serializers import EmailSerializer
+
+class ApplicationStatusUpdateView(APIView):
+    def post(self, request, pk):
+        try:
+            application = InternshipApplication.objects.get(pk=pk)
+        except InternshipApplication.DoesNotExist:
+            return Response({"error": "Application not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = EmailSerializer(application, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

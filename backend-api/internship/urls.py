@@ -27,7 +27,10 @@ urlpatterns = [
         # post count
     path('internship/count/', ActiveInternPostView.as_view(), name="internship-count"), 
     path('internship/application/count/', InternshipApplicationCountView.as_view(), name="application-count"), 
-    
+
+    #  Email Sending 
+
+     path('application/<int:pk>/status/', ApplicationStatusUpdateView.as_view(), name='application-status-update'),
 ]
 
     
