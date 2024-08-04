@@ -2,7 +2,7 @@
 // import axios from 'axios';
 
 import Header from "../CompanyPost/Header";
-import { FaBuilding, FaIndustry, FaLink, FaTasks } from "react-icons/fa";
+import { FaBuilding, FaGlobe, FaIndustry, FaLink, FaTasks, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import axiosInstance from "src/utils/axiosInstance";
 import { useState, useEffect } from "react";
@@ -42,7 +42,7 @@ const Profile = () => {
         <div className="container flex flex-col items-center px-5 py-16 mx-auto md:flex-row lg:px-28">
           <div className="flex flex-col items-start mb-16 text-left lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 md:mb-0">
             <h2 className="mb-8 text-xs font-semibold tracking-widest text-black uppercase title-font">
-              {companyData.company_name}
+             Company Name
             </h2>
             <h1 className="mb-8 text-xl font-black tracking-tighter text-black md:text-3xl title-font">
              {companyData.company_name}
@@ -54,7 +54,7 @@ const Profile = () => {
               <Link to="/edit/company/profile">
                 <button
                   type="button"
-                  class="text-white bg-amber-500  inline-flex items-center hover:text-white border  hover:bg-amber-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                  class="text-white  bg-[#F27C1C] hover:bg-[#ce6918]   inline-flex items-center hover:text-white border  focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                 >
                   Update Profile
                 </button>
@@ -122,20 +122,9 @@ const Profile = () => {
 
             <div class="grid gap-6 justify-items-center text-center">
               <div class="rounded-full border-8 border-amber-400 p-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
-                  ></path>
-                </svg>
+                <FaUser
+                 className="h-6 w-6 text-[#F27C1C]"
+                 />
               </div>
               <h3 class="text-md font-bold">
                 Company size
@@ -148,7 +137,7 @@ const Profile = () => {
 
             <div class="grid gap-6 justify-items-center text-center">
               <div class="rounded-full border-8 border-amber-400 p-4">
-                <FaLink
+                <FaGlobe
                   className="h-6 w-6 text-[#F27C1C]"
                   aria-label="Website Icon"
                 />

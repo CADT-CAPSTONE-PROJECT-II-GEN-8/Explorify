@@ -59,7 +59,7 @@ const Login = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-[#f7ac70] via-[#F27C1C] to-[#F27C1C] h-full w-full"></div>
         <div className="relative flex flex-col sm:flex-row items-center justify-center bg-transparent rounded-3xl ">
           <div className="hidden lg:flex flex-col self-center p-10 max-w-md text-white z-10 pb-60 pr-20">
-            <img src="../assets/app_logo.png" alt="Logo" className="w-32 " />
+            <img src="../assets/logo2.png" alt="Logo" className="w-36 " />
             <h1 className="mb-3 font-semibold text-4xl">Welcome back</h1>
             <p className="pr-3 text-sm opacity-75">
               Lorem ipsum is placeholder text commonly used in the graphic,

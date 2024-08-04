@@ -50,11 +50,11 @@ const JobTable = () => {
   const getStatusClass = (status) => {
     switch (status) {
       case 'Closed':
-        return 'bg-red-500 text-white';
+        return 'py-1 px-2.5 bg-red-50  font-medium  text-red-600';
       case 'Open':
-        return 'bg-amber-500 text-white';
+        return 'py-1 px-2.5 bg-amber-50  font-medium  text-amber-600';
       case 'Filled':
-        return 'bg-gray-500 text-white';
+        return 'py-1 px-2.5 bg-emerald-50  font-medium  text-emerald-600';
       default:
         return 'bg-amber-100 text-amber-400';
     }
@@ -160,7 +160,7 @@ const JobTable = () => {
                       <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <div className='pl-2 flex items-center'>
                           <Link to='/totle/application'>
-                          <a href="">
+                          <a href="" className='text-amber-700 font-bold'>
                             10
                           </a>
                           </Link>

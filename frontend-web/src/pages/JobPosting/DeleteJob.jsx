@@ -2,37 +2,42 @@ import axios from 'axios';
 import { useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { ImSpinner8 } from 'react-icons/im'; // Import spinner icon
+import Spinner from 'src/components/SmallComponents/Spinner'; // Assuming this is a custom spinner component
 
 const DeleteJob = ({ jobId, onClose, onDelete }) => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const navigate = useNavigate();
 
   const deleteProgram = async () => {
-    setLoading(true);
+    setDeleting(true);
     try {
       const { status } = await axios.delete(`http://localhost:8989/api/v1/post/delete/${jobId}/`);
       if (status === 204) {
         onDelete(jobId);
-        await Swal.fire({
-          title: 'Success!',
-          text: 'Deleted successfully',
-          icon: 'success',
-          timer: 3000,
-          timerProgressBar: true,
-          showConfirmButton: false,
-        });
-        navigate('/job/table');
+        setLoading(true); // Set loading to true to show spinner
+        // Simulate delay to show spinner before navigating
+        setTimeout(() => {
+          setLoading(false); // Reset loading state
+          navigate('/job/table');
+        }, 1000); // Adjust delay as needed
       } else {
         console.error('Failed to delete');
+        setDeleting(false);
       }
     } catch (error) {
       console.error('Error deleting program: ', error);
-    } finally {
-      setLoading(false);
+      setDeleting(false);
     }
   };
+
+  if (loading) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
     <>
@@ -73,9 +78,17 @@ const DeleteJob = ({ jobId, onClose, onDelete }) => {
                     await deleteProgram();
                     setShowModal(false);
                   }}
-                  className="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700"
+                  className="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 flex items-center justify-center"
+                  disabled={deleting}
                 >
-                  {loading ? 'Deleting...' : "Yes, I'm sure"}
+                  {deleting ? (
+                    <>
+                      <ImSpinner8 className="animate-spin mr-2" />
+                      Deleting...
+                    </>
+                  ) : (
+                    "Yes, I'm sure"
+                  )}
                 </button>
               </div>
             </div>

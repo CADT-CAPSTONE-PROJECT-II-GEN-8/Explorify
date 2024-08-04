@@ -2,10 +2,8 @@ import Main from 'src/components/Main';
 import Dashboard from "src/Page/Dashboard";
 import LisCandidate from 'src/pages/Candidate/ListCandidate';
 import DeleteProfile from 'src/pages/CompanyPost/DeleteProfile';
-import ViewDetail from 'src/pages/CompanyPost/ViewDetail';
 import Edit from 'src/pages/CompanyProfile/Edit';
 import Profile from 'src/pages/CompanyProfile/Profile';
-import UI from 'src/pages/CompanyProfile/UI';
 import AddJob from 'src/pages/JobPosting/AddJob';
 import DeleteJob from 'src/pages/JobPosting/DeleteJob';
 import EditJob from 'src/pages/JobPosting/EditJob';
@@ -13,6 +11,9 @@ import JobDetail from 'src/pages/JobPosting/JobDetail';
 import JobTable from 'src/pages/JobPosting/JobTable';
 import { ProtectedRoute } from './ProtectedRouteComponent';
 import TotalCadidate from 'src/pages/Candidate/TotalCadidate';
+import CV from 'src/pages/Candidate/CV';
+import CoverLetter from 'src/pages/Candidate/CoverLetter';
+import EmailForm from 'src/pages/Email/EmailForm';
 
 export const protectedRoutes = [
   {
@@ -27,14 +28,7 @@ export const protectedRoutes = [
           </Main>
         ),
       },
-      {
-        path: '/UI',
-        element: (
-          <Main>
-            <UI />
-          </Main>
-        ),
-      },
+     
       {
         path: '/job/table',
         element: (
@@ -92,14 +86,6 @@ export const protectedRoutes = [
         ),
       },
       {
-        path: '/details/company/:companyId',
-        element: (
-          <Main>
-            <ViewDetail />
-          </Main>
-        ),
-      },
-      {
         path: '/edit/company/profile',
         element: (
           <Main>
@@ -127,6 +113,39 @@ export const protectedRoutes = [
         ),
       },
 
+      {
+        path: '/apply/application/cv/:applicationId',
+        element: (
+          <Main>
+            <CV />
+          </Main>
+        ),
+      },
+
+
+      {
+        path: '/apply/application/cover-letter/:applicationId',
+        element: (
+          <Main>
+            <CoverLetter/>
+          </Main>
+        ),
+      },
+
+
+      // Email 
+
+      {
+        path: '/email/:id',
+        element: (
+          <Main>
+            <EmailForm />
+          </Main>
+        ),
+      },
+
+
+    
     ],
   },
 ];

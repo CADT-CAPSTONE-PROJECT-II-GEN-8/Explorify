@@ -3,48 +3,60 @@ import Spinner from 'src/components/SmallComponents/Spinner';
 import 'src/pages/JobPosting/job.css';
 import axiosInstance from 'src/utils/axiosInstance';
 
-const CoverLetter= () => {
-  const [jobs, setJobs] = useState(null);
+const CoverLetter = ({ applicationId }) => { // Destructure applicationId from props
+  const [jobUrl, setJobUrl] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    axiosInstance
-      .get("application/1/cover-letter/", { responseType: "blob" })
-      .then((response) => {
-        const pdfBlob = new Blob([response.data], { type: "application/pdf" });
-        const url = window.URL.createObjectURL(pdfBlob);
-        setJobs(url);
-        setLoading(false); // Set loading to false when the PDF is loaded
-      })
-      .catch((error) => {
-        console.error("Error fetching data", error);
-        setLoading(false); // Also set loading to false on error
-      });
-  }, []);
+    const fetchCV = async () => {
+      console.log('Fetching CV for applicationId:', applicationId);
+      try {
+        if (applicationId) {
+          const response = await axiosInstance.get(`application/${applicationId}/cover-letter/`, {
+            responseType: 'blob',
+          });
+
+          if (response.status === 200) {
+            const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+            const url = window.URL.createObjectURL(pdfBlob);
+            setJobUrl(url);
+            console.log('PDF URL created:', url);
+          } else {
+            console.error(`Unexpected response status: ${response.status}`);
+          }
+        } else {
+          console.error('No applicationId provided');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCV();
+  }, [applicationId]);
 
   const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+    setIsModalOpen((prev) => !prev);
   };
 
   return (
     <>
       {/* Modal toggle button */}
-      
-
       <div className="text-blue-600 underline">
         <a href="#" onClick={toggleModal}>
-          View Cover Letter
+          View Resume
         </a>
       </div>
-       
-   
+
       {/* Main modal */}
       {isModalOpen && (
         <div
           className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-modal md:h-full overflow-y-auto overflow-x-hidden"
         >
-          <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
+          <div className="relative p-4 w-full max-w-2xl h-40 md:h-auto">
             {/* Modal content */}
             <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
               {/* Modal header */}
@@ -75,8 +87,10 @@ const CoverLetter= () => {
               {/* Modal body */}
               {loading ? (
                 <Spinner />
+              ) : jobUrl ? (
+                <embed className="pdf" src={jobUrl} width="900" height="600" />
               ) : (
-                <embed className="pdf" src={jobs} width="800" height="500" />
+                <p>Error loading PDF</p>
               )}
             </div>
           </div>

@@ -1,10 +1,9 @@
-import { Link } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import Header from './Header';
-import { FaDollarSign, FaGraduationCap, FaCalendarAlt, FaMapMarkerAlt, FaBriefcase } from 'react-icons/fa';
 import DOMPurify from 'dompurify';
+import { useEffect, useState } from 'react';
+import { FaBriefcase, FaCalendarAlt, FaDollarSign, FaGraduationCap, FaMapMarkerAlt } from 'react-icons/fa';
+import { Link, useParams } from 'react-router-dom';
+import Header from './Header';
 
 const JobDetail = () => {
     const { jobId } = useParams();
@@ -33,8 +32,8 @@ const JobDetail = () => {
         return <p>Loading...</p>;
     }
 
-    const apiKey = 'GOOGLE_MAP_API_KEY'; // Replace with  actual Google Maps Embed API key
-    const formattedLocation = encodeURIComponent(jobData.location);
+    // const apiKey = 'GOOGLE_MAP_API_KEY'; // Replace with  actual Google Maps Embed API key
+    // const formattedLocation = encodeURIComponent(jobData.location);
 
     return (
         <>
@@ -112,8 +111,17 @@ const JobDetail = () => {
                                             </div>
                                         </div>
                                         <div>
-                                            <iframe
+                                            {/* <iframe
                                                 src={`https://www.google.com/maps/embed/v1/place?q=${formattedLocation}&key=${apiKey}`}
+                                                className="rounded-lg w-full h-64 pt-5"
+                                                style={{ border: 0 }}
+                                                allowFullScreen
+                                                loading="lazy"
+                                                referrerPolicy="no-referrer-when-downgrade"
+                                                title="Company Location"
+                                            /> */}
+                                            <iframe
+                                                src={`https://www.google.com/maps/embed?pb=${encodeURIComponent}`}
                                                 className="rounded-lg w-full h-64 pt-5"
                                                 style={{ border: 0 }}
                                                 allowFullScreen
