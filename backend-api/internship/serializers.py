@@ -58,7 +58,7 @@ class AllInternshipApplicationSerializer(serializers.ModelSerializer) :
 from rest_framework import serializers
 from django.core.mail import send_mail
 from .models import InternshipApplication
-
+from django.conf import settings
 class EmailSerializer(serializers.ModelSerializer):
     class Meta:
         model = InternshipApplication
@@ -92,7 +92,7 @@ class EmailSerializer(serializers.ModelSerializer):
         send_mail(
             subject,
             message,
-            'admin@example.com',  # Replace with your "from" email address
-            [instance.user.email],  # Assuming there's a user field in the InternshipApplication model
+            settings.EMAIL_HOST_USER,
+            [instance.user.email],
             fail_silently=False,
         )
