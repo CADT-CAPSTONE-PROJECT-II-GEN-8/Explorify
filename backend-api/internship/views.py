@@ -232,16 +232,22 @@ class ActiveInternPostView(APIView) :
         active_post_count = InternshipPost.objects.filter(user = user, active = 1).count() 
         return Response({'active_post_count' : active_post_count})
     
-# application count
-class InternshipApplicationCountView(APIView) : 
-    permission_classes = [IsAuthenticated] 
+    
+class InternshipApplicationCountView(APIView):
+    permission_classes = [IsAuthenticated]
 
-    def get(self, request, *agrs, **kwargs) : 
+    def get(self, request, *args, **kwargs):
         user = request.user
-        active_posts = InternshipPost.objects.filter(user = user, active = 1) 
-        applications_count = InternshipApplication.objects.filter(internship_post__in = active_posts).count()
-        return Response({'application_count' : applications_count})
+        internship_post = request.query_params.get('internship_post', None)
         
+        if internship_post:
+            active_posts = InternshipPost.objects.filter(user=user, active=1, internship_post_id=internship_post)
+        else:
+            active_posts = InternshipPost.objects.filter(user=user, active=1)
+        
+        applications_count = InternshipApplication.objects.filter(internship_post__in=active_posts).count()
+        return Response({'application_count': applications_count})
+    
 #  Email Sending 
 
 from rest_framework.views import APIView
