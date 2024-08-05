@@ -4,9 +4,9 @@ export const Contact = () => {
 
         <>
 
-            <section className="bg-white body-font relative">
-            <h2
-                    class="font-heading mb-4 font-bold  text-center tracking-tight text-gray-900 dark:text-white text-2xl sm:text-5xl">
+            <section className="bg-white body-font relative  pt-24">
+                <h2
+                    class="font-heading mb-4 font-bold  text-center tracking-tight text-gray-900 dark:text-white text-2xl sm:text-4xl">
                     Get in Touch
                 </h2>
                 <div className="container lg:py-12 px-5 pb-12 pt-4 mx-auto flex sm:flex-nowrap flex-wrap ">
@@ -16,7 +16,7 @@ export const Contact = () => {
                         alt=""
                         className="w-1000 h-1000 object-cover"
                     /></div> */}
-                  
+
                     <div className="lg:w-1/3 md:w-1/2 md:pb-4  bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0 lg:px-12 lg:mr-16 shadow-lg border rounded-lg  relative z-100 p-8">
                         <h2 className="text-xl  mb-1 font-bold title-font text-[#F27C1C] text-center">Contact Us </h2>
                         <div className="relative mb-4">
