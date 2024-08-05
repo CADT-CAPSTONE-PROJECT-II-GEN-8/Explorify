@@ -56,9 +56,13 @@ class AllInternshipApplicationSerializer(serializers.ModelSerializer) :
 
 
 from rest_framework import serializers
-from django.core.mail import send_mail
 from .models import InternshipApplication
 from django.conf import settings
+from django.core.mail import send_mail, EmailMessage, BadHeaderError
+from django.utils.html import strip_tags
+import smtplib
+# import logging
+
 class EmailSerializer(serializers.ModelSerializer):
     class Meta:
         model = InternshipApplication
@@ -88,10 +92,16 @@ class EmailSerializer(serializers.ModelSerializer):
             message = 'Your application has been approved.'
         else:
             message = 'Your application has been rejected.'
-        
-        send_mail(
+        email = EmailMessage(
             subject,
             message,
             settings.EMAIL_HOST_USER,
             [instance.user.email],
         )
+        try:
+            email.send()
+        except BadHeaderError:
+            print("Invalid header found.")
+        except smtplib.SMTPException as e:
+            print(f"SMTP error occurred: {e}")
+
