@@ -94,5 +94,4 @@ class EmailSerializer(serializers.ModelSerializer):
             message,
             settings.EMAIL_HOST_USER,
             [instance.user.email],
-            fail_silently=False,
         )
