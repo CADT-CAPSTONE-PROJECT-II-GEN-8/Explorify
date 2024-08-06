@@ -28,9 +28,9 @@ const Feature = () => {
                                                     <span className="text-xl font-bold">1</span>
                                                 </div>
                                                 <div className="mt-5">
-                                                    <h3 className="text-lg font-medium text-gray-900">Request a Trip</h3>
+                                                    <h3 className="text-lg font-medium text-gray-900">View Job Listing</h3>
                                                     <p className="mt-2 text-base text-gray-500">
-                                                        Choose your pickup and drop-off location, and the trip type that meets your needs.
+                                                    Stay updated with the latest postings and find the right match for your career aspirations
                                                     </p>
                                                 </div>
                                             </div>
@@ -48,9 +48,9 @@ const Feature = () => {
                                                     <span className="text-xl font-bold">3</span>
                                                 </div>
                                                 <div className="mt-5">
-                                                    <h3 className="text-lg font-medium text-white">Request a Trip</h3>
+                                                    <h3 className="text-lg font-medium text-white">Generate Resume</h3>
                                                     <p className="mt-2 text-base text-gray-100">
-                                                        Choose your pickup and drop-off location, and the trip type that meets your needs.
+                                                    Customize your resume to highlight your skills, experiences, and qualifications, ensuring you stand out to potential employers.
                                                     </p>
                                                 </div>
                                             </div>
@@ -67,7 +67,8 @@ const Feature = () => {
                             viewport={{ once: false, amount: 0.5 }} // Trigger every time it's in view
                             className="order-first block w-full mt-6 aspect-square lg:mt-0"
                         >
-                            <img className="object-cover object-center w-full h-full mx-auto lg:ml-auto" alt="hero" src="../assets/phone1.png" />
+                            <img className="object-cover object-center w-full h-full mx-auto lg:ml-auto" alt="hero" 
+                            src="../assets/feature.png"  />
                         </motion.div>
 
                         <div className="relative items-center gap-12 m-auto lg:inline-flex md:order-first">
@@ -85,9 +86,8 @@ const Feature = () => {
                                                     <span className="text-xl font-bold">2</span>
                                                 </div>
                                                 <div className="mt-5">
-                                                    <h3 className="text-lg font-medium text-gray-900">Mission</h3>
-                                                    <p className="mt-2 text-base text-gray-500">We aim to make the world a better place through innovation
-                                                        and collaboration.</p>
+                                                    <h3 className="text-lg font-medium text-gray-900">View Article List</h3>
+                                                    <p className="mt-2 text-base text-gray-500"> Explore a collection of insightful articles designed to guide you through your internship journey.</p>
                                                 </div>
                                             </div>
                                         </motion.div>
@@ -99,14 +99,13 @@ const Feature = () => {
                                             transition={{ duration: 1 }}
                                             viewport={{ once: false, amount: 0.5 }} // Trigger every time it's in view
                                         >
-                                            <div>
+                                            <div >
                                                 <div className="flex items-center justify-center h-12 w-12 rounded-md bg-white text-[#F27C1C]">
                                                     <span className="text-xl font-bold">4</span>
                                                 </div>
                                                 <div className="mt-5">
-                                                    <h3 className="text-lg font-medium text-white">Mission</h3>
-                                                    <p className="mt-2 text-base text-gray-100">We aim to make the world a better place through innovation
-                                                        and collaboration.</p>
+                                                    <h3 className="text-lg font-medium text-white">Recommended Course</h3>
+                                                    <p className="mt-2 text-base text-gray-100">Enhance your skills and knowledge with courses recommended based on your career goals.</p>
                                                 </div>
                                             </div>
                                         </motion.div>

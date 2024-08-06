@@ -19,29 +19,26 @@ export const Feature1 = () => {
         <div className="w-14 h-14 rounded-full bg-purple-200 flex justify-center items-center">
           <i className="fa-solid fa-chart-column text-3xl text-gray-900" />
         </div>
-        <h3 className="mt-12 text-xl font-bold text-gray-900">Advanced Analytics</h3>
-        <p className="mt-5 text-base text-gray-600">Track and analyze your data with powerful analytics tools. Gain valuable
-          insights for better decision-making.</p>
+        <h3 className="mt-12 text-xl font-bold text-gray-900">Dashboard</h3>
+        <p className="mt-5 text-base text-gray-600">Summary the internship post and internship application in one place.</p>
       </div>
       {/* Feature 2 */}
       <div className="md:p-8 lg:p-14  flex flex-col justify-center items-center">
         <div className="w-14 h-14 rounded-full bg-teal-200 flex justify-center items-center">
           <i className="fa-solid fa-truck-fast text-3xl text-gray-900" />
         </div>
-        <h3 className="mt-12 text-xl font-bold text-gray-900">Fast Integration</h3>
-        <p className="mt-5 text-base text-gray-600">Seamlessly integrate with your existing tools and systems for a smooth
-          workflow experience.</p>
+        <h3 className="mt-12 text-xl font-bold text-gray-900">Internship Post Management</h3>
+        <p className="mt-5 text-base text-gray-600">Manage the internship information to  seek for talent candidates.</p>
       </div>
       {/* Feature 3 */}
       <div className="md:p-8 lg:p-14  flex flex-col justify-center items-center">
         <div className="w-14 h-14 rounded-full bg-yellow-200 flex justify-center items-center">
           <i className="fa-solid fa-shield text-3xl text-gray-900" />
         </div>
-        <h3 className="mt-12 text-xl font-bold text-gray-900">Security First</h3>
-        <p className="mt-5 text-base text-gray-600">Ensure the safety of your data with top-notch security features. Your
-          privacy is our priority.</p>
+        <h3 className="mt-12 text-xl font-bold text-gray-900">Internship Application Management</h3>
+        <p className="mt-5 text-base text-gray-600">Manage the Application receive from the talents in our application.</p>
       </div>
-   
+ 
     </div>
   </div>
 </section>
