@@ -216,7 +216,7 @@ def all_application(request):
  
     # if there is something in items else raise error
     if post:
-        serializer = AllInternshipApplicationSerializer(post, many=True)
+        serializer = AllInternshipApplicationSerializer(post, many=True,context={'request': request})
         return Response(serializer.data)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -268,3 +268,25 @@ class ApplicationStatusUpdateView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ApplicationStatusRetrieveView(APIView):
+    def get(self, request, pk):
+        try:
+            application = InternshipApplication.objects.get(pk=pk)
+        except InternshipApplication.DoesNotExist:
+            return Response({"error": "Application not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = EmailSerializer(application)
+        return Response({"status": serializer.data.get('status')}, status=status.HTTP_200_OK)
+    
+#  total count approve and reject
+class ApplicationCountsView(APIView):
+    def get(self, request):
+        approved_count = InternshipApplication.count_approved()
+        rejected_count = InternshipApplication.count_rejected()
+        
+        return Response({
+            'approved_count': approved_count,
+            'rejected_count': rejected_count
+        }, status=status.HTTP_200_OK)

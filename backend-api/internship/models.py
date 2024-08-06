@@ -77,7 +77,7 @@ class InternshipApplication(models.Model):
     # cv = models.CharField(max_length=100)
     cv = models.FileField(upload_to='cvs/', blank = True, null = True)
     cover_letter = models.FileField(upload_to='cover_letter/', blank=True, null=True)
-    is_approved = models.BooleanField(default=True)  
+    is_approved = models.BooleanField(default=False)  
     is_rejected = models.BooleanField(default=False)  
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -87,7 +87,14 @@ class InternshipApplication(models.Model):
         verbose_name_plural = "Internship Applications"
         db_table = "internship_application"
 
+    @classmethod
+    def count_approved(cls):
+        return cls.objects.filter(is_approved=True).count()
 
+    @classmethod
+    def count_rejected(cls):
+        return cls.objects.filter(is_rejected=True).count()
+    
 class InternshipPost(models.Model):
     internship_post_id = models.BigAutoField(primary_key=True)
     thumbnail = models.ImageField(blank=True, null=True)    

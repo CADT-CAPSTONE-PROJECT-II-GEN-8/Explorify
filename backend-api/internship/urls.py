@@ -30,7 +30,9 @@ urlpatterns = [
 
     #  Email Sending 
 
-     path('application/<int:pk>/status/', ApplicationStatusUpdateView.as_view(), name='application-status-update'),
+     path('application/<int:pk>/status/update/', ApplicationStatusUpdateView.as_view(), name='application-status-update'),
+     path('application/<int:pk>/status/', ApplicationStatusRetrieveView.as_view(), name='application-status-retrieve'),
+     path('application-counts/', ApplicationCountsView.as_view(), name='application-counts'),
 ]
 
     
