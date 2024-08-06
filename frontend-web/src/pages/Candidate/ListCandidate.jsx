@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import Pagination from "src/components/Pagination";
 import Search from "src/components/Search";
 import Spinner from "src/components/SmallComponents/Spinner";
 import axiosInstance from "src/utils/axiosInstance";
+import EmailForm from "../Email/EmailForm";
 import Header from "../JobPosting/Header";
 import CoverLetter from "./CoverLetter";
 import CV from "./CV";
@@ -105,8 +105,8 @@ const ListCandidate = () => {
                     <th scope="col" className="px-4 py-3">Position</th>
                     <th scope="col" className="px-4 py-3">Cover Letter</th>
                     <th scope="col" className="px-4 py-3">Resume</th>
-                    <th scope="col" className="px-4 py-3">Approval</th>
-                    <th scope="col" className="px-4 py-3">Rejected</th>
+                    <th scope="col" className="px-4 py-3">Status</th>
+                    {/* <th scope="col" className="px-4 py-3">Rejected</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -133,12 +133,12 @@ const ListCandidate = () => {
                       <td className="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <div className="flex items-center gap-x-2">
                           <div></div>
-                          <img className="object-cover w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt="profile" />
-                          {/* {job.company_pic && (
-                            <div className="mb-8">
-                              <img src={`http://localhost:8989/${job.company_pic}`} alt="Company Logo" className="object-cover w-10 h-10 rounded-full" />
-                            </div>
-                          )} */}
+                          {/* <img className="object-cover w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt="profile" /> */}
+                          {/* {job.profile_pic && ( */}
+                          {/* <div className="mb-8"> */}
+                          <img src={job.profile_pic} alt="Company Logo" className="object-cover w-10 h-10 rounded-full" />
+                          {/* </div> */}
+                          {/* )} */}
                           <div>
                             <h2 className="text-sm font-medium text-gray-800 dark:text-white ">{job.username}</h2>
                             <p className="font-normal text-xs leading-5 text-gray-500"> {job.email}</p>
@@ -158,11 +158,10 @@ const ListCandidate = () => {
                           <CV applicationId={job.internship_application_id} />
                         </div>
                       </td>
-                      <td className="pl-10 px-4 py-2">
-                        <FaCheckCircle className="mr-3 text-amber-600 w-4 h-4" />
-                      </td>
-                      <td className="pl-10 px-4 py-2">
-                        <FaTimesCircle className="mr-3 text-red-600 w-4 h-4" />
+                      <td className="px-4 py-2">
+                        <div className="items-center">
+                          <EmailForm applicationId={job.internship_application_id} />
+                        </div>
                       </td>
                     </tr>
                   ))}

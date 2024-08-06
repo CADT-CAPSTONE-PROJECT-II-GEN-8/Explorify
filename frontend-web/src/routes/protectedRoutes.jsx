@@ -14,6 +14,8 @@ import TotalCadidate from 'src/pages/Candidate/TotalCadidate';
 import CV from 'src/pages/Candidate/CV';
 import CoverLetter from 'src/pages/Candidate/CoverLetter';
 import EmailForm from 'src/pages/Email/EmailForm';
+import CountAccept from 'src/pages/Email/CountAccept';
+import CountReject from 'src/pages/Email/CountReject';
 
 export const protectedRoutes = [
   {
@@ -136,10 +138,29 @@ export const protectedRoutes = [
       // Email 
 
       {
-        path: '/email/:id',
+        path: '/application/:applicationId',
         element: (
           <Main>
             <EmailForm />
+          </Main>
+        ),
+      },
+
+// total count application accept or reject
+      {
+        path: '//total/count/accept/application',
+        element: (
+          <Main>
+            <CountAccept/>
+          </Main>
+        ),
+      },
+
+      {
+        path: '/total/count/reject/application',
+        element: (
+          <Main>
+            <CountReject/>
           </Main>
         ),
       },

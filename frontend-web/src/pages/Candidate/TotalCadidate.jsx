@@ -31,7 +31,7 @@ const TotalCadidate = () => {
                <button>
                <p className='text-sm text-red-500'>Reject</p>
                </button>
-                <button type="button" class="text-white px-3 py-1 text-xs bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 rounded-lg  text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40">
+                <button type="button" class="text-white px-3 py-1 text-xs bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 rounded-lg  text-center inline-flex items-center ">
                   Accept
                 </button>
               </div>
