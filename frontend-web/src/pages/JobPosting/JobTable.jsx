@@ -159,7 +159,7 @@ const JobTable = () => {
                       </td>
                       <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <div className='pl-2 flex items-center'>
-                          <Link to='/totle/application'>
+                        <Link to={`/total/job/posting/application/${job.internship_post_id}`}>
                           <a href="" className='text-amber-700 font-bold'>
                             10
                           </a>
