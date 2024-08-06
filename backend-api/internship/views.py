@@ -221,7 +221,11 @@ def all_application(request):
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    
+from base.utils import (
+    StandardResultsSetPagination,
+    success_response,
+    error_response,
+) 
 # active internship post count
 from django.utils import timezone
 class ActiveInternPostView(APIView) : 
@@ -230,9 +234,9 @@ class ActiveInternPostView(APIView) :
     def get(self, request, *agrs, **kwargs) : 
         user = request.user
         active_post_count = InternshipPost.objects.filter(user = user, active = 1).count() 
-        return Response({'active_post_count' : active_post_count})
+        return success_response(data={'active_post_count' : active_post_count})
     
-    
+
 class InternshipApplicationCountView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -246,7 +250,7 @@ class InternshipApplicationCountView(APIView):
             active_posts = InternshipPost.objects.filter(user=user, active=1)
         
         applications_count = InternshipApplication.objects.filter(internship_post__in=active_posts).count()
-        return Response({'application_count': applications_count})
+        return success_response(data={'application_count': applications_count},status_code=200)
     
 #  Email Sending 
 

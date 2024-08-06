@@ -14,7 +14,8 @@ const TotalCandidate = () => {
     const fetchPostData = async () => {
       try {
         const response = await axiosInstance.get(`internship/application/count/?internship_post=${postId}`);
-        setPostData(response.data.body);
+        setPostData(response.data.body.application_count);
+        console.log(response.data.body)
       } catch (error) {
         console.error("Error fetching post data:", error);
         setError(error.message);

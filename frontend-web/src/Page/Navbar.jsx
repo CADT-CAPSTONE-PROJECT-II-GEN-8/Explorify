@@ -19,8 +19,8 @@ const Navbar = () => {
           axiosInstance.get('internship/application/count/')
         ]);
 
-        setActivePostCount(activePostResponse.data.active_post_count);
-        setApplicationCount(applicationResponse.data.application_count);
+        setActivePostCount(activePostResponse.data.body.active_post_count);
+        setApplicationCount(applicationResponse.data.body.application_count);
       } catch (error) {
         console.error("Error fetching counts", error);
       }
