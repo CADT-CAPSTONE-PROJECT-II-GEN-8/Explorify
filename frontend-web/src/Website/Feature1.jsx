@@ -39,7 +39,7 @@ export const Feature1 = () => {
                                 <div className="w-14 h-14 rounded-full bg-[#f27c1c] flex justify-center items-center">
                                     <FontAwesomeIcon icon={faClipboardCheck} className="text-3xl text-white" />
                                 </div>
-                                <h3 className="mt-10 text-lg sm:text-xl font-bold text-gray-900">Internship Application Management</h3>
+                                <h3 className="mt-10 text-lg sm:text-xl font-bold text-gray-900">Application Management</h3>
                                 <p className="mt-4 text-base sm:text-sm md:text-base text-gray-600">Manage the Application received from the talents in our application.</p>
                             </div>
                         </div>
