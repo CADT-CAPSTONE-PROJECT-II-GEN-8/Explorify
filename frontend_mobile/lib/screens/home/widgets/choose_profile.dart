@@ -32,7 +32,7 @@ class _ChooseProfileState extends State<ChooseProfile> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    print(_imageFile!.path);
+                    debugPrint(_imageFile!.path);
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => CVScreen(
                               file: _imageFile,

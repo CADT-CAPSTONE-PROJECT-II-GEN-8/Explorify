@@ -45,8 +45,8 @@ class CustomCardInfo extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         backgroundColor: AppColor.textAccent.withOpacity(.1),
-                        child: Image.asset(
-                          'assets/images/briefcase.png',
+                        child: Image.network(
+                          'http://localhost:8989/$jobImage',
                           fit: BoxFit.cover,
                           width: 24,
                           height: 24,

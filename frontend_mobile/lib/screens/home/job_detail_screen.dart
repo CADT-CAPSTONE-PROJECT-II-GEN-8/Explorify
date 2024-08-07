@@ -94,7 +94,7 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                     //   ),
                     // ),
                     child: Image.asset(
-                      'assets/images/briefcase.png',
+                      'http://localhost:8989/${companyInfo!.companyPic}',
                       height: 54,
                       width: 54,
                       fit: BoxFit.cover,

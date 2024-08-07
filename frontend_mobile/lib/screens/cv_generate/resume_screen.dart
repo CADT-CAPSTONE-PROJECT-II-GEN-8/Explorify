@@ -23,25 +23,25 @@ class _CVScreenState extends State<CVScreen> {
       'id': 1,
       'title': 'Free',
       'image':
-          'https://www.resume-now.com/sapp/uploads/2024/01/cv_template_hero.png',
+          'assets/images/cv1-1.png',
     },
     {
       'id': 2,
       'title': 'Free',
       'image':
-          'https://images.template.net/wp-content/uploads/2015/12/Nursing-Student-CV-Template.jpg',
+          'assets/images/cv2-1.png',
     },
     {
       'id': 3,
       'title': 'Pro',
       'image':
-          'https://www.freesumes.com/wp-content/uploads/2023/05/resume-template-with-photo.jpg',
+          'assets/images/cv3-1.png',
     },
     {
       'id': 4,
       'title': 'Pro',
       'image':
-          'https://www.freesumes.com/wp-content/uploads/2023/05/resume-template-with-photo.jpg',
+          'assets/images/cv4-1.png',
     }
   ];
 
