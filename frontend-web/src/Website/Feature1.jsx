@@ -8,7 +8,7 @@ export const Feature1 = () => {
                 <div class="bg-white">
                     <div class="relative mx-auto mt-4 md:mt-8 items-center">
                         <div class="flex justify-center lg:max-w-7xl lg:mx-auto">
-                            <img class="px-4 md:px-8 max-w-full h-auto" src="../assets/laptop.png" />
+                            <img class="px-4 md:px-8 w-full max-w-lg md:max-w-2xl lg:max-w-4xl h-auto" src="../assets/laptop1.png" />
                         </div>
                     </div>
                 </div>

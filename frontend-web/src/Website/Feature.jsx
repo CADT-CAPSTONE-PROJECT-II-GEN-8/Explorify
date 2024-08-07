@@ -68,7 +68,7 @@ const Feature = () => {
                             className="order-first block w-full mt-6 aspect-square lg:mt-0"
                         >
                             <img className="object-cover object-center w-full h-full mx-auto lg:ml-auto" alt="hero" 
-                            src="../assets/feature.png"  />
+                            src="../assets/feature1.png"  />
                         </motion.div>
 
                         <div className="relative items-center gap-12 m-auto lg:inline-flex md:order-first">
