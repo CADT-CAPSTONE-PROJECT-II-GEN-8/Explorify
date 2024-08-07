@@ -15,15 +15,18 @@ const LandingPage = () => {
       <Navbar />
       <div className='pt-16'></div>
       <Hero />
-      <Offer/>
+      <AboutUsPage/>
       <h2 class="text-center font-display text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
-        Our Features
+        Our Mobile Application Features
       </h2>
       <Feature />
       <FreemiumPremium/>
       <div className='pb-6'></div>
+      <h2 class="text-center font-display text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
+        Additional Features For Web Application
+      </h2>
       <Feature1/>
-      <AboutUsPage/>
+      <Offer/>
       <Contact />
       <Footter />
     </div>

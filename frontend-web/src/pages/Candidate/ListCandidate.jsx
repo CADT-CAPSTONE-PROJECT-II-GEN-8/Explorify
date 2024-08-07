@@ -7,6 +7,7 @@ import EmailForm from "../Email/EmailForm";
 import Header from "../JobPosting/Header";
 import CoverLetter from "./CoverLetter";
 import CV from "./CV";
+import { Helmet } from "react-helmet";
 
 const ListCandidate = () => {
   const [jobs, setJobs] = useState([]);
@@ -65,6 +66,9 @@ const ListCandidate = () => {
 
   return (
     <>
+     <Helmet>
+      <title>Candidat Listing - Explorify</title>
+    </Helmet>
       <Header />
       <section className="py-10 sm:py-5">
         <div className="mx-auto max-w-screen-2xl lg:px-1">

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { FaFilePdf } from 'react-icons/fa';
 import Spinner from 'src/components/SmallComponents/Spinner';
 import 'src/pages/JobPosting/job.css';
 import axiosInstance from 'src/utils/axiosInstance';
@@ -45,9 +46,9 @@ const CoverLetter = ({ applicationId }) => { // Destructure applicationId from p
   return (
     <>
       {/* Modal toggle button */}
-      <div className="text-blue-600 underline">
+      <div className="text-blue-600 underline lg:pl-8">
         <a href="#" onClick={toggleModal}>
-          View Resume
+        <FaFilePdf className="mr-3 text-green-600 w-4 h-4" />
         </a>
       </div>
 
@@ -56,7 +57,7 @@ const CoverLetter = ({ applicationId }) => { // Destructure applicationId from p
         <div
           className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-modal md:h-full overflow-y-auto overflow-x-hidden"
         >
-          <div className="relative p-4 w-full max-w-2xl h-40 md:h-auto">
+          <div className="relative p-8 w-full max-w-3xl h-40 md:h-auto">
             {/* Modal content */}
             <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
               {/* Modal header */}

@@ -1,9 +1,17 @@
-import React from "react";
+import { useEffect, useState } from 'react';
+import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import AreaChartHero from "./AreaChartHero";
 import Navbar from "./Navbar";
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
 const Dashboard = () => {
+
+  const [username, setUsername] = useState('');
+  useEffect(() => {
+    // Fetch the username from cookies
+    const usernameFromCookies = getCookieValue('username_or_email');
+    setUsername(usernameFromCookies);
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -15,7 +23,7 @@ const Dashboard = () => {
           <div>
             {/*- more free and premium Tailwind CSS components at https://tailwinduikit.com/ -*/}
             <h4 className="text-2xl font-bold leading-tight text-gray-800 dark:text-gray-100">
-              Welcome back , JKKK !{" "}
+              Welcome back , {username} !{" "}
             </h4>
           </div>
           <div className=" md:mt-0">
@@ -51,6 +59,15 @@ const Dashboard = () => {
       </div>
     </>
   );
+
+
 };
+
+function getCookieValue(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 
 export default Dashboard;

@@ -60,7 +60,7 @@ const Hero = () => {
                         viewport={{ once: false, amount: 0.5 }} // Trigger every time it's in view
                         className="lg:col-span-5 flex justify-center lg:justify-end lg:absolute lg:right-0 lg:top-0 lg:inset-auto lg:z-0"
                     >
-                        <img className="w-full max-w-sm md:max-w-lg lg:max-w-none" src="../assets/phone1.png" alt="Phone mockup" />
+                        <img className="w-full max-w-sm md:max-w-lg lg:max-w-50" src="../assets/phone.png" alt="Phone mockup" />
                     </motion.div>
                 </div>
                 <div className="pt-24"></div>
