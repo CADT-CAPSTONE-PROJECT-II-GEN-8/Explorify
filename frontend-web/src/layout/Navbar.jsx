@@ -16,7 +16,7 @@ const Navbar = () => {
           <span className="sr-only">Toggle sidebar</span>
         </button>
         <a href="https://flowbite.com" className="flex items-center justify-between mr-4">
-          <img src= '../assets/app_logo.png'  className="mr-3 h-8" alt="Flowbite Logo" />
+          <img src= 'src/assets/app_logo.png'  className="mr-3 h-8" alt="Flowbite Logo" />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"><span className='text-[#F27C1C]'>Ex</span>plorify</span>
         </a>
 

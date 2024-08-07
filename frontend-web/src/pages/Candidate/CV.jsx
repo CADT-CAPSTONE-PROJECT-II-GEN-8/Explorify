@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Spinner from 'src/components/SmallComponents/Spinner';
 import 'src/pages/JobPosting/job.css';
 import axiosInstance from 'src/utils/axiosInstance';
-
+import {FaFilePdf } from 'react-icons/fa'
 const CV = ({ applicationId }) => { // Destructure applicationId from props
   const [jobUrl, setJobUrl] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -47,7 +47,7 @@ const CV = ({ applicationId }) => { // Destructure applicationId from props
       {/* Modal toggle button */}
       <div className="text-blue-600 underline">
         <a href="#" onClick={toggleModal}>
-          View Resume
+        <FaFilePdf className="mr-3 text-amber-600 w-4 h-4" />
         </a>
       </div>
 
@@ -56,13 +56,13 @@ const CV = ({ applicationId }) => { // Destructure applicationId from props
         <div
           className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-modal md:h-full overflow-y-auto overflow-x-hidden"
         >
-          <div className="relative p-4 w-full max-w-2xl h-40 md:h-auto">
+          <div className="relative p-8 w-full max-w-3xl h-40 md:h-auto">
             {/* Modal content */}
             <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
               {/* Modal header */}
               <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                 <h3 className="text-lg font-semibold text-amber-600 dark:text-white">
-                  Cover Letter
+                  Resume
                 </h3>
                 <button
                   onClick={toggleModal}

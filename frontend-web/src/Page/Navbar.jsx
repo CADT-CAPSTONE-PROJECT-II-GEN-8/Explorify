@@ -1,6 +1,8 @@
 import React , { useState, useEffect } from 'react';
 import { FaFilePdf, FaRegFilePdf } from 'react-icons/fa';
 import { FaFileCircleCheck, FaFileCircleExclamation } from 'react-icons/fa6';
+import CountAccept from 'src/pages/Email/CountAccept';
+import CountReject from 'src/pages/Email/CountReject';
 
 import axiosInstance from 'src/utils/axiosInstance';
 
@@ -17,8 +19,8 @@ const Navbar = () => {
           axiosInstance.get('internship/application/count/')
         ]);
 
-        setActivePostCount(activePostResponse.data.active_post_count);
-        setApplicationCount(applicationResponse.data.application_count);
+        setActivePostCount(activePostResponse.data.body.active_post_count);
+        setApplicationCount(applicationResponse.data.body.application_count);
       } catch (error) {
         console.error("Error fetching counts", error);
       }
@@ -82,7 +84,7 @@ const Navbar = () => {
                 <FaFileCircleCheck className="w-6 h-6"/>
               </div>
               <div className="flex flex-col">
-                <div className="text-xl font-bold">23</div>
+                <div className="text-xl font-bold"><CountAccept/></div>
                 <div className="text-xs uppercase font-light text-gray-500">
                   Approval
                 </div>
@@ -98,7 +100,7 @@ const Navbar = () => {
                <FaFileCircleExclamation className='w-6 h-6'/>
               </div>
               <div className="flex flex-col">
-                <div className="text-xl font-bold">23</div>
+                <div className="text-xl font-bold"><CountReject/></div>
                 <div className="text-xs uppercase font-light text-gray-500">
                  Rejection
                 </div>

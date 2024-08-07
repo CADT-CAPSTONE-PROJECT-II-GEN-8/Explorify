@@ -6,22 +6,27 @@ import DeleteJob from "./DeleteJob";
 import Header from "./Header";
 import Search from "src/components/Search";
 import Pagination from "src/components/Pagination";
+import { Helmet } from "react-helmet";
+import Spinner from "src/components/SmallComponents/Spinner";
+import TotalCandidate from "../Candidate/TotalCadidate";
+
 const JobTable = () => {
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axiosInstance
       .get('internship-posts/')
       .then((response) => {
         setJobs(response.data.results);
-        console.log(response.data);
         setFilteredJobs(response.data.results); // Initialize filteredJobs with the full list
       })
-      .catch((error) => console.error('Error fetching data', error));
+      .catch((error) => console.error('Error fetching data', error))
+      .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -60,8 +65,16 @@ const JobTable = () => {
     }
   };
 
+  if (loading) {
+    return <Spinner />;
+  }
+
+
   return (
     <>
+     <Helmet>
+      <title>Job Listing - Explorify</title>
+    </Helmet>
       <Header />
       <section className="py-10 sm:py-5">
         <div className="mx-auto max-w-screen-2xl lg:px-1">
@@ -159,11 +172,14 @@ const JobTable = () => {
                       </td>
                       <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <div className='pl-2 flex items-center'>
-                          <Link to='/totle/application'>
+                        {/* <Link to={`/total/job/posting/application/${job.internship_post_id}`}> */}
                           <a href="" className='text-amber-700 font-bold'>
-                            10
+
+                            <Link to={`/list/internship/${job.internship_post_id}/applications`}>
+                               <TotalCandidate jobId={job.internship_post_id}/> application
+                            </Link>
                           </a>
-                          </Link>
+                          {/* </Link> */}
                           
                         </div>
                       </td>

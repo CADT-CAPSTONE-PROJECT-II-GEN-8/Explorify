@@ -1,12 +1,13 @@
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 
-import Header from "../CompanyPost/Header";
-import { FaBuilding, FaGlobe, FaIndustry, FaLink, FaTasks, FaUser } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
+import { FaBuilding, FaGlobe, FaIndustry, FaTasks, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import axiosInstance from "src/utils/axiosInstance";
-import { useState, useEffect } from "react";
 import Spinner from "src/components/SmallComponents/Spinner";
+import axiosInstance from "src/utils/axiosInstance";
+import Header from "../CompanyPost/Header";
 const Profile = () => {
   // const { companyId } = useParams();
   const [companyData, setCompanyData] = useState(null);
@@ -31,24 +32,27 @@ const Profile = () => {
   }
 
   if (!companyData) {
-    return <Spinner/>
+    return <Spinner />
   }
 
   return (
     <>
+      <Helmet>
+        <title>Profile - Explorify</title>
+      </Helmet>
       <Header />
 
       <section className="text-blueGray-700 bg-white mt-10">
         <div className="container flex flex-col items-center px-5 py-16 mx-auto md:flex-row lg:px-28">
           <div className="flex flex-col items-start mb-16 text-left lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 md:mb-0">
             <h2 className="mb-8 text-xs font-semibold tracking-widest text-black uppercase title-font">
-             Company Name
+              Company Name
             </h2>
             <h1 className="mb-8 text-xl font-black tracking-tighter text-black md:text-3xl title-font">
-             {companyData.company_name}
+              {companyData.company_name}
             </h1>
             <p className="mb-8 text-base leading-relaxed text-left text-blueGray-600 ">
-             {companyData.description}
+              {companyData.description}
             </p>
             <div className="flex flex-col justify-center lg:flex-row">
               <Link to="/edit/company/profile">
@@ -62,12 +66,12 @@ const Profile = () => {
             </div>
           </div>
 
-            {companyData.company_pic && (
-              <div className="mb-8">
-                 <img src={`http://localhost:8989/${companyData.company_pic}`}  alt="Company Logo" className="object-cover object-center rounded-lg" />
-              </div>
-            )}
-        
+          {companyData.company_pic && (
+            <div className="mb-8">
+              <img src={`http://localhost:8989/${companyData.company_pic}`} alt="Company Logo" className="object-cover object-center rounded-lg" />
+            </div>
+          )}
+
         </div>
 
         <article className="font-fira mx-auto max-w-3xl  selection:bg-black selection:text-white">
@@ -123,14 +127,14 @@ const Profile = () => {
             <div class="grid gap-6 justify-items-center text-center">
               <div class="rounded-full border-8 border-amber-400 p-4">
                 <FaUser
-                 className="h-6 w-6 text-[#F27C1C]"
-                 />
+                  className="h-6 w-6 text-[#F27C1C]"
+                />
               </div>
               <h3 class="text-md font-bold">
                 Company size
                 <br />
                 <span className="font-normal text-center">
-                  Our company has {companyData.employee_size} staff 
+                  Our company has {companyData.employee_size} staff
                 </span>
               </h3>
             </div>
@@ -161,15 +165,15 @@ const Profile = () => {
                 Address: {companyData.location}
               </p>
               <a href="https://www.google.com.kh/maps/place/Cambodia+Academy+of+Digital+Technology+(CADT)/@11.6459053,104.9051856,14z/data=!4m6!3m5!1s0x3109516bdea989b3:0x372d2c5e0e14b706!8m2!3d11.6530599!4d104.9116944!16s%2Fg%2F11byygmxw3?entry=ttu">
-              <iframe
-                src={`https://www.google.com/maps/embed?pb=${encodeURIComponent}`}
-                className="rounded-lg w-full h-64 pt-5"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Company Location"
-              />
+                <iframe
+                  src={`https://www.google.com/maps/embed?pb=${encodeURIComponent}`}
+                  className="rounded-lg w-full h-64 pt-5"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Company Location"
+                />
               </a>
             </div>
           </section>

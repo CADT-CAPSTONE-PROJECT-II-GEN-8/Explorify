@@ -14,6 +14,10 @@ import TotalCadidate from 'src/pages/Candidate/TotalCadidate';
 import CV from 'src/pages/Candidate/CV';
 import CoverLetter from 'src/pages/Candidate/CoverLetter';
 import EmailForm from 'src/pages/Email/EmailForm';
+import CountAccept from 'src/pages/Email/CountAccept';
+import CountReject from 'src/pages/Email/CountReject';
+import TotalCandidate from 'src/pages/Candidate/TotalCadidate';
+import ListTotal from 'src/pages/Candidate/ListTotal';
 
 export const protectedRoutes = [
   {
@@ -136,7 +140,7 @@ export const protectedRoutes = [
       // Email 
 
       {
-        path: '/email/:id',
+        path: '/application/:applicationId',
         element: (
           <Main>
             <EmailForm />
@@ -144,6 +148,44 @@ export const protectedRoutes = [
         ),
       },
 
+// total count application accept or reject
+      {
+        path: '//total/count/accept/application',
+        element: (
+          <Main>
+            <CountAccept/>
+          </Main>
+        ),
+      },
+
+      {
+        path: '/total/count/reject/application',
+        element: (
+          <Main>
+            <CountReject/>
+          </Main>
+        ),
+      },
+    
+    //  total job application via job posting 
+
+    {
+      path: '/total/job/posting/application/:jobId',
+      element: (
+        <Main>
+          <TotalCandidate/>
+        </Main>
+      ),
+    },
+
+    {
+      path: '/list/internship/:applicationId/applications',
+      element: (
+        <Main>
+          <ListTotal/>
+        </Main>
+      ),
+    },
 
     
     ],

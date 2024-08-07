@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -22,23 +23,18 @@ const Navbar = () => {
                 </a>
                 <div className="flex items-center lg:order-2">
                     <div className="hidden lg:flex items-center">
-                        <a
-                            href="#"
+                        <Link
+                            to="/login"
                             className="text-gray-700 dark:text-white font-medium rounded-lg text-md px-4 mr-2 hover:text-[#F27C1C] focus:outline-none"
                         >
-                            <Link to="/login">
-                                Log in
-                            </Link>
-
-                        </a>
-                        <a
-                            href=""
+                            Log in
+                        </Link>
+                        <Link
+                            to="/register"
                             className="text-white bg-[#F27C1C] hover:bg-[#ce6918] focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-md px-4 lg:px-5 py-2 lg:py-2.5 mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800"
                         >
-                            <Link to="/register">
-                                Register
-                            </Link>
-                        </a>
+                            Register
+                        </Link>
                     </div>
                     <button
                         type="button"
@@ -80,53 +76,55 @@ const Navbar = () => {
                 >
                     <ul className="flex flex-col mt-6 pt-2 font-medium text-md lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                to="/homePage"
                                 className="block py-2 pl-3 pr-4 text-white bg-[#F27C1C] rounded lg:bg-transparent lg:text-[#F27C1C] lg:p-0 dark:text-white"
                                 aria-current="page"
                             >
                                 Home
-                            </a>
+                            </Link>
                         </li>
+
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                to="/aboutUs"
                                 className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-[#F27C1C] lg:p-0"
                             >
-                                Company
-                            </a>
+                                About Us
+                            </Link>
                         </li>
+
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                to="/Features"
                                 className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-[#F27C1C] lg:p-0"
                             >
                                 Features
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                to="/Offers"
                                 className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-[#F27C1C] lg:p-0"
                             >
-                                Team
-                            </a>
+                                Offers
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                to="/contactUs"
                                 className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-[#F27C1C] lg:p-0"
                             >
                                 Contact
-                            </a>
+                            </Link>
                         </li>
                         <li className="lg:hidden">
-                            <a
-                                href="#"
+                            <Link
+                                to="/register"
                                 className="block py-2 pl-3 pr-4 text-gray-700 dark:text-white font-medium rounded-lg text-xl hover:text-[#F27C1C] focus:outline-none"
                             >
                                 Register
-                            </a>
+                            </Link>
                         </li>
                         <li className="lg:hidden">
                             <a
