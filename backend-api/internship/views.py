@@ -296,14 +296,15 @@ class ApplicationCountsView(APIView):
         }, status=status.HTTP_200_OK)
     
 # count internship post by date
-class InternshipPostByDateView(APIView) : 
-    permission_classes = [IsAuthenticated] 
+from django.db.models import Count
+from django.db.models.functions import TruncDate
+class InternshipPostCountByDate(APIView):
+    permission_classes = [IsAuthenticated]
     
-    def get(self, request, *args, **kwargs) : 
-        user = request.user
-
-        post_counts = InternshipPost.objects.filter(user = user).values('created_at__date').annotate(count=Count('id')).order_by('created_at__date')
-        dates = [item['created_at__date'] for item in post_counts]
-        counts = [item['count'] for item in post_counts]
-
-        return Response({'dates' : dates, 'counts' : counts} )
+    def get(self, request, *args, **kwargs):
+        posts = InternshipPost.objects.filter(user=request.user)
+        post_counts = posts.annotate(date=TruncDate('created_at')).values('date').annotate(count=Count('internship_post_id')).order_by('date')
+        data = [{'date': item['date'].isoformat(), 'count': item['count']} for item in post_counts]
+        
+        return Response(data)
+        

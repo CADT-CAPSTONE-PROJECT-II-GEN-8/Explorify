@@ -35,7 +35,7 @@ urlpatterns = [
      path('application-counts/', ApplicationCountsView.as_view(), name='application-counts'),
 
      #  count intern post by date
-    path('internship/count-by-date/', InternshipPostByDateView.as_view(), name='intern-count-by-date'),
+     path('internship/count-by-date/', InternshipPostCountByDate.as_view(), name='intern-count-by-date'),
 
 ]
 
