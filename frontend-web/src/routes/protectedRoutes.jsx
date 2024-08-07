@@ -17,6 +17,7 @@ import EmailForm from 'src/pages/Email/EmailForm';
 import CountAccept from 'src/pages/Email/CountAccept';
 import CountReject from 'src/pages/Email/CountReject';
 import TotalCandidate from 'src/pages/Candidate/TotalCadidate';
+import ListTotal from 'src/pages/Candidate/ListTotal';
 
 export const protectedRoutes = [
   {
@@ -173,6 +174,15 @@ export const protectedRoutes = [
       element: (
         <Main>
           <TotalCandidate/>
+        </Main>
+      ),
+    },
+
+    {
+      path: '/list/internship/:postId/applications',
+      element: (
+        <Main>
+          <ListTotal/>
         </Main>
       ),
     },

@@ -29,16 +29,16 @@ const TotalCandidate = () => {
     return <div className="text-red-500 text-center mt-4">Error: {error}</div>;
   }
 
-  if (!postData) {
-    return <Spinner />;
-  }
+  // if (postData) {
+  //   return <Spinner />;
+  // }
 
   return (
     <>
       <Header />
       <div className="py-16">
         <div className="container mx-auto px-4">
-          {postData.internshpi_post}
+          {postData}
           {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {postData.map((candidate) => (
               <div className="bg-white rounded-lg shadow-lg p-6">
