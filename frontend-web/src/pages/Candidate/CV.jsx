@@ -45,7 +45,7 @@ const CV = ({ applicationId }) => { // Destructure applicationId from props
   return (
     <>
       {/* Modal toggle button */}
-      <div className="text-blue-600 underline lg:pl-4">
+      <div className="text-blue-600 underline">
         <a href="#" onClick={toggleModal}>
         <FaFilePdf className="mr-3 text-amber-600 w-4 h-4" />
         </a>

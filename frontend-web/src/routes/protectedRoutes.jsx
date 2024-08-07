@@ -170,7 +170,7 @@ export const protectedRoutes = [
     //  total job application via job posting 
 
     {
-      path: '/total/job/posting/application/:postId',
+      path: '/total/job/posting/application/:jobId',
       element: (
         <Main>
           <TotalCandidate/>
@@ -179,7 +179,7 @@ export const protectedRoutes = [
     },
 
     {
-      path: '/list/internship/:postId/applications',
+      path: '/list/internship/:applicationId/applications',
       element: (
         <Main>
           <ListTotal/>

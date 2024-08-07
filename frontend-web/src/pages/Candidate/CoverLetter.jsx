@@ -46,7 +46,7 @@ const CoverLetter = ({ applicationId }) => { // Destructure applicationId from p
   return (
     <>
       {/* Modal toggle button */}
-      <div className="text-blue-600 underline lg:pl-8">
+      <div className="text-blue-600 underline">
         <a href="#" onClick={toggleModal}>
         <FaFilePdf className="mr-3 text-green-600 w-4 h-4" />
         </a>

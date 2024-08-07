@@ -153,12 +153,12 @@ const ListCandidate = () => {
                         {job.job_title}
                       </td>
                       <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <div className="items-center">
+                        <div className="items-center lg:pl-8">
                           <CoverLetter applicationId={job.internship_application_id} />
                         </div>
                       </td>
                       <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <div className="items-center">
+                        <div className="items-center lg:pl-6">
                           <CV applicationId={job.internship_application_id} />
                         </div>
                       </td>
