@@ -250,44 +250,16 @@ def user_education_list(request):
     elif request.method == "POST":
         serializer = UserEducationDetailSerializer(data=request.data)
         if serializer.is_valid():
-            # serializer.validated_data["user"] = request.user
             data = serializer.save()
             
-            # Retrieve related objects
-            school_instance = School.objects.get(pk=serializer.data["school"])
-            major_instance = Major.objects.get(pk=serializer.data["major"])
-            education_level_instance = EducationLevel.objects.get(
-                pk=serializer.data["education_level"]
-            )
+            school_instance = serializer.data["school"]
+            major_instance = serializer.data["major"]
+            education_level_instance = serializer.data["education_level"]
             
-            user_education = UserEducation.objects.create(
-                school=school_instance,
-                major=major_instance,
-                education_level=education_level_instance,
-                start_date=serializer.validated_data.get("start_date"),
-                end_date=serializer.validated_data.get("end_date")
-            )
-
-            # Serialize related objects
-            school_serializer = SchoolSerializer(school_instance)
-            major_serializer = MajorSerializer(major_instance)
-            education_level_serializer = EducationLevelSerializer(
-                education_level_instance
-            )
-
-            # Construct response data
-            data_response = {
-                "user_education_id": serializer.data["user_education_id"],
-                "school": school_serializer.data,
-                "major": major_serializer.data,
-                "education_level": education_level_serializer.data,
-                "start_date": serializer.data["start_date"],
-                "end_date": serializer.data["end_date"],
-            }
-            cv.user_education.add(user_education)
+            cv.user_education.add(data)
             return success_response(
                 message="Create successfully",
-                data=data_response,
+                data=None,
                 status_code=status.HTTP_201_CREATED,
             )
         return error_response(
