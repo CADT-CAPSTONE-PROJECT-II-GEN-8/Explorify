@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/api_constants.dart';
@@ -58,6 +59,62 @@ class CvGenerateService {
     }
     debugPrint(cv.description);
     return cv;
+  }
+
+  Future<void> myCV({
+    required BuildContext context,
+    required File imageFile,
+    required int templateId,
+  }) async {
+    TokenService tokenService = TokenService();
+    final token = await tokenService.getAccessToken();
+    debugPrint('$token');
+    try {
+      // http.Response response = await http.post(
+      //   Uri.parse(APIEndPoint.baseUrl +
+      //       APIEndPoint.version +
+      //       APIEndPoint.cvEndPoint.cvDetail),
+      //   headers: {
+      //     'Content-Type': 'application/json; charset=UTF-8',
+      //     'Authorization': 'Bearer $token'
+      //   },
+      //   body: jsonEncode(
+      //     {
+      //       "image_file": imageFiile,
+      //       'template': templateId,
+      //     },
+      //   ),
+      // );
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(APIEndPoint.baseUrl +
+                APIEndPoint.version +
+                APIEndPoint.cvEndPoint.cvDetail)
+            .replace(queryParameters: {'template': templateId.toString()}),
+      );
+      request.headers['Authorization'] = 'bearer $token';
+      request.fields['template'] = templateId.toString();
+      request.files.add(http.MultipartFile(
+        'image_file',
+        imageFile.readAsBytes().asStream(),
+        imageFile.lengthSync(),
+        filename: imageFile.path.split('/').last,
+      ));
+      final response = await request.send();
+
+      if (!context.mounted) return;
+
+      if (response.statusCode == 200) {
+        debugPrint('File uploaded successfully');
+        
+      } else {
+        debugPrint('File upload failed: ${response.statusCode}');
+      }
+    
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return;
   }
 }
 

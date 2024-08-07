@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/screens/company/list_company_screen.dart';
+import 'package:frontend_mobile/screens/cv_generate/generate_cv_screen.dart';
 import 'package:frontend_mobile/screens/cv_generate/resume_screen.dart';
 import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
 import 'package:frontend_mobile/screens/history/history_screen.dart';
 import 'package:frontend_mobile/screens/home/home_screen.dart';
 import 'package:frontend_mobile/screens/home/job_detail_screen.dart';
 import 'package:frontend_mobile/screens/home/notification.dart';
+import 'package:frontend_mobile/screens/home/services/cv_generate_service.dart';
 import 'package:frontend_mobile/screens/login/check_email.dart';
 import 'package:frontend_mobile/screens/login/success_screen.dart';
 import 'package:frontend_mobile/screens/onboarding/loading_screen.dart';
@@ -49,6 +51,7 @@ class RouteManager {
   static const String successScreen = '/success';
   static const String verifyScreen = '/verify';
   static const String cvGenerateScreen = '/cvGenertate';
+  static const String uploadCVScreen = '/uploadCV';
   static const String profileScreen = '/profile';
   static const String accountScreen = '/acoount_detail';
   static const String editProfileScreen = '/edit_profile';
@@ -79,13 +82,14 @@ class RouteManager {
       case loadingScreen:
         return MaterialPageRoute(builder: (context) => const LoadingPage());
       case preferenceScreen:
-        return MaterialPageRoute(builder: (context) => const PreferenceScreen());
+        return MaterialPageRoute(
+            builder: (context) => const PreferenceScreen());
       case loginScreen:
         return MaterialPageRoute(builder: (context) => const LoginPage());
       case registerScreen:
         return MaterialPageRoute(builder: (context) => const RegisterPage());
       case welcomeScreen:
-        return MaterialPageRoute(builder: (context) => const WelcomePage());
+        return MaterialPageRoute(builder: (context) => WelcomePage());
       case navigationMenu:
         return MaterialPageRoute(builder: (context) => const NavigationMenu());
       case homeScreen:
@@ -98,9 +102,10 @@ class RouteManager {
         return MaterialPageRoute(builder: (context) => const SuccessPage());
       // case verifyScreen:
       //   return MaterialPageRoute(builder: (context) => const VerifyPage());
-      case cvGenerateScreen:
-        return MaterialPageRoute(
-            builder: (context) => const CVGenerateScreen());
+      case uploadCVScreen:
+        return MaterialPageRoute(builder: (context) => const UploadCvScreen());
+      case cvGenerateScreen: 
+        return MaterialPageRoute(builder: (context) => const GenerateCvScreen()); 
       case profileScreen:
         return MaterialPageRoute(builder: (context) => const ProfileScreen());
       case accountScreen:

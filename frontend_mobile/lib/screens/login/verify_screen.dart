@@ -23,7 +23,14 @@ class VerifyPage extends StatefulWidget {
 }
 
 class _VerifyPageState extends State<VerifyPage> {
-  final List<String> _otp = ['', '', '', '', '', '']; // List to store individual OTP digits
+  final List<String> _otp = [
+    '',
+    '',
+    '',
+    '',
+    '',
+    ''
+  ]; // List to store individual OTP digits
 
   AuthService authService = AuthService();
 
@@ -55,7 +62,8 @@ class _VerifyPageState extends State<VerifyPage> {
                               width: 250,
                             ),
                           ),
-                          const SizedBox(height: 40), // Space for the back button
+                          const SizedBox(
+                              height: 40), // Space for the back button
                           Text(
                             AppText.enText['verify_title']!,
                             style: Theme.of(context).textTheme.headlineLarge,
@@ -93,7 +101,8 @@ class _VerifyPageState extends State<VerifyPage> {
                                 authService.getToken(
                                     context: context,
                                     username: widget.username,
-                                    otpCode: otpCode); // Pass the combined OTP code
+                                    otpCode:
+                                        otpCode); // Pass the combined OTP code
                               } else {
                                 showSnackBar(context, 'OTP code is empty');
                               }

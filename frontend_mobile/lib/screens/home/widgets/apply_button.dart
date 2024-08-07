@@ -44,11 +44,11 @@ class ApplyButton extends StatelessWidget {
                   onPositivePressed: () {
                 debugPrint("Upload Screen");
                 Navigator.of(context)
-                    .pushReplacementNamed(RouteManager.cvGenerateScreen);
+                    .pushReplacementNamed(RouteManager.uploadCVScreen);
               }, onNegativeButtonPressed: () {
                 debugPrint("generate CV");
                 Navigator.of(context)
-                    .pushReplacementNamed(RouteManager.accountScreen);
+                    .pushReplacementNamed(RouteManager.cvGenerateScreen);
               });
             }
           },

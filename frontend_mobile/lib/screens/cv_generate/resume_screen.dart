@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/screens/home/services/cv_generate_service.dart';
 
 class CVScreen extends StatefulWidget {
-  const CVScreen({super.key});
+  const CVScreen({super.key, this.file});
+  final File? file;
 
   @override
   State<CVScreen> createState() => _CVScreenState();
@@ -13,22 +17,31 @@ class _CVScreenState extends State<CVScreen> {
   dynamic _selectedIndex = {};
 
   final CarouselController _carouselController = CarouselController();
-
-  final List<Map<String, String>> _products = [
+  CvGenerateService cvGenerateService = CvGenerateService();
+  final List<dynamic> _products = [
     {
+      'id': 1,
       'title': 'Free',
       'image':
-          'https://marketplace.canva.com/EAFRuCp3DcY/1/0/1131w/canva-black-white-minimalist-cv-resume-f5JNR-K5jjw.jpg',
+          'https://www.resume-now.com/sapp/uploads/2024/01/cv_template_hero.png',
     },
     {
+      'id': 2,
       'title': 'Free',
       'image':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9g5xjZV6YRiTWjFZWETn16OlqVJJDyrzCjg&s',
+          'https://images.template.net/wp-content/uploads/2015/12/Nursing-Student-CV-Template.jpg',
     },
     {
+      'id': 3,
       'title': 'Pro',
       'image':
-          'https://www.cvresumebuild.com/wp-content/uploads/2023/05/photo_2023-12-23_21-13-07-600x849.jpg',
+          'https://www.freesumes.com/wp-content/uploads/2023/05/resume-template-with-photo.jpg',
+    },
+    {
+      'id': 4,
+      'title': 'Pro',
+      'image':
+          'https://www.freesumes.com/wp-content/uploads/2023/05/resume-template-with-photo.jpg',
     }
   ];
 
@@ -100,7 +113,8 @@ class _CVScreenState extends State<CVScreen> {
                     borderRadius: BorderRadius.circular(20),
                     border: _selectedIndex == product
                         ? Border.all(
-                            color: const Color.fromARGB(255, 250, 199, 154), width: 3)
+                            color: const Color.fromARGB(255, 250, 199, 154),
+                            width: 3)
                         : null,
                     boxShadow: _selectedIndex == product
                         ? [
@@ -130,6 +144,17 @@ class _CVScreenState extends State<CVScreen> {
                           ),
                           child: Image.network(
                             product['image']!,
+                            loadingBuilder: (context, child, progress) {
+                              if (progress == null) {
+                                return child;
+                              } else {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Center(child: Icon(Icons.error));
+                            },
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -160,11 +185,14 @@ class _CVScreenState extends State<CVScreen> {
       child: ElevatedButton(
         onPressed: () {
           // Perform an action when the button is pressed
+          cvGenerateService.myCV(
+              context: context, imageFile: widget.file!, templateId: _current);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromARGB(255, 236, 116, 52),
           elevation: 2,
-          minimumSize: const Size(350, 60), // Adjust the width and height as needed
+          minimumSize:
+              const Size(350, 60), // Adjust the width and height as needed
           padding: const EdgeInsets.symmetric(
               vertical: 15,
               horizontal: 30), // Add padding for a bigger touch area

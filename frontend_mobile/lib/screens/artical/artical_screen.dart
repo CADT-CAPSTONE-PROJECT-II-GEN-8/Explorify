@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
+import 'package:frontend_mobile/model/article/article_model.dart';
 import 'package:frontend_mobile/screens/artical/detail_screen.dart';
+import 'package:frontend_mobile/screens/artical/services/article_service.dart';
 import 'package:frontend_mobile/screens/profile/widget/custom_accAppBar.dart';
 
 class ArticleScreen extends StatefulWidget {
@@ -30,6 +32,7 @@ final List<String> title = [
 int selectedIndex = 0;
 
 class _ArticleScreenState extends State<ArticleScreen> {
+  ArticleService articleService = ArticleService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -248,8 +251,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   Widget _buildApi() {
     return Center(
-      child: FutureBuilder<List<Map<String, dynamic>>>(
-        future: getData(),
+      child: FutureBuilder<List<Post>>(
+        future: articleService.getPostDetials(context),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text("Error: ${snapshot.error}");
@@ -264,7 +267,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
     );
   }
 
-  Widget _buildListView(List<Map<String, dynamic>> items) {
+  Widget _buildListView(List<Post> items) {
     return ListView.builder(
       itemCount: items.length,
       itemBuilder: (context, index) {
@@ -273,7 +276,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
     );
   }
 
-  Widget _buildItem(Map<String, dynamic> item) {
+  Widget _buildItem(Post item) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
@@ -303,13 +306,17 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 height: 130,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                    image: CachedNetworkImageProvider(item['image']),
-                    fit: BoxFit.cover,
-                    onError: (error, stackTrace) => Container(
-                      color: Colors.white,
-                    ),
-                  ),
+                  // image: DecorationImage(
+                  //   image: CachedNetworkImageProvider(item.),
+                  //   fit: BoxFit.cover,
+                  //   onError: (error, stackTrace) => Container(
+                  //     color: Colors.white,
+                  //   ),
+                  // ),
+                ),
+                child: Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGvLJOyDqTP40tXu2LdXWH0AdrGmdpFrsVD0iSfBgV4bNxioEeKRQN1ffnOg6LpXkKlzQ&usqp=CAU',
+                  fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(width: 12),
@@ -321,7 +328,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            "${item['title']}",
+                            item.title,
                             style: const TextStyle(
                               color: Color.fromARGB(255, 242, 124, 28),
                               fontSize: 16,
@@ -338,7 +345,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      "${item['category']}",
+                      item.content,
                       style: TextStyle(
                         color: Colors.grey[800],
                         fontSize: 12,

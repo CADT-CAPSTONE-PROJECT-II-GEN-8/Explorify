@@ -6,6 +6,7 @@ class APIEndPoint {
   static _CompanyEndPoint companyEndPoint = _CompanyEndPoint();
   static _PostEndPoint postEndPoint = _PostEndPoint();
   static _EduEndPoint eduEndPoint = _EduEndPoint();
+  static _CVEndPoint cvEndPoint = _CVEndPoint();
 }
 
 class _AuthEndPoint {
@@ -29,4 +30,8 @@ class _PostEndPoint {
 
 class _EduEndPoint {
   final String eduDetail = "/cv/user-educations/";
+}
+
+class _CVEndPoint {
+  final String cvDetail = '/cv-form-data/';
 }

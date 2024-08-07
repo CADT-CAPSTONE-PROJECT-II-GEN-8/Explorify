@@ -36,6 +36,8 @@ class AppText {
     'informations_title': 'Informations',
     'others_title': 'Facilities and Others',
     'cv_title': 'Upload CV',
+    'cv_generate': 'Generate CV',
+    'cv_generate_text': 'Upload a professional image first to generate your cv',
     'cv_text': 'Add your CV/Resume to apply for a job',
     'company_title': 'About Company',
     'website_title': 'Website',

@@ -5,14 +5,14 @@ import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/screens/home/widgets/select_file_name.dart';
 import 'package:frontend_mobile/widget/app_bar.dart';
 
-class CVGenerateScreen extends StatefulWidget {
-  const CVGenerateScreen({super.key});
+class UploadCvScreen extends StatefulWidget {
+  const UploadCvScreen({super.key});
 
   @override
-  State<CVGenerateScreen> createState() => _CVGenerateScreenState();
+  State<UploadCvScreen> createState() => _UploadCvScreenState();
 }
 
-class _CVGenerateScreenState extends State<CVGenerateScreen> {
+class _UploadCvScreenState extends State<UploadCvScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
