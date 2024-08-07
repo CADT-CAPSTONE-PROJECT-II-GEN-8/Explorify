@@ -19,7 +19,7 @@ import 'package:frontend_mobile/screens/profile/account_detail/add_appreciation.
 import 'package:frontend_mobile/screens/profile/account_detail/edit_language.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/language_main.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/skill.dart';
-import 'package:frontend_mobile/screens/profile/acoount_screen.dart';
+import 'package:frontend_mobile/screens/profile/account_screen.dart';
 import 'package:frontend_mobile/screens/profile/account_detail/appreciation.dart';
 import 'package:frontend_mobile/screens/profile/change_password.dart';
 import 'package:frontend_mobile/screens/profile/edit_profile.dart';

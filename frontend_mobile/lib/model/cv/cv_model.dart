@@ -16,6 +16,7 @@ class CV {
   final User? user;
   final String description;
   final String jobTitle;
+  final String reference;
   final List<UserCompany>? userCompany;
   final List<UserEducation>? userEducation;
   final List<Skill>? userSkill;
@@ -28,6 +29,7 @@ class CV {
     this.user,
     required this.description,
     required this.jobTitle,
+    required this.reference,
     this.userCompany,
     required this.userEducation,
     required this.userSkill,
@@ -64,12 +66,13 @@ class CV {
 
   factory CV.fromMap(Map<String, dynamic> map) {
     return CV(
-      cvId: map['cv_id'] as int,
+      cvId: map['cv_id'] as int ?? 0,
       user: map['user'] != null && map['user'] is Map<String, dynamic>
           ? User.fromMap(map['user'] as Map<String, dynamic>)
           : null, // Assuming User has a fromMap factory
       description: map['description'] as String,
       jobTitle: map['job_title'] as String,
+      reference: map['references'] as String,
       userCompany:
           map['user_companies'] != null && map['user_companies'] is List
               ? List<UserCompany>.from(
@@ -115,6 +118,17 @@ class CV {
               ),
             )
           : null,
+      // user: map['user'] != null && map['user'] is Map<String, dynamic>
+      //     ? User.fromMap(map['user'] as Map<String, dynamic>)
+      //     : null, // Assuming User has a fromMap factory,
+      // userEducation: List<UserEducation>.from(map['user_education'] ?? []),
+      // userSkill: List<Skill>.from(map['user_skill'] ?? []),
+      // userMajor: List<Major>.from(map['user_major'] ?? []),
+      // userLanguage: List<Language>.from(map['user_language'] ?? []),
+      // userAward: List<UserAward>.from(map['user_award'] ?? []),
+      // description: map['description'] ?? 'none',
+      // jobTitle: map['job_title'] ?? 'none',
+      // userCompany: List<UserCompany>.from(map['use_company'] ?? []),
     );
   }
 

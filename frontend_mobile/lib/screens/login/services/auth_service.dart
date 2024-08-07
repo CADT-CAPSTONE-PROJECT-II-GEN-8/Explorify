@@ -21,7 +21,6 @@ class AuthService {
       required String username,
       required String password,
       required String email}) async {
-
     try {
       // trim input and convert to lowercase
       email = email.trim().toLowerCase();
@@ -75,8 +74,8 @@ class AuthService {
     required String username,
     required String password,
   }) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final tokenService = TokenService();
+    // final userProvider = Provider.of<UserProvider>(context, listen: false);
+    // final tokenService = TokenService();
 
     if (username.isEmpty || password.isEmpty) {
       showSnackBar(context, 'Username or password cannot be empty');
@@ -99,11 +98,12 @@ class AuthService {
         ),
       );
 
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
+      debugPrint('Response status: ${response.statusCode}');
+      debugPrint('Response body: ${response.body}');
 
       httpErrorHandle(
         response: response,
+        // ignore: use_build_context_synchronously
         context: context,
         onSuccess: () async {
           final data = jsonDecode(response.body);
@@ -123,8 +123,9 @@ class AuthService {
         },
       );
     } catch (e) {
+      // ignore: use_build_context_synchronously
       showSnackBar(context, "error");
-      print(e.toString());
+      debugPrint(e.toString());
     }
   }
 
@@ -173,17 +174,17 @@ class AuthService {
     }
   }
 
-  Future<void> getToken(
-      {required BuildContext context,
-      required String username,
-      required String otpCode}) async {
-    final otpProvider = Provider.of<OtpProvider>(context, listen: false);
+  Future<void> getToken({
+    required BuildContext context,
+    required String username,
+    String? otpCode,
+  }) async {
     final tokenService = TokenService();
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
       debugPrint(username);
-      debugPrint(otpCode);
+      debugPrint(otpCode ?? '');
 
       var response = await http.post(
         Uri.parse(APIEndPoint.baseUrl +
@@ -209,8 +210,8 @@ class AuthService {
           final data = jsonDecode(response.body);
           final body = data['body'] ?? {};
           userProvider.setUser(body);
-          print("email" + userProvider.user.email);
-          print("username" + userProvider.user.username);
+          debugPrint("email ${userProvider.user.email}");
+          debugPrint("username ${userProvider.user.username}");
           // Extract tokens from the response body
           String accessToken = body['access_token'] ?? '';
           String refreshToken = body['refresh_token'] ?? '';
@@ -225,11 +226,12 @@ class AuthService {
             String? refreshToken1 = await tokenService.getRefreshToken();
 
             if (accessToken != null) {
-              print('Access Token WORK NOW: $accessToken1');
-              print('Refresh Token WORK NOW: $refreshToken1');
+              debugPrint('Access Token WORK NOW: $accessToken1');
+              debugPrint('Refresh Token WORK NOW: $refreshToken1');
             } else {
-              print('No access token found.');
+              debugPrint('No access token found.');
             }
+            // ignore: use_build_context_synchronously
             Navigator.of(context).popAndPushNamed(RouteManager.navigationMenu);
           } else {
             showSnackBar(context, 'Access or Refresh Token is missing');

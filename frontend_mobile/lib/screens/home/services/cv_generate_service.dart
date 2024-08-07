@@ -20,7 +20,8 @@ class CvGenerateService {
         userAward: [],
         description: 'none',
         jobTitle: 'none',
-        userCompany: []);
+        userCompany: [],
+        reference: 'none');
     TokenService tokenService = TokenService();
     final token = await tokenService.getAccessToken();
     debugPrint('$token');
@@ -43,17 +44,19 @@ class CvGenerateService {
         onSuccess: () {
           final resBody = json.decode(response.body);
           final body = resBody['body'];
-
+          debugPrint('$body');
+          debugPrint('$resBody');
           // CV.fromJson(
           //   jsonEncode(jsonDecode(response.body)[i]),
           // ),
-          CV.fromMap(body);
+          cv = CV.fromMap(body);
         },
       );
     } catch (e) {
       showSnackBar(context, e.toString());
       debugPrint("Error fetching data: $e"); // Log the error message
     }
+    debugPrint(cv.description);
     return cv;
   }
 }

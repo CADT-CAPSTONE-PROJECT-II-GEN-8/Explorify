@@ -5,6 +5,7 @@ class APIEndPoint {
   static _InternshipEndPoint internEndPoint = _InternshipEndPoint();
   static _CompanyEndPoint companyEndPoint = _CompanyEndPoint();
   static _PostEndPoint postEndPoint = _PostEndPoint();
+  static _EduEndPoint eduEndPoint = _EduEndPoint();
 }
 
 class _AuthEndPoint {
@@ -24,4 +25,8 @@ class _CompanyEndPoint {
 
 class _PostEndPoint {
   final String getPostList = "/posts/list/";
+}
+
+class _EduEndPoint {
+  final String eduDetail = "/cv/user-educations/";
 }
