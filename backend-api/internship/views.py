@@ -294,3 +294,16 @@ class ApplicationCountsView(APIView):
             'approved_count': approved_count,
             'rejected_count': rejected_count
         }, status=status.HTTP_200_OK)
+    
+# count internship post by date
+class InternshipPostByDateView(APIView) : 
+    permission_classes = [IsAuthenticated] 
+    
+    def get(self, request, *args, **kwargs) : 
+        user = request.user
+
+        post_counts = InternshipPost.objects.filter(user = user).values('created_at__date').annotate(count=Count('id')).order_by('created_at__date')
+        dates = [item['created_at__date'] for item in post_counts]
+        counts = [item['count'] for item in post_counts]
+
+        return Response({'dates' : dates, 'counts' : counts} )
