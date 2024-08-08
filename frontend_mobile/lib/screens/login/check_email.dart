@@ -33,7 +33,7 @@ class _CheckEmailPageState extends State<CheckEmailPage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 40), // Space for the back button
+                          const SizedBox(height: 40), // Space for the back button
                           Text(
                             AppText.enText['check_email_title']!,
                             style: Theme.of(context).textTheme.headlineLarge,

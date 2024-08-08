@@ -30,7 +30,7 @@ class CustomProfileAppBar extends StatelessWidget
         leading: showBackArrow
             ? IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.of(context).pop(context);
                 },
                 icon: Icon(
                   Icons.arrow_back_ios,

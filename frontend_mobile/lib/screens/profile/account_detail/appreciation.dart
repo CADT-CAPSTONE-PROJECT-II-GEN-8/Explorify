@@ -26,22 +26,25 @@ class _AppreciationScreenState extends State<AppreciationScreen> {
                   leadingIconColor: Colors.black,
                   title: Row(
                     children: [
-                      Text(
-                        "Appreciation",
-                        style: TextStyle(
-                          color: AppColor.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: EdgeInsets.only(left: 80),
+                        child: Text(
+                          "Appreciation",
+                          style: TextStyle(
+                            color: AppColor.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -55,9 +58,9 @@ class _AppreciationScreenState extends State<AppreciationScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.add_circle_rounded,
                               size: 24,
                               color: AppColor.primary,
@@ -69,7 +72,7 @@ class _AppreciationScreenState extends State<AppreciationScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 24,
                       ),
                       Row(
@@ -84,17 +87,17 @@ class _AppreciationScreenState extends State<AppreciationScreen> {
                                   color: Colors.grey.withOpacity(0.2),
                                   spreadRadius: 1,
                                   blurRadius: 3,
-                                  offset: Offset(
+                                  offset: const Offset(
                                       0, 2), // changes position of shadow
                                 ),
                               ],
                             ),
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(height: 4.0),
+                                  const SizedBox(height: 4.0),
                                   Row(
                                     children: [
                                       const Text(
@@ -103,9 +106,9 @@ class _AppreciationScreenState extends State<AppreciationScreen> {
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w500),
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       IconButton(
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.edit,
                                           size: 20,
                                           color: AppColor.primary,
@@ -119,21 +122,21 @@ class _AppreciationScreenState extends State<AppreciationScreen> {
                                       ),
                                     ],
                                   ),
-                                  Text(
+                                  const Text(
                                     'Category: Young Scientist',
                                     style: TextStyle(
                                         fontSize: 12.0, color: Colors.grey),
                                   ),
                                   Row(
                                     children: [
-                                      Text(
+                                      const Text(
                                         'Year: 2023',
                                         style: TextStyle(
                                             fontSize: 12.0, color: Colors.grey),
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       IconButton(
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.delete_rounded,
                                           size: 20,
                                           color: Colors.red,

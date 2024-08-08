@@ -14,4 +14,11 @@ class AppImage {
   static const String chhenglyImg = "assets/images/chhengly.jpg";
   static const String sakuraImg = "assets/images/sakura.jpg";
   static const String linhImg = "assets/images/linh.jpg";
+  static const String briefcaseImg = "assets/images/briefcase.png";
+  static const String educationImg = "assets/images/Education.png";
+  static const String locationImg = "assets/images/location.png";
+  static const String interestFieldImg = "assets/images/Interest.png";
+  static const String microsoft = "assets/icons/microsoft.png";
+  static const String apple = "assets/icons/apple.jpg";
+  static const String amazon = "assets/icons/amazon.png";
 }

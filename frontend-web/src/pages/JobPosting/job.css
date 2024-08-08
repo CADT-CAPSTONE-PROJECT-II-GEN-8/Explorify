@@ -1,0 +1,21 @@
+ul {
+    list-style-type: disc; /* or any other style you prefer */
+    margin-left: 20px; /* Add some left margin for better visibility */
+  }
+  
+  li {
+    margin-bottom: 10px; /* Add some space between list items */
+  }
+
+  .pdf {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+}
+
+.pdf,
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}

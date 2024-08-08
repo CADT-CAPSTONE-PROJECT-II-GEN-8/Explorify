@@ -1,14 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:frontend_mobile/common/api_constants.dart';
 import 'package:frontend_mobile/model/cv/user_model.dart';
-import 'package:frontend_mobile/model/user/OTP_model.dart';
-import 'package:frontend_mobile/model/user/token_model.dart';
 import 'package:frontend_mobile/provider/user_provider.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/login/logic/otp_logic.dart';
+import 'package:frontend_mobile/screens/login/services/token_service.dart';
 import 'package:frontend_mobile/screens/login/verify_screen.dart';
 import 'package:frontend_mobile/utils/constant.dart';
 import 'package:frontend_mobile/utils/error_handling.dart';
@@ -23,8 +21,6 @@ class AuthService {
       required String username,
       required String password,
       required String email}) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-
     try {
       // trim input and convert to lowercase
       email = email.trim().toLowerCase();
@@ -36,7 +32,12 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(
-          {"email": email, "username": username, "password": password},
+          {
+            "email": email,
+            "username": username,
+            "password": password,
+            "social_registration": 0
+          },
         ),
       );
       debugPrint("User provider: ");
@@ -45,13 +46,13 @@ class AuthService {
       debugPrint(response.body);
       if (!context.mounted) return;
 
-      getOTP(context: context, username: username, password: password);
-
       httpErrorHandle(
         response: response,
         context: context,
         onSuccess: () async {
           showSnackBar(context, 'Signed Up!');
+
+          getOTP(context: context, username: username, password: password);
 
           // Navigator.popUntil(
           //     context, ModalRoute.withName(LoginScreen.routeName));
@@ -61,6 +62,75 @@ class AuthService {
       showSnackBar(context, e.toString());
     }
   }
+
+  // Future <void> logIn ({
+  //   required String username,
+  //   required String password
+  // }) async {
+
+  // }
+  Future<void> logIn({
+    required BuildContext context,
+    required String username,
+    required String password,
+  }) async {
+    // final userProvider = Provider.of<UserProvider>(context, listen: false);
+    // final tokenService = TokenService();
+
+    if (username.isEmpty || password.isEmpty) {
+      showSnackBar(context, 'Username or password cannot be empty');
+      return;
+    }
+
+    try {
+      var response = await http.post(
+        Uri.parse(APIEndPoint.baseUrl +
+            APIEndPoint.version +
+            APIEndPoint.authEndPoint.login),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(
+          {
+            "username_or_email": username,
+            "password": password,
+          },
+        ),
+      );
+
+      debugPrint('Response status: ${response.statusCode}');
+      debugPrint('Response body: ${response.body}');
+
+      httpErrorHandle(
+        response: response,
+        // ignore: use_build_context_synchronously
+        context: context,
+        onSuccess: () async {
+          final data = jsonDecode(response.body);
+          final body = data['body'] ?? {'test': 'test'};
+
+          String code = body['code'] ?? '';
+          if (code.isNotEmpty) {
+            showSnackBar(context, 'OTP code sent: $code');
+
+            // Navigate to OTP verification screen
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    VerifyPage(username: username, password: password)));
+          } else {
+            showSnackBar(context, 'Code is missing from response');
+          }
+        },
+      );
+    } catch (e) {
+      // ignore: use_build_context_synchronously
+      showSnackBar(context, "error");
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> socialLogIn(
+      {required String username, required String password}) async {}
 
   Future<void> getOTP({
     required BuildContext context,
@@ -90,7 +160,7 @@ class AuthService {
           showSnackBar(context, 'Email Sent!');
           final data = jsonDecode(response.body);
           String code = data['body']['code'] ?? 'non';
-          print("Success $code");
+          debugPrint("Success $code");
           otpProvider.code = code; // Update the code in the Provider
           // Navigator.pushNamed(context, RouteManager.verifyScreen,
           // arguments: {'username': username, 'password': password});
@@ -104,40 +174,73 @@ class AuthService {
     }
   }
 
-  Future<TokenModel> getToken({
+  Future<void> getToken({
     required BuildContext context,
-    required username,
+    required String username,
+    String? otpCode,
   }) async {
-    final otpProvider = Provider.of<OtpProvider>(context, listen: false);
+    final tokenService = TokenService();
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
       debugPrint(username);
-      debugPrint(otpProvider.code);
+      debugPrint(otpCode ?? '');
 
       var response = await http.post(
-          Uri.parse(APIEndPoint.baseUrl +
-              APIEndPoint.version +
-              APIEndPoint.authEndPoint.getToken),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8'
-          },
-          body: jsonEncode(
-              {'username_or_email': username, 'code': otpProvider.code}));
-      if (!context.mounted) return tokenModelFromJson(response.toString());
+        Uri.parse(APIEndPoint.baseUrl +
+            APIEndPoint.version +
+            APIEndPoint.authEndPoint.getToken),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: jsonEncode(
+          {'username_or_email': username, 'code': otpCode},
+        ),
+      );
+
+      if (!context.mounted) return;
+
       debugPrint(response.body);
+
+      // Handle the response using the httpErrorHandle function
       httpErrorHandle(
-          response: response,
-          context: context,
-          onSuccess: () {
-            debugPrint(response.body);
-            Navigator.of(context)
-                .pushReplacementNamed(RouteManager.navigationMenu);
-          });
-      return tokenModelFromJson(response.toString());
+        response: response,
+        context: context,
+        onSuccess: () async {
+          final data = jsonDecode(response.body);
+          final body = data['body'] ?? {};
+          userProvider.setUser(body);
+          debugPrint("email ${userProvider.user.email}");
+          debugPrint("username ${userProvider.user.username}");
+          // Extract tokens from the response body
+          String accessToken = body['access_token'] ?? '';
+          String refreshToken = body['refresh_token'] ?? '';
+
+          // Check if tokens are present
+          if (accessToken.isNotEmpty && refreshToken.isNotEmpty) {
+            // Save tokens using TokenService
+            await tokenService.saveTokens(accessToken, refreshToken);
+            debugPrint('Access Token: $accessToken');
+            debugPrint('Refresh Token: $refreshToken');
+            String? accessToken1 = await tokenService.getAccessToken();
+            String? refreshToken1 = await tokenService.getRefreshToken();
+
+            if (accessToken != null) {
+              debugPrint('Access Token WORK NOW: $accessToken1');
+              debugPrint('Refresh Token WORK NOW: $refreshToken1');
+            } else {
+              debugPrint('No access token found.');
+            }
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).popAndPushNamed(RouteManager.navigationMenu);
+          } else {
+            showSnackBar(context, 'Access or Refresh Token is missing');
+          }
+        },
+      );
     } catch (e) {
-      showSnackBar(context, e.toString());
-      return Future.error(e.toString());
+      showSnackBar(context, 'Error: ${e.toString()}');
+      debugPrint('Error: ${e.toString()}');
     }
   }
 }

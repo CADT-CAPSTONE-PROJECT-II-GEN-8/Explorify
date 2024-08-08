@@ -40,7 +40,7 @@ class RegisterPageState extends State<RegisterPage> {
       setState(() {
         _currentUser = account!;
         _currentUser.authentication.then((value) {
-          print("Custom Log:${value.accessToken}");
+          debugPrint("Custom Log:${value.accessToken}");
           _login("google", value.accessToken!);
         });
       });
@@ -50,7 +50,6 @@ class RegisterPageState extends State<RegisterPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   
   }
@@ -63,11 +62,11 @@ class RegisterPageState extends State<RegisterPage> {
     try {
       Response response = await dio.post("http://192.168.1.143:8000/api/login",
           data: data, onSendProgress: (count, total) {
-        print("Count:$count");
+        debugPrint("Count:$count");
       });
-      print(response.data);
+      debugPrint(response.data);
     } on DioException catch (e) {
-      print(e.response);
+      debugPrint('${e.response}');
     }
   }
 
@@ -88,14 +87,14 @@ class RegisterPageState extends State<RegisterPage> {
          Permissions: ${accessToken.permissions}
          Declined permissions: ${accessToken.declinedPermissions}
          ''';
-          print(_message);
+          debugPrint(_message);
           _login("facebook", accessToken.token);
         });
         break;
       case FacebookLoginStatus.cancel:
         break;
       case FacebookLoginStatus.error:
-        print("FB Error: ${result.error}");
+        debugPrint("FB Error: ${result.error}");
         break;
     }
   }

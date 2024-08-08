@@ -3,19 +3,19 @@ import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/onboarding/widget/search_drop_down.dart';
 import 'package:frontend_mobile/screens/onboarding/widget/skill_custom_app_bar.dart';
-import 'package:frontend_mobile/common/skill_list.dart';
+import 'package:frontend_mobile/common/list.dart';
 
 class PreferenceScreen extends StatefulWidget {
   const PreferenceScreen({super.key});
 
   @override
-  _PreferenceScreenState createState() => _PreferenceScreenState();
+  State<PreferenceScreen> createState() => _PreferenceScreenState();
 }
 
 class _PreferenceScreenState extends State<PreferenceScreen> {
-  List<String> preferenceList = SkillList.preferenceList;
+  List<String> preferenceList = AppList.preferenceList;
 
-  List<String> softSkillList = SkillList.softSkillList;
+  List<String> softSkillList = AppList.softSkillList;
 
   Set<int> selectedIndexes = {};
   Set<int> pendingIndexes = {};
@@ -25,21 +25,6 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
   List<String> selectedPreferences = [];
 
   TextEditingController searchController = TextEditingController();
-
-  void _onItemSelected(String preference) {
-    setState(() {
-      selectedPreferences.add(preference);
-      int index = preferenceList.indexOf(preference);
-      if (index != -1) {
-        selectedIndexes.add(index);
-      } else {
-        index = softSkillList.indexOf(preference);
-        if (index != -1) {
-          selectedIndexes.add(index + preferenceList.length);
-        }
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +62,8 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.popAndPushNamed(context, RouteManager.loginScreen);
+                  Navigator.popAndPushNamed(
+                      context, RouteManager.loginScreen);
                 },
                 child: Row(
                   children: [

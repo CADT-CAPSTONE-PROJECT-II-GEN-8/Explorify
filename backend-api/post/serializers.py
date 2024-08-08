@@ -117,20 +117,98 @@ class TagsSerializer(serializers.ModelSerializer):
 
 
 from account.serializers import UsersSerializer
-from internship.models import InternshipPost
-
+from internship.models import InternshipApplication, InternshipPost
+from PIL import Image as PILImage
+import io
+from django.core.files.base import ContentFile
 class UsernameOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username']
+
+from internship.models import CompanyProfile
+
+class CompanyProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompanyProfile
+        fields = ['company_name', 'description', 'location', 'head_office', 'employee_size', 'company_type', 'specialization', 'company_website', 'company_pic']
+
+class UserSerializer(serializers.ModelSerializer):
+    company_profile = CompanyProfileSerializer()
+
+    class Meta:
+        model = User
+        fields = [ 'company_profile']
+
+class InternshipPostDetail2Serializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = InternshipPost
+        fields = "__all__"
+class InternshipPostDetailSerializer(serializers.ModelSerializer):
+    user = UsernameOnlySerializer(required=False)
+    tags = TagsSerializer(many=True, read_only=True)
+    deadline = serializers.DateField(required=False)
+    thumbnails = serializers.ImageField(required=False)
+
+    class Meta:
+        model = InternshipPost
+        fields = "__all__"
+        
 class InternshipPostSerializer(serializers.ModelSerializer):
     user = UsernameOnlySerializer(required=False)
     tags = TagsSerializer(many=True, read_only=True)
     deadline = serializers.DateField(required=False)
+    thumbnails = serializers.ImageField(required=False)
+
     class Meta:
         model = InternshipPost
         fields = "__all__"
+
     def create(self, validated_data):
         user = self.context["request"].user
+        
+        # Compress image if it exceeds 2MB
+        if 'thumbnails' in validated_data:
+            validated_data['thumbnails'] = self.compress_image(validated_data['thumbnails'])
+
         post = InternshipPost.objects.create(user=user, **validated_data)
         return post
+
+    def validate_thumbnails(self, value):
+        # Validate file extension
+        ext = value.name.split('.')[-1].lower()
+        if ext not in ['jpg', 'jpeg', 'png', 'gif']:
+            raise serializers.ValidationError('Unsupported file extension.')
+
+        # Validate file size
+        limit_mb = 2  # 2MB
+        if value.size > limit_mb * 1024 * 1024:
+            raise serializers.ValidationError('File size exceeds 2 MB limit.')
+
+        return value
+
+    def compress_image(self, image):
+        img = PILImage.open(image)
+        img = img.convert('RGB')  # Convert to RGB if necessary
+
+        # Resize image
+        img.thumbnail((800, 800))  # Resize to 800x800 max
+
+        # Save to a bytes buffer
+        img_io = io.BytesIO()
+        img.save(img_io, format='JPEG', quality=85)  # Adjust quality as needed
+        img_io.seek(0)
+
+        return ContentFile(img_io.read(), name=image.name)
+    
+    
+class InternshipApplicationSerializer(serializers.ModelSerializer):
+    cover_letter = serializers.FileField(required=True)
+    cv = serializers.FileField(required=True)
+    class Meta:
+        model = InternshipApplication
+        fields = ["internship_application_id","user", "internship_post", "cover_letter","cv"]
+    
+        

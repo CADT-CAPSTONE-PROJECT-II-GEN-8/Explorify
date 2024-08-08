@@ -22,12 +22,15 @@ class _LanguageMainScreenState extends State<LanguageMainScreen> {
             const CustomAccountAppBar(
               showBackArrow: true,
               leadingIconColor: Colors.black,
-              title: Text(
-                'Language',
-                style: TextStyle(
-                  color: AppColor.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              title: Padding(
+                padding: EdgeInsets.only(left: 80),
+                child: Text(
+                  'Language',
+                  style: TextStyle(
+                    color: AppColor.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -35,7 +38,7 @@ class _LanguageMainScreenState extends State<LanguageMainScreen> {
               height: 12,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -49,21 +52,21 @@ class _LanguageMainScreenState extends State<LanguageMainScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.add_circle_rounded,
                           size: 24,
                           color: AppColor.primary,
                         ),
                         onPressed: () {
-                          Navigator.popAndPushNamed(
+                          Navigator.pushNamed(
                               context, RouteManager.userLanguageScreen);
                         },
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   //add language boxes
@@ -80,7 +83,7 @@ class _LanguageMainScreenState extends State<LanguageMainScreen> {
                               spreadRadius: 1,
                               blurRadius: 3,
                               offset:
-                                  Offset(0, 2), // changes position of shadow
+                                  const Offset(0, 2), // changes position of shadow
                             ),
                           ],
                         ),
@@ -100,33 +103,33 @@ class _LanguageMainScreenState extends State<LanguageMainScreen> {
                                   ),
                                   Spacer(),
                                   IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.edit,
                                       size: 20,
                                       color: AppColor.primary,
                                     ),
                                     onPressed: () {
-                                      Navigator.popAndPushNamed(context,
+                                      Navigator.pushNamed(context,
                                           RouteManager.editLanguageScreen);
                                     },
                                   ),
                                 ],
                               ),
-                              Text(
+                              const Text(
                                 'Oral: Level 10',
                                 style: TextStyle(
                                     fontSize: 12.0, color: Colors.grey),
                               ),
                               Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Written: Level 10',
                                     style: TextStyle(
                                         fontSize: 12.0, color: Colors.grey),
                                   ),
                                   Spacer(),
                                   IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.delete_rounded,
                                       size: 20,
                                       color: Colors.red,
@@ -175,35 +178,35 @@ class _LanguageMainScreenState extends State<LanguageMainScreen> {
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.w500),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.edit,
                                       size: 20,
                                       color: AppColor.primary,
                                     ),
                                     onPressed: () {
-                                      Navigator.popAndPushNamed(context,
+                                      Navigator.pushNamed(context,
                                           RouteManager.editLanguageScreen);
                                     },
                                   ),
                                 ],
                               ),
-                              Text(
+                              const Text(
                                 'Oral: Level 10',
                                 style: TextStyle(
                                     fontSize: 12.0, color: Colors.grey),
                               ),
                               Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Written: Level 10',
                                     style: TextStyle(
                                         fontSize: 12.0, color: Colors.grey),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.delete_rounded,
                                       size: 20,
                                       color: Colors.red,

@@ -164,3 +164,79 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 class ResetPasswordEmailSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
+
+
+class UpdateCompanyProfileSerializer(serializers.ModelSerializer):
+    company_pic = serializers.ImageField(required=False)
+
+    class Meta:
+        model = CompanyProfile
+        fields = [
+            "company_name",
+            "description",
+            "location",
+            "head_office",
+            "employee_size",
+            "company_type",
+            "specialization",
+            "company_website",
+            "company_pic",
+        ]
+
+    def update(self, instance, validated_data):
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        return instance
+    
+    def validate_company_pic(self, value):
+        # Validate file extension
+        ext = value.name.split(".")[-1].lower()
+        if ext not in ["jpg", "jpeg", "png", "gif"]:
+            raise serializers.ValidationError("Unsupported file extension.")
+
+        # Validate file size
+        limit_mb = 2  # 2MB
+        if value.size > limit_mb * 1024 * 1024:
+            raise serializers.ValidationError("File size exceeds 2 MB limit.")
+
+        return value
+    
+#  DONE
+from account.models import Profile
+class UpdateUserInfo(serializers.ModelSerializer):
+    username = serializers.CharField(max_length=128, required=False)
+    email = serializers.EmailField(required=False)
+    class Meta:
+        model = User
+        fields = ["email", "username","first_name", "last_name", "phone", "headline" ]
+    
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            if value is not "":
+                setattr(instance, attr, value)
+        instance.save()
+
+        return instance
+
+    # def update(self, validated_data):
+    #     # user_data = {
+    #     #     "username": validated_data.pop("username"),
+    #     #     "email": validated_data.pop("email"),
+    #     #     "first_name": validated_data.pop("first_name"),
+    #     #     "last_name": validated_data.pop("last_name"),
+    #     #     "headline": validated_data.pop("headline"),
+    #     #     "phone": validated_data.pop("phone"),
+    #     # }
+    #     # user = User.objects.get(**user_data, is_active=False)
+
+    #     # company_pic = validated_data.pop("company_pic", None)
+    #     company_profile = CompanyProfile.objects.get(
+    #         user=user, 
+    #         # company_pic=company_pic, 
+    #         **validated_data
+    #     )
+
+    #     return company_profile
