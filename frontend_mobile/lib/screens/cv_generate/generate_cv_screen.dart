@@ -26,7 +26,7 @@ class _GenerateCvScreenState extends State<GenerateCvScreen> {
               isCenter: true,
               showBackArrow: true,
               title: Text(
-                AppText.enText['cv_title']!,
+                AppText.enText['cv_generate']!,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               action: [

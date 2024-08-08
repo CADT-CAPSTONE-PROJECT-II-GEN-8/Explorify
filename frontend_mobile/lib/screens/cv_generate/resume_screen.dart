@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 import 'package:frontend_mobile/screens/home/services/cv_generate_service.dart';
 
 class CVScreen extends StatefulWidget {
@@ -16,32 +16,29 @@ class _CVScreenState extends State<CVScreen> {
   int _current = 0;
   dynamic _selectedIndex = {};
 
-  final CarouselController _carouselController = CarouselController();
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
   CvGenerateService cvGenerateService = CvGenerateService();
   final List<dynamic> _products = [
     {
       'id': 1,
       'title': 'Free',
-      'image':
-          'https://www.resume-now.com/sapp/uploads/2024/01/cv_template_hero.png',
+      'image': 'assets/images/cv1-1.png',
     },
     {
       'id': 2,
       'title': 'Free',
-      'image':
-          'https://images.template.net/wp-content/uploads/2015/12/Nursing-Student-CV-Template.jpg',
+      'image': 'assets/images/cv2-1.png',
     },
     {
       'id': 3,
       'title': 'Pro',
-      'image':
-          'https://www.freesumes.com/wp-content/uploads/2023/05/resume-template-with-photo.jpg',
+      'image': 'assets/images/cv3-1.png',
     },
     {
       'id': 4,
       'title': 'Pro',
-      'image':
-          'https://www.freesumes.com/wp-content/uploads/2023/05/resume-template-with-photo.jpg',
+      'image': 'assets/images/cv4-1.png',
     }
   ];
 
@@ -83,7 +80,7 @@ class _CVScreenState extends State<CVScreen> {
       width: double.infinity,
       height: 420.0, // Set fixed height
       child: CarouselSlider(
-        carouselController: _carouselController,
+        controller: _carouselController,
         options: CarouselOptions(
           height: 420.0,
           aspectRatio: 16 / 9,
@@ -142,19 +139,8 @@ class _CVScreenState extends State<CVScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Image.network(
+                          child: Image.asset(
                             product['image']!,
-                            loadingBuilder: (context, child, progress) {
-                              if (progress == null) {
-                                return child;
-                              } else {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-                            },
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Center(child: Icon(Icons.error));
-                            },
                             fit: BoxFit.cover,
                           ),
                         ),
