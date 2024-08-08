@@ -14,7 +14,7 @@ void httpErrorHandle({
       onSuccess();
       break;
     case 400:
-      showSnackBar(context, jsonDecode(response.body)['message']);
+      showSnackBar(context, jsonDecode(response.body)['message'] ?? null);
       break;
     case 401:
       if (fail != null) {
