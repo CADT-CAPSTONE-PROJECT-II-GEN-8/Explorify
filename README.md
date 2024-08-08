@@ -3,7 +3,7 @@
 
 **Description**
 
-This project provides a full-stack solution with a Laravel backend API, a Flutter mobile frontend, and a React web frontend, enabling you to build robust and interactive applications.
+This project provides a full-stack solution with a Django backend API, a Flutter mobile frontend, and a React web frontend, enabling you to build robust and interactive applications.
 
 **Getting Started**
 
@@ -15,7 +15,7 @@ This project provides a full-stack solution with a Laravel backend API, a Flutte
 2. **Clone the Repository:**
 
    ```bash
-   git clone https://gitlab.com/DiamondLuver/Capstone_II.git
+   git clone [https://gitlab.com/DiamondLuver/Capstone_II.git](https://github.com/CADT-CAPSTONE-PROJECT-II-GEN-8/Explorify.git)
    ```
 
 3. **Install Dependencies:**
