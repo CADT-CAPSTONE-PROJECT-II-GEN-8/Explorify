@@ -15,7 +15,7 @@ This project provides a full-stack solution with a Django backend API, a Flutter
 2. **Clone the Repository:**
 
    ```bash
-   git clone [https://gitlab.com/DiamondLuver/Capstone_II.git](https://github.com/CADT-CAPSTONE-PROJECT-II-GEN-8/Explorify.git)
+   git clone https://gitlab.com/DiamondLuver/Capstone_II.git
    ```
 
 3. **Install Dependencies:**
