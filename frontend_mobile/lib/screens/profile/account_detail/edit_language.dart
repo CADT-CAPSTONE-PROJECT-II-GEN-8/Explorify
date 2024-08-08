@@ -37,13 +37,13 @@ class _EditLanguageScreenState extends State<EditLanguageScreen> {
               height: 12,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  const Row(
                     children: [
-                      const Text(
+                      Text(
                         'Edit Language',
                         style: TextStyle(
                           color: AppColor.black,
@@ -53,7 +53,7 @@ class _EditLanguageScreenState extends State<EditLanguageScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   Row(
@@ -69,7 +69,7 @@ class _EditLanguageScreenState extends State<EditLanguageScreen> {
                               spreadRadius: 1,
                               blurRadius: 3,
                               offset:
-                                  Offset(0, 2), // changes position of shadow
+                                  const Offset(0, 2), // changes position of shadow
                             ),
                           ],
                         ),
@@ -110,7 +110,7 @@ class _EditLanguageScreenState extends State<EditLanguageScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   Row(
@@ -126,23 +126,23 @@ class _EditLanguageScreenState extends State<EditLanguageScreen> {
                               spreadRadius: 1,
                               blurRadius: 3,
                               offset:
-                                  Offset(0, 2), // changes position of shadow
+                                  const Offset(0, 2), // changes position of shadow
                             ),
                           ],
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 4.0),
-                              Text(
+                              const SizedBox(height: 4.0),
+                              const Text(
                                 "Oral",
                                 style: TextStyle(
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w500),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 12,
                               ),
                               DropdownButtonFormField<String>(
@@ -167,29 +167,29 @@ class _EditLanguageScreenState extends State<EditLanguageScreen> {
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         color: Colors.grey, width: 0.5),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         color: AppColor.grey, width: 2.0),
                                   ),
                                 ),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 12.0, color: Colors.black),
                               ),
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 10.0),
                                 child: Divider(),
                               ),
-                              Text(
+                              const Text(
                                 "Written Level",
                                 style: TextStyle(
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w500),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 12,
                               ),
                               DropdownButtonFormField<String>(
@@ -214,16 +214,16 @@ class _EditLanguageScreenState extends State<EditLanguageScreen> {
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         color: Colors.grey, width: 0.5),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         color: AppColor.grey, width: 2.0),
                                   ),
                                 ),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 12.0, color: Colors.black),
                               ),
                             ],

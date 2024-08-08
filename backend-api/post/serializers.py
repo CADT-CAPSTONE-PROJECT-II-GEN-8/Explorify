@@ -117,7 +117,7 @@ class TagsSerializer(serializers.ModelSerializer):
 
 
 from account.serializers import UsersSerializer
-from internship.models import InternshipPost
+from internship.models import InternshipApplication, InternshipPost
 from PIL import Image as PILImage
 import io
 from django.core.files.base import ContentFile
@@ -125,6 +125,37 @@ class UsernameOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username']
+
+from internship.models import CompanyProfile
+
+class CompanyProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompanyProfile
+        fields = ['company_name', 'description', 'location', 'head_office', 'employee_size', 'company_type', 'specialization', 'company_website', 'company_pic']
+
+class UserSerializer(serializers.ModelSerializer):
+    company_profile = CompanyProfileSerializer()
+
+    class Meta:
+        model = User
+        fields = [ 'company_profile']
+
+class InternshipPostDetail2Serializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = InternshipPost
+        fields = "__all__"
+class InternshipPostDetailSerializer(serializers.ModelSerializer):
+    user = UsernameOnlySerializer(required=False)
+    tags = TagsSerializer(many=True, read_only=True)
+    deadline = serializers.DateField(required=False)
+    thumbnails = serializers.ImageField(required=False)
+
+    class Meta:
+        model = InternshipPost
+        fields = "__all__"
+        
 class InternshipPostSerializer(serializers.ModelSerializer):
     user = UsernameOnlySerializer(required=False)
     tags = TagsSerializer(many=True, read_only=True)
@@ -171,3 +202,13 @@ class InternshipPostSerializer(serializers.ModelSerializer):
         img_io.seek(0)
 
         return ContentFile(img_io.read(), name=image.name)
+    
+    
+class InternshipApplicationSerializer(serializers.ModelSerializer):
+    cover_letter = serializers.FileField(required=True)
+    cv = serializers.FileField(required=True)
+    class Meta:
+        model = InternshipApplication
+        fields = ["internship_application_id","user", "internship_post", "cover_letter","cv"]
+    
+        

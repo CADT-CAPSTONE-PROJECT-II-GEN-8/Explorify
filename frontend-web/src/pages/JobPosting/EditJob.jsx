@@ -7,6 +7,7 @@ import 'react-quill/dist/quill.snow.css'; // import styles
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Header from './Header';
+import Swal from 'sweetalert2';
 const EditJob = () => {
 
   const jobTypeChoices = [
@@ -32,7 +33,7 @@ const EditJob = () => {
     job_description: '',
     job_requirement: '',
     salary: '',
-    job_type: 'Full-Time',
+    job_type: 'Full-time',
     job_duration: '',
     qualification: '',
     status: 'Open',
@@ -73,17 +74,34 @@ const EditJob = () => {
       const res = await axios.put(`http://localhost:8989/api/v1/post/update/${jobId}/`, jobData, {
         headers: { 'Content-Type': 'application/json' },
       });
-      setMessage('Job updated successfully');
-      setLoading(false);
-      toggleModal(); // Close modal after successful update
-      navigate('/company/profile'); // Redirect to profile page after update
+       // show success alert 
+       Swal.fire({
+        title:'Success!',
+        text: 'Update successfully',
+        icon: 'success',
+        timer: 3000, // Show alert for 3 seconds
+        timerProgressBar: true,
+        showConfirmButton: false, // Hide the "OK" button
+        willClose: () => {
+          navigate('/job/table'); // Redirect after alert is closed
+        }
+      });
     } catch (err) {
       console.error('Error updating job data:', err);
-      setMessage(
-        err.response?.status === 404
+      // Show error alert
+      Swal.fire({
+        title: 'Error!',
+        text: err.response?.status === 404
           ? 'Validation failed or resource not found'
-          : `Something went wrong: ${err.response?.data?.message || err.message}`
-      );
+          : `Something went wrong: ${err.response?.data?.message || err.message}`,
+        icon: 'error',
+        timer: 3000, // Show alert for 3 seconds
+        timerProgressBar: true,
+        showConfirmButton: false, // Hide the "OK" button
+        willClose: () => {
+          setLoading(false);
+        }
+      });
       setLoading(false);
     }
   };
@@ -204,27 +222,10 @@ const EditJob = () => {
             </div>
 
 
-            <div className="grid gap-4 mb-4 sm:grid-cols-1">
+
+              <div className="grid gap-4 mb-4 sm:grid-cols-2">
+
             <div>
-  <label htmlFor="deadline" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-    Deadline
-  </label>
-  <input
-    type="date"
-    name="deadline"
-    id="deadline"
-    value={jobData.deadline}
-    onChange={handleChange}
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#f7ac70] focus:border-[#f7ac70] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-    
-    required
-  />
-</div>
-            </div>
-
-
-            <div className="grid gap-4 mb-4 sm:grid-cols-1">
-              <div>
                 <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Address
                 </label>
@@ -238,6 +239,36 @@ const EditJob = () => {
                   required
                 />
               </div>
+              
+          
+            <div className="relative">
+      <label
+        htmlFor="deadline"
+        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      >
+        Deadline
+      </label>
+      <input
+        type="date"
+        name="deadline"
+        id="deadline"
+        value={jobData.deadline}
+        onChange={handleChange}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#f7ac70] focus:border-[#f7ac70] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+        required
+      />
+      <span className="absolute inset-y-0 right-0 flex items-center pr-3 pt-5 pointer-events-none">
+        <svg
+          className="w-5 h-5 text-gray-500 dark:text-gray-400"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path d="M6 2C5.44772 2 5 2.44772 5 3V4H4C2.89543 4 2 4.89543 2 6V16C2 17.1046 2.89543 18 4 18H16C17.1046 18 18 17.1046 18 16V6C18 4.89543 17.1046 4 16 4H15V3C15 2.44772 14.5523 2 14 2C13.4477 2 13 2.44772 13 3V4H7V3C7 2.44772 6.55228 2 6 2ZM4 6H16V16H4V6Z" />
+        </svg>
+      </span>
+    </div>
+
+    
             </div>
 
             <div className="sm:col-span-2">
@@ -297,7 +328,7 @@ const EditJob = () => {
                 className="text-white bg-[#F27C1C] hover:bg-[#ce6918] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 disabled={loading}
               >
-                {loading ? 'Submitting...' : 'Add new'}
+                {loading ? 'Updatting...' : 'Update'}
               </button>
 
               <Link to="/job/table">

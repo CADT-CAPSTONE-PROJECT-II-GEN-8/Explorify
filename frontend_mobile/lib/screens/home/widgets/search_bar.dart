@@ -29,6 +29,7 @@ class SearchContainer extends StatelessWidget {
             Icon(
               icon,
               color: AppColor.secondary,
+              
             ),
             const SizedBox(
               width: 10,

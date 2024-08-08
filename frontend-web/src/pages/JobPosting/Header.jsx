@@ -59,7 +59,7 @@ const Header = () => {
         </ol>
       </nav>
       
-      <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Table intern program</h1>
+      <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Internship program</h1>
 </div>
 
     </>

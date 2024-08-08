@@ -212,12 +212,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                       TextFormField(
                         validator: validatePassword,
                         controller: _oldPwdController,
-                        obscureText: false, // Hide password
-                        decoration: InputDecoration(
-                          hintText: '',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                        decoration: formDecoration(
+                          context: context,
+                          labelText: '',
+                          prefixIcon: Icons.visibility,
+                          suffixIcon: false,
                         ),
                       ),
                       SizedBox(
@@ -233,12 +232,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                       TextFormField(
                         validator: validatePassword,
                         controller: _newPwdController,
-                        obscureText: false, // Hide password
-                        decoration: InputDecoration(
-                          hintText: '',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                        decoration: formDecoration(
+                          context: context,
+                          labelText: '',
+                          prefixIcon: Icons.visibility,
+                          suffixIcon: false,
                         ),
                       ),
                       SizedBox(
@@ -254,24 +252,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                       TextFormField(
                         validator: validatePassword,
                         controller: _cfPwdController,
-                        obscureText: !_isCfPwdVisible, // Toggle visibility
-                        decoration: InputDecoration(
-                          hintText: '',
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _isCfPwdVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _isCfPwdVisible = !_isCfPwdVisible;
-                              });
-                            },
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                        decoration: formDecoration(
+                          context: context,
+                          labelText: '',
+                          prefixIcon: Icons.visibility,
+                          suffixIcon: false,
                         ),
                       ),
                       Config.spaceLarge,

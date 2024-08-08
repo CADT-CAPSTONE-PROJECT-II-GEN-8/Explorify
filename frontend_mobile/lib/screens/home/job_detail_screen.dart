@@ -3,7 +3,8 @@ import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/provider/apply.dart';
-import 'package:frontend_mobile/screens/cv_generate/upload_cv_screen.dart';
+import 'package:frontend_mobile/provider/company_info_provider.dart';
+import 'package:frontend_mobile/provider/job_detail_provider.dart';
 import 'package:frontend_mobile/screens/home/widgets/apply_button.dart';
 import 'package:frontend_mobile/screens/home/widgets/tab_bar.dart';
 import 'package:frontend_mobile/screens/home/widgets/text_tile.dart';
@@ -25,7 +26,6 @@ class _JobDetailScreenState extends State<JobDetailScreen>
   late TabController tabController;
   @override
   void initState() {
-    // TODO: implement initState
     tabController = TabController(
       length: 2,
       vsync: this,
@@ -35,7 +35,6 @@ class _JobDetailScreenState extends State<JobDetailScreen>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     tabController.dispose();
   }
@@ -43,6 +42,11 @@ class _JobDetailScreenState extends State<JobDetailScreen>
   bool isUpload = false;
   @override
   Widget build(BuildContext context) {
+    final internshipInfo =
+        Provider.of<InternshipProvider>(context).internshipInfo;
+    final companyInfo =
+        Provider.of<CompanyProfileProvider>(context).companyProfile;
+
     final uploadState = Provider.of<UploadState>(context);
     List<String> tabs = ['Job Description', 'About Company'];
     return Scaffold(
@@ -82,12 +86,18 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                   Container(
                     width: 54,
                     height: 54,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          "assets/images/app_logo.png",
-                        ),
-                      ),
+                    // decoration: BoxDecoration(
+                    //   image: DecorationImage(
+                    //     image: AssetImage(
+                    //       'assets/images/briefcase.png',
+                    //     ),
+                    //   ),
+                    // ),
+                    child: Image.asset(
+                      'assets/images/briefcase.png',
+                      height: 54,
+                      width: 54,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   const SizedBox(
@@ -97,7 +107,7 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Company Name",
+                        companyInfo!.companyName,
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.w500,
                             color: AppColor.primary),
@@ -106,7 +116,7 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                         height: 4,
                       ),
                       Text(
-                        "Job Position",
+                        internshipInfo!.jobTitle,
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
@@ -118,7 +128,7 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                         height: 4,
                       ),
                       Text(
-                        "Location",
+                        companyInfo.location,
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             fontWeight: FontWeight.normal,
                             color: AppColor.midGrey),
@@ -176,9 +186,11 @@ class _JobDetailScreenState extends State<JobDetailScreen>
                 Config.spaceMedium,
 
                 // ----TAB VIEW----
-                SizedBox(
+                Container(
+                  padding: const EdgeInsets.all(24),
                   height: MediaQuery.of(context).size.height,
                   child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
                     controller: tabController,
                     children: const [JobInfo(), CompanyInfo()],
                   ),

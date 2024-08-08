@@ -1,17 +1,23 @@
 import Main from 'src/components/Main';
 import Dashboard from "src/Page/Dashboard";
-import UI from 'src/pages/CompanyProfile/UI';
-import JobTable from 'src/pages/JobPosting/JobTable';
-import AddJob from 'src/pages/JobPosting/AddJob';
-import JobDetail from 'src/pages/JobPosting/JobDetail';
-import EditJob from 'src/pages/JobPosting/EditJob';
-import DeleteJob from 'src/pages/JobPosting/DeleteJob';
-import Test from 'src/components/Test';
-import CompanyTable from 'src/pages/CompanyPost/CompanyTable';
-import ViewDetail from 'src/pages/CompanyPost/ViewDetail';
-import Edit from 'src/pages/CompanyPost/Edit';
+import LisCandidate from 'src/pages/Candidate/ListCandidate';
 import DeleteProfile from 'src/pages/CompanyPost/DeleteProfile';
+import Edit from 'src/pages/CompanyProfile/Edit';
+import Profile from 'src/pages/CompanyProfile/Profile';
+import AddJob from 'src/pages/JobPosting/AddJob';
+import DeleteJob from 'src/pages/JobPosting/DeleteJob';
+import EditJob from 'src/pages/JobPosting/EditJob';
+import JobDetail from 'src/pages/JobPosting/JobDetail';
+import JobTable from 'src/pages/JobPosting/JobTable';
 import { ProtectedRoute } from './ProtectedRouteComponent';
+import TotalCadidate from 'src/pages/Candidate/TotalCadidate';
+import CV from 'src/pages/Candidate/CV';
+import CoverLetter from 'src/pages/Candidate/CoverLetter';
+import EmailForm from 'src/pages/Email/EmailForm';
+import CountAccept from 'src/pages/Email/CountAccept';
+import CountReject from 'src/pages/Email/CountReject';
+import TotalCandidate from 'src/pages/Candidate/TotalCadidate';
+import ListTotal from 'src/pages/Candidate/ListTotal';
 
 export const protectedRoutes = [
   {
@@ -26,14 +32,7 @@ export const protectedRoutes = [
           </Main>
         ),
       },
-      {
-        path: '/UI',
-        element: (
-          <Main>
-            <UI />
-          </Main>
-        ),
-      },
+     
       {
         path: '/job/table',
         element: (
@@ -75,10 +74,10 @@ export const protectedRoutes = [
         ),
       },
       {
-        path: '/test',
+        path: '/totle/application',
         element: (
           <Main>
-            <Test />
+            <TotalCadidate />
           </Main>
         ),
       },
@@ -86,20 +85,12 @@ export const protectedRoutes = [
         path: '/company/profile',
         element: (
           <Main>
-            <CompanyTable />
+            <Profile />
           </Main>
         ),
       },
       {
-        path: '/details/company/:companyId',
-        element: (
-          <Main>
-            <ViewDetail />
-          </Main>
-        ),
-      },
-      {
-        path: '/edit/company/:companyId',
+        path: '/edit/company/profile',
         element: (
           <Main>
             <Edit />
@@ -114,6 +105,89 @@ export const protectedRoutes = [
           </Main>
         ),
       },
+
+
+      // for list application 
+      {
+        path: '/all/application/apply',
+        element: (
+          <Main>
+            <LisCandidate />
+          </Main>
+        ),
+      },
+
+      {
+        path: '/apply/application/cv/:applicationId',
+        element: (
+          <Main>
+            <CV />
+          </Main>
+        ),
+      },
+
+
+      {
+        path: '/apply/application/cover-letter/:applicationId',
+        element: (
+          <Main>
+            <CoverLetter/>
+          </Main>
+        ),
+      },
+
+
+      // Email 
+
+      {
+        path: '/application/:applicationId',
+        element: (
+          <Main>
+            <EmailForm />
+          </Main>
+        ),
+      },
+
+// total count application accept or reject
+      {
+        path: '//total/count/accept/application',
+        element: (
+          <Main>
+            <CountAccept/>
+          </Main>
+        ),
+      },
+
+      {
+        path: '/total/count/reject/application',
+        element: (
+          <Main>
+            <CountReject/>
+          </Main>
+        ),
+      },
+    
+    //  total job application via job posting 
+
+    {
+      path: '/total/job/posting/application/:jobId',
+      element: (
+        <Main>
+          <TotalCandidate/>
+        </Main>
+      ),
+    },
+
+    {
+      path: '/list/internship/:applicationId/applications',
+      element: (
+        <Main>
+          <ListTotal/>
+        </Main>
+      ),
+    },
+
+    
     ],
   },
 ];

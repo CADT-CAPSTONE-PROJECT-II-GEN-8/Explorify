@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/text.dart';
-import 'package:frontend_mobile/routes/route_manager.dart';
+import 'package:frontend_mobile/provider/obsure_text_provider.dart';
+import 'package:frontend_mobile/screens/login/services/auth_service.dart';
 import 'package:frontend_mobile/utils/constant.dart';
 import 'package:frontend_mobile/utils/validators.dart';
 import 'package:frontend_mobile/utils/config.dart';
+import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -16,10 +18,11 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  final AuthService authService = AuthService();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -27,67 +30,75 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    super.dispose();
+  }
+
+  void logInUser() {
+    if (_formKey.currentState!.validate()) {
+      authService.logIn(
+        context: context,
+        username: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final isObscureProvider = Provider.of<IsObscureProvider>(context);
+
     return Form(
+      key: _formKey,
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "Username",
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(
               height: 12,
             ),
             TextFormField(
-              // textInputAction: TextInputAction.continueAction,
-              validator: validateEmail,
+              // validator: validateEmail,
               controller: emailController,
-              decoration: formDecoration('', Icons.person),
+              decoration: formDecoration(
+                context: context,
+                labelText: '',
+                prefixIcon: Icons.email,
+                suffixIcon: false,
+                hintText: "Enter your email address",
+              ),
+              // obscureText: isObscureProvider.isObscure ? true : false,
             ),
-            const SizedBox(child: Config.spaceSmall),
+            const SizedBox(height: 12),
             Text(
               "Password",
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(
               height: 12,
             ),
             TextFormField(
-              // textInputAction: TextInputAction.continueAction,
-              validator: validatePassword,
+              // validator: validatePassword,
               controller: passwordController,
-              decoration: formDecoration('', Icons.lock),
+              decoration: formDecoration(
+                context: context,
+                labelText: '',
+                prefixIcon: Icons.lock,
+                suffixIcon: true,
+                hintText: "Enter your password",
+              ),
+              obscureText: isObscureProvider.isObscure,
             ),
-            const SizedBox(child: Config.spaceSmall),
-            Text(
-              "Password",
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            TextFormField(
-              // textInputAction: TextInputAction.continueAction,
-              validator: validatePassword,
-              controller: passwordController,
-              decoration: formDecoration('', Icons.lock),
-            ),
-            Config.spaceSmall,
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Remember Me
                 Row(
                   children: [
                     Checkbox(
@@ -100,8 +111,6 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ],
                 ),
-
-                // Forget Password
                 TextButton(
                   onPressed: () {},
                   child: const Text(
@@ -111,12 +120,9 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ],
             ),
-            Config.spaceSmall,
-            // SIGN IN BUTTON
+            const SizedBox(height: 12),
             ElevatedButton(
-              onPressed: () {
-                Navigator.popAndPushNamed(context, RouteManager.navigationMenu);
-              },
+              onPressed: logInUser,
               style: Theme.of(context).elevatedButtonTheme.style,
               child: Text(AppText.enText['signIn-button']!),
             ),

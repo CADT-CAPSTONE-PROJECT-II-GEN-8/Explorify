@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import *
 
 urlpatterns = [
  
@@ -12,10 +13,30 @@ urlpatterns = [
 
     # for Internship view 
 
-    path('post/list/', views.view_post , name = 'view-post'),
+    path('post/list/job', views.view_post , name = 'view-post'),
     path('post/details/<int:postId>/', views.view_details_post, name = 'view-details'),
     path('post/create/',views.add_post, name='add-post'),
     path('post/update/<int:postId>/', views.update_post, name='update_post'),
     path('post/delete/<int:postId>/', views.delete_post, name='delete_post'),
-    
+
+    # application urls
+    # FOR ADMIN URL
+    path('internship/<int:pk>/applications/', ListInternshipApplication.as_view(), name="list-intern-application"),
+    path('internship/list/all/', views.all_application , name = 'all-application'),
+
+        # post count
+    path('internship/count/', ActiveInternPostView.as_view(), name="internship-count"), 
+    path('internship/application/count/', InternshipApplicationCountView.as_view(), name="application-count"), 
+
+    #  Email Sending 
+
+     path('application/<int:pk>/status/update/', ApplicationStatusUpdateView.as_view(), name='application-status-update'),
+     path('application/<int:pk>/status/', ApplicationStatusRetrieveView.as_view(), name='application-status-retrieve'),
+     path('application-counts/', ApplicationCountsView.as_view(), name='application-counts'),
+
+     #  count intern post by date
+     path('internship/count-by-date/', InternshipPostCountByDate.as_view(), name='intern-count-by-date'),
+
 ]
+
+    

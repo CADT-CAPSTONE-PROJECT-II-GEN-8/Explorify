@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class AuthService {
+class TokenService {
   final Dio _dio = Dio(BaseOptions(baseUrl: 'http://10.0.2.2:8989/api/v1/'));
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
   String? _otp;
@@ -53,7 +54,7 @@ class AuthService {
       if (response.statusCode == 200) {
         // Assuming the response contains an OTP or similar challenge
         // Handle OTP verification separately
-        _otp =(response.data['body']['code']);
+        _otp = (response.data['body']['code']);
         // print(response.data['body']['code']);
       } else {
         throw Exception('Failed to login');
@@ -73,7 +74,7 @@ class AuthService {
         String accessToken = response.data['access_token'];
         String refreshToken = response.data['refresh_token'];
         await saveTokens(accessToken, refreshToken);
-        print(accessToken);
+        debugPrint(accessToken);
       } else {
         throw Exception('Failed to verify OTP');
       }

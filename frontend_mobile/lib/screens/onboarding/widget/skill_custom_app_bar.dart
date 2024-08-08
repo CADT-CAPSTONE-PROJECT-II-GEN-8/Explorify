@@ -38,32 +38,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         AppBar(
           automaticallyImplyLeading: false,
           centerTitle: isCenter,
-          leading: showBackArrow
-              ? IconButton(
-                  onPressed: () {
-                    Navigator.popAndPushNamed(
-                        context, RouteManager.navigationMenu);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    size: 14,
-                    color: hasBg ? AppColor.white : AppColor.black,
-                  ),
-                )
-              : leadingIcon != null
-                  ? IconButton(
-                      onPressed: () {
-                        if (leadingOnPressed != null) {
-                          leadingOnPressed!();
-                        }
-                      },
-                      icon: Icon(
-                        leadingIcon,
-                        size: 14,
-                        color: AppColor.white,
-                      ),
-                    )
-                  : null,
           title: title,
           actions: action,
           backgroundColor: Colors.transparent,
@@ -72,6 +46,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ],
     );
   }
+
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight+50);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 50);
 }

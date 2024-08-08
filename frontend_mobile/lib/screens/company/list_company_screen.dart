@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
-import 'package:frontend_mobile/screens/home/widgets/category.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_card.dart';
 import 'package:frontend_mobile/screens/home/widgets/custom_header.dart';
 import 'package:frontend_mobile/screens/home/widgets/home_appBar.dart';
@@ -55,20 +53,21 @@ class _ListCompanyScreenState extends State<ListCompanyScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  SizedBox(
-                    height: 118,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 6,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return const VerticleImage(
-                            title: 'Title',
-                            subTitle: '11 Jobs',
-                            image: AppImage.logo,
-                          );
-                        }),
-                  )
+                  // SizedBox(
+                  //   height: 118,
+                  //   child: ListView.builder(
+                  //       shrinkWrap: true,
+                  //       itemCount: 6,
+                  //       scrollDirection: Axis.horizontal,
+                  //       itemBuilder: (context, index) {
+                  //         return const VerticleImage(
+                  //           // title: 'Title',
+                  //           // subTitle: '11 Jobs',
+                  //           image: AppImage.logo,
+                  //           internship: null,
+                  //         );
+                  //       }),
+                  // )
                 ],
               ),
             ),
@@ -118,4 +117,3 @@ class _ListCompanyScreenState extends State<ListCompanyScreen> {
     );
   }
 }
-

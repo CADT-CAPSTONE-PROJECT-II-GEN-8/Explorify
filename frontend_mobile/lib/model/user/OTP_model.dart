@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:frontend_mobile/model/cv/user_model.dart';
 
 class Otp {

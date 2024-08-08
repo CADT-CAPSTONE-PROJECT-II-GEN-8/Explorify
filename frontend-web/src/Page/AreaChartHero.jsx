@@ -1,102 +1,118 @@
-import { AreaChart } from '@tremor/react';
-import React from 'react';
+// import { AreaChart } from '@tremor/react';
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
 
-const chartdata = [
-  {
-    date: 'Jan 22',
-   Applied: 2890,
-    'Hired': 2338,
-  },
-  {
-    date: 'Feb 22',
-   Applied: 2756,
-    'Hired': 2103,
-  },
-  {
-    date: 'Mar 22',
-   Applied: 3322,
-    'Hired': 2194,
-  },
-  {
-    date: 'Apr 22',
-   Applied: 3470,
-    'Hired': 2108,
-  },
-  {
-    date: 'May 22',
-   Applied: 3475,
-    'Hired': 1812,
-  },
-  {
-    date: 'Jun 22',
-   Applied: 3129,
-    'Hired': 1726,
-  },
-  {
-    date: 'Jul 22',
-   Applied: 3490,
-    'Hired': 1982,
-  },
-  {
-    date: 'Aug 22',
-   Applied: 2903,
-    'Hired': 2012,
-  },
-  {
-    date: 'Sep 22',
-   Applied: 2643,
-    'Hired': 2342,
-  },
-  {
-    date: 'Oct 22',
-   Applied: 2837,
-    'Hired': 2473,
-  },
-  {
-    date: 'Nov 22',
-   Applied: 2954,
-    'Hired': 3848,
-  },
-  {
-    date: 'Dec 22',
-   Applied: 3239,
-    'Hired': 3736,
-  },
-];
+// const AreaChartHero = () => {
+//   const [chartData, setChartData] = useState([]);
+//   const token = localStorage.getItem('authToken'); // Or wherever you store your token
 
-const dataFormatter = (number) =>
-  `$${Intl.NumberFormat('us').format(number).toString()}`;
+//   useEffect(() => {
+//     // Fetch the data from your Django API
+//     axios.get('internship/count-by-date/', {
+//     })
+//     .then(response => {
+//       // Format the response data for the chart
+//       const formattedData = response.data.dates.map((date, index) => ({
+//         date: date,
+//         Applied: response.data.counts[index], // Assuming you're tracking 'Applied' count
+//         Hired: 0, // Replace or remove this if 'Hired' data is irrelevant
+//       }));
+//       setChartData(formattedData);
+//     })
+//     .catch(error => {
+//       console.error('Error fetching chart data:', error);
+//     });
+//   }, []);
+
+//   const dataFormatter = (number) => {
+//     return `$${Intl.NumberFormat('us').format(number).toString()}`;
+//   };
+
+//   return (
+//     <div className="p-8 space-y-12 bg-white rounded-lg shadow-md">
+//       <div className="flex items-center justify-between">
+//         <div className="flex items-center space-x-3">
+//           <span className="text-gray-500">All investments</span>
+//           <div className="text-xs px-2 py-1 text-indigo-800 bg-indigo-100 rounded-full">3 ETF</div>
+//         </div>
+//         <div className="flex items-center space-x-2">
+//           <span className="text-xs text-gray-500">Aug 1, 2023 - Oct 15, 2023</span>
+//           <span className="text-xs text-gray-500">Daily</span>
+//         </div>
+//       </div>
+
+//       <div className="h-80">
+//         <AreaChart
+//           data={chartData}
+//           index="date"
+//           categories={['Applied', 'Hired']}  // Adjust if you have different categories
+//           colors={['red', 'amber']}
+//           valueFormatter={dataFormatter}
+//           yAxisWidth={60}
+//           lineWidth={2} // Adjust this value to make the line thicker
+//           onValueChange={(v) => console.log(v)}
+//         />
+//       </div>
+      
+//     </div>
+//   );
+// };
+// export default AreaChartHero;
+
+import React , { useState, useEffect }  from "react";
+import axiosInstance from "src/utils/axiosInstance";
+import { AreaChart } from "@tremor/react";
+
+const API_URL = 'internship/count-by-date/';
+
+const dataFormatter = (number) => `${Intl.NumberFormat('us').format(number).toString()}`;
 
 const AreaChartHero = () => {
-  return (
-   
-    <div className="p-8 space-y-12 bg-white rounded-lg shadow-md">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <span className="text-gray-500">All investments</span>
-          <div className="text-xs px-2 py-1 text-indigo-800 bg-indigo-100 rounded-full">3 ETF</div>
-        </div>
-        <div className="flex items-center space-x-2">
-          <span className="text-xs text-gray-500">Aug 1, 2023 - Oct 15, 2023</span>
-          <span className="text-xs text-gray-500">Daily</span>
-        </div>
-      </div>
+ const [chartData, setChartData] = useState(0);
 
-      <div className="h-80">
-        <AreaChart
-          data={chartdata}
-          index="date"
-          categories={['Applied', 'Hired']}
-          colors={['red', 'amber']}
-          valueFormatter={dataFormatter}
-          yAxisWidth={60}
-          lineWidth={2} // Adjust this value to make the line thicker
-          onValueChange={(v) => console.log(v)}
-        />
-      </div>
-      
-    </div>
-  );
+ useEffect(() => {
+   // Fetch the data from your API
+   axiosInstance.get(API_URL)
+     .then(response => {
+       // Transform the API data to match the chart data format
+       const formattedData = response.data.map(item => ({
+         date: new Date(item.date).toLocaleDateString('en-US', { month: 'short', day: '2-digit' }),
+         Internship_posted: item.count, // You may adjust this key based on your API response
+       }));
+       setChartData(formattedData);
+     })
+     .catch(error => {
+       console.error('Error fetching data:', error);
+     });
+ }, []);
+
+ return (
+   <div className="p-8 space-y-12 bg-white rounded-lg shadow-md">
+     <div className="flex items-center justify-between">
+       <div className="flex items-center space-x-3">
+         <span className="text-gray-500">All internships</span>
+         <div className="text-xs px-2 py-1 text-indigo-800 bg-indigo-100 rounded-full">Internship Counts</div>
+       </div>
+       <div className="flex items-center space-x-2">
+         <span className="text-xs text-gray-500">Date Range</span>
+         <span className="text-xs text-gray-500">Daily</span>
+       </div>
+     </div>
+
+     <div className="h-80">
+       <AreaChart
+         data={chartData}
+         index="date"
+         categories={['Internship_posted']}
+         colors={['blue']}
+         valueFormatter={dataFormatter}
+         yAxisWidth={60}
+         lineWidth={2} // Adjust this value to make the line thicker
+         onValueChange={(v) => console.log(v)}
+       />
+     </div>
+   </div>
+ );
 };
 
 export default AreaChartHero;

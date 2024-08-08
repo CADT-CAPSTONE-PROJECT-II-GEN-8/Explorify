@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
 import 'package:frontend_mobile/common/text.dart';
-import 'package:frontend_mobile/model/user/OTP_model.dart';
-import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/login/logic/otp_logic.dart';
 import 'package:frontend_mobile/screens/login/logic/user_input_logic.dart';
 import 'package:frontend_mobile/screens/login/services/auth_service.dart';
 import 'package:frontend_mobile/utils/config.dart';
+import 'package:frontend_mobile/utils/constant.dart';
 import 'package:provider/provider.dart';
 
 class VerifyPage extends StatefulWidget {
-  String username;
-  String password;
-  VerifyPage({
+  final String username;
+  final String password;
+
+  const VerifyPage({
     super.key,
     required this.username,
     required this.password,
@@ -23,14 +23,20 @@ class VerifyPage extends StatefulWidget {
 }
 
 class _VerifyPageState extends State<VerifyPage> {
-  final _otp = ['', '', '', '', '', '']; // List to store individual OTP digits
+  final List<String> _otp = [
+    '',
+    '',
+    '',
+    '',
+    '',
+    ''
+  ]; // List to store individual OTP digits
 
   AuthService authService = AuthService();
-  final userInputData = UserInputLogic();
 
   @override
   Widget build(BuildContext context) {
-    final otpCode = Provider.of<OtpProvider>(context).code;
+    final otpProvider = Provider.of<OtpProvider>(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -45,7 +51,7 @@ class _VerifyPageState extends State<VerifyPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      //Config.spaceLarge,
+                      // Config.spaceLarge,
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -56,59 +62,50 @@ class _VerifyPageState extends State<VerifyPage> {
                               width: 250,
                             ),
                           ),
-                          SizedBox(height: 40), // Space for the back button
+                          const SizedBox(
+                              height: 40), // Space for the back button
                           Text(
                             AppText.enText['verify_title']!,
                             style: Theme.of(context).textTheme.headlineLarge,
                           ),
-                          const SizedBox(
-                            height: 12,
-                          ),
+                          const SizedBox(height: 12),
                           Text(
                             AppText.enText['verify_text']!,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           TextButton(
-                              onPressed: () {
-                                authService.getOTP(
-                                    context: context,
-                                    username: widget.username,
-                                    password: widget.password);
-                                print(userInputData.username);
-                                print(userInputData.password);
-                              },
-                              child: Text("Resend $otpCode")),
+                            onPressed: () {
+                              authService.getOTP(
+                                  context: context,
+                                  username: widget.username,
+                                  password: widget.password);
+                            },
+                            child: const Text("Resend"),
+                          ),
                           Config.spaceSmall,
                           // Row for separate OTP boxes
                           Form(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // Individual OTP box 1
-                                _otpTextField(0, otpCode),
-                                const SizedBox(width: 8), // Gap between boxes
-                                _otpTextField(1, otpCode),
-                                const SizedBox(width: 8), // Gap between boxes
-                                _otpTextField(2, otpCode),
-                                const SizedBox(width: 8), // Gap between boxes
-                                _otpTextField(3, otpCode),
-                                const SizedBox(width: 8), // Gap between boxes
-                                _otpTextField(4, otpCode),
-                                const SizedBox(width: 8), // Gap between boxes
-                                _otpTextField(5, otpCode),
-                              ],
+                              children: List.generate(
+                                6,
+                                (index) => _otpTextField(index),
+                              ),
                             ),
                           ),
                           Config.spaceLarge,
-
                           ElevatedButton(
                             onPressed: () {
-                              // Add your logic for OTP code verification here, using the combined _otp list
-                              // Navigator.popAndPushNamed(
-                              //     context, RouteManager.loginScreen);
-                              authService.getToken(
-                                  context: context, username: widget.username);
-                              print("token $widget.username");
+                              final otpCode = _otp.join('');
+                              if (otpCode.isNotEmpty) {
+                                authService.getToken(
+                                    context: context,
+                                    username: widget.username,
+                                    otpCode:
+                                        otpCode); // Pass the combined OTP code
+                              } else {
+                                showSnackBar(context, 'OTP code is empty');
+                              }
                             },
                             style: Theme.of(context).elevatedButtonTheme.style,
                             child: Text(AppText.enText['continue_button']!),
@@ -127,7 +124,7 @@ class _VerifyPageState extends State<VerifyPage> {
   }
 
   // Function to create individual OTP text field
-  Widget _otpTextField(int index, String otpCode) {
+  Widget _otpTextField(int index) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.12,
       height: 53,
@@ -139,7 +136,6 @@ class _VerifyPageState extends State<VerifyPage> {
         ),
       ),
       child: TextFormField(
-        autofillHints: [otpCode],
         maxLength: 1,
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
@@ -152,7 +148,7 @@ class _VerifyPageState extends State<VerifyPage> {
           setState(() {
             _otp[index] = value;
             // Move focus to the next box if a digit is entered
-            if (value.isNotEmpty && index < 6) {
+            if (value.isNotEmpty && index < 5) {
               FocusScope.of(context).nextFocus();
             }
           });

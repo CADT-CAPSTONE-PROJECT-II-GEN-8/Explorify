@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Edit from "../CompanyProfile/Edit";
 import AddProfile from "./AddProfile";
 import DeleteProfile from "./DeleteProfile";
-import Edit from "./Edit";
 import Header from "./Header";
 
 const CompanyTable = () => {

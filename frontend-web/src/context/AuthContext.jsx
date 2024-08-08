@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
     
     const path = window.location.pathname;
     if (path !== "/login" && path !== "/register") {
-      navigate("/login");
+      navigate("/home");
     }
   };
 

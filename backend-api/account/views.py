@@ -8,7 +8,6 @@ from rest_framework.decorators import api_view, permission_classes
 from django.conf import settings
 from django.db import transaction, IntegrityError
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth import update_session_auth_hash
 from base.utils import *
 
 # Django models
@@ -259,7 +258,6 @@ class CurrentUser(APIView):
         serializer = UsersSerializer(self.request.user)
         return Response(serializer.data)
 
-
 # for company
 @api_view(["POST"])
 def register_company_profile(request):
@@ -334,3 +332,47 @@ def user_logout(request):
         return Response({"message": "Successfully logged out."}, status=200)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
+
+
+
+from internship.serializers import CompanyProfileSerializer
+@api_view(["GET","PUT"])
+@permission_classes([IsAuthenticated])
+def get_update_company_profile(request):
+    try:
+        company_profile = CompanyProfile.objects.get(user=request.user)
+    except CompanyProfile.DoesNotExist:
+        return error_response(
+            message= "CompanyProfile not found", status_code=status.HTTP_404_NOT_FOUND
+        )
+    if request.method == "GET":
+        serializer = CompanyProfileSerializer(company_profile)
+        return success_response(message="Get Successfully", data=serializer.data)
+    elif request.method == "PUT":
+        serializer = UpdateCompanyProfileSerializer(company_profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return success_response(
+                message="Update successfully!", data=serializer.data, status_code=200
+            )
+        return error_response(message=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def update_user_info(request):
+    
+    try:
+        user = request.user
+        # profile = Profile.objects.get(user=user)
+    except user.DoesNotExist:
+        return error_response(
+            message= "User not found", status_code=status.HTTP_404_NOT_FOUND
+        )
+
+    serializer = UpdateUserInfo( user, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return success_response(
+            message="Update successfully!", data=serializer.data, status_code=200
+        )
+    return error_response(message=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST)
