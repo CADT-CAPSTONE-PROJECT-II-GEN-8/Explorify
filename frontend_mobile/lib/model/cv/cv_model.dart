@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:frontend_mobile/model/cv/user_company_model.dart';
 import 'package:frontend_mobile/model/cv/language_model.dart';
 import 'package:frontend_mobile/model/cv/major_model.dart';
@@ -8,26 +7,29 @@ import 'package:frontend_mobile/model/cv/skill_model.dart';
 import 'package:frontend_mobile/model/cv/user_award_model.dart';
 import 'package:frontend_mobile/model/cv/user_education.dart';
 import 'package:frontend_mobile/model/cv/user_model.dart';
+import 'package:http/http.dart';
 
 // Assuming you have models for User, UserCompany, UserEducation, Skill, Major, Language, and UserAward
 
 class CV {
   final int cvId;
-  final User user;
-  final String? description;
-  final String? jobTitle;
-  final UserCompany? userCompany;
-  final UserEducation userEducation;
-  final Skill userSkill;
-  final Major userMajor;
-  final Language userLanguage;
-  final UserAward userAward;
+  final User? user;
+  final String description;
+  final String jobTitle;
+  final String reference;
+  final List<UserCompany>? userCompany;
+  final List<UserEducation>? userEducation;
+  final List<Skill>? userSkill;
+  final List<Major>? userMajor;
+  final List<Language>? userLanguage;
+  final List<UserAward>? userAward;
 
   CV({
     required this.cvId,
-    required this.user,
-    this.description,
-    this.jobTitle,
+    this.user,
+    required this.description,
+    required this.jobTitle,
+    required this.reference,
     this.userCompany,
     required this.userEducation,
     required this.userSkill,
@@ -36,66 +38,114 @@ class CV {
     required this.userAward,
   });
 
-  CV copyWith({
-    int? cvId,
-    User? user,
-    String? description,
-    String? jobTitle,
-    UserCompany? userCompany,
-    UserEducation? userEducation,
-    Skill? userSkill,
-    Major? userMajor,
-    Language? userLanguage,
-    UserAward? userAward,
-  }) {
-    return CV(
-      cvId: cvId ?? this.cvId,
-      user: user ?? this.user,
-      description: description ?? this.description,
-      jobTitle: jobTitle ?? this.jobTitle,
-      userCompany: userCompany ?? this.userCompany,
-      userEducation: userEducation ?? this.userEducation,
-      userSkill: userSkill ?? this.userSkill,
-      userMajor: userMajor ?? this.userMajor,
-      userLanguage: userLanguage ?? this.userLanguage,
-      userAward: userAward ?? this.userAward,
-    );
-  }
+  // CV copyWith({
+  //   int? cvId,
+  //   User? user,
+  //   String? description,
+  //   String? jobTitle,
+  //   UserCompany? userCompany,
+  //   UserEducation? userEducation,
+  //   Skill? userSkill,
+  //   Major? userMajor,
+  //   Language? userLanguage,
+  //   UserAward? userAward,
+  // }) {
+  //   return CV(
+  //     cvId: cvId ?? this.cvId,
+  //     user: user ?? this.user,
+  //     description: description ?? this.description,
+  //     jobTitle: jobTitle ?? this.jobTitle,
+  //     userCompany: userCompany ?? this.userCompany,
+  //     userEducation: userEducation ?? this.userEducation,
+  //     userSkill: userSkill ?? this.userSkill,
+  //     userMajor: userMajor ?? this.userMajor,
+  //     userLanguage: userLanguage ?? this.userLanguage,
+  //     userAward: userAward ?? this.userAward,
+  //   );
+  // }
 
   factory CV.fromMap(Map<String, dynamic> map) {
     return CV(
-      cvId: map['cv_id'] as int,
-      user: User.fromMap(map['user']
-          as Map<String, dynamic>), // Assuming User has a fromMap factory
-      description: map['description'] as String?,
-      jobTitle: map['job_title'] as String?,
-      userCompany: map['user_company'] != null
-          ? UserCompany.fromMap(map['user_company'] as Map<String, dynamic>)
+      cvId: map['cv_id'] as int ?? 0,
+      user: map['user'] != null && map['user'] is Map<String, dynamic>
+          ? User.fromMap(map['user'] as Map<String, dynamic>)
+          : null, // Assuming User has a fromMap factory
+      description: map['description'] as String,
+      jobTitle: map['job_title'] as String,
+      reference: map['references'] as String,
+      userCompany:
+          map['user_companies'] != null && map['user_companies'] is List
+              ? List<UserCompany>.from(
+                  (map['user_companies'] as List<dynamic>).map(
+                    (item) => item is Map<String, dynamic>
+                        ? UserCompany.fromMap(item)
+                        : 'Invalid map format for user_companies',
+                  ),
+                )
+              : null,
+      userEducation: map['user_education'] != null
+          ? List<UserEducation>.from(
+              (map['user_education'] as List<dynamic>).map(
+                (item) => UserEducation.fromMap(item as Map<String, dynamic>),
+              ),
+            )
           : null,
-      userEducation:
-          UserEducation.fromMap(map['user_education'] as Map<String, dynamic>),
-      userSkill: Skill.fromMap(map['user_skill'] as Map<String, dynamic>),
-      userMajor: Major.fromMap(map['user_major'] as Map<String, dynamic>),
-      userLanguage:
-          Language.fromMap(map['user_language'] as Map<String, dynamic>),
-      userAward: UserAward.fromMap(map['user_award'] as Map<String, dynamic>),
+      userSkill: map['user_skill'] != null
+          ? List<Skill>.from(
+              (map['user_skill'] as List<dynamic>).map(
+                (item) => Skill.fromMap(item as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      userMajor: map['user_major'] != null
+          ? List<Major>.from(
+              (map['user_major'] as List<dynamic>).map(
+                (item) => Major.fromMap(item as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      userLanguage: map['user_language'] != null
+          ? List<Language>.from(
+              (map['user_language'] as List<dynamic>).map(
+                (item) => Language.fromMap(item as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      userAward: map['user_award'] != null
+          ? List<UserAward>.from(
+              (map['user_award'] as List<dynamic>).map(
+                (item) => UserAward.fromMap(item as Map<String, dynamic>),
+              ),
+            )
+          : null,
+      // user: map['user'] != null && map['user'] is Map<String, dynamic>
+      //     ? User.fromMap(map['user'] as Map<String, dynamic>)
+      //     : null, // Assuming User has a fromMap factory,
+      // userEducation: List<UserEducation>.from(map['user_education'] ?? []),
+      // userSkill: List<Skill>.from(map['user_skill'] ?? []),
+      // userMajor: List<Major>.from(map['user_major'] ?? []),
+      // userLanguage: List<Language>.from(map['user_language'] ?? []),
+      // userAward: List<UserAward>.from(map['user_award'] ?? []),
+      // description: map['description'] ?? 'none',
+      // jobTitle: map['job_title'] ?? 'none',
+      // userCompany: List<UserCompany>.from(map['use_company'] ?? []),
     );
   }
 
-  Map<String, dynamic> toMap() => {
-        'cv_id': cvId,
-        'user': user.toMap(), // Assuming User has a toMap method
-        'description': description,
-        'job_title': jobTitle,
-        'user_company': userCompany?.toMap(), // Handle null case
-        'user_education': userEducation.toMap(),
-        'user_skill': userSkill.toMap(),
-        'user_major': userMajor.toMap(),
-        'user_language': userLanguage.toMap(),
-        'user_award': userAward.toMap(),
-      };
-  String toJson() => json.encode(toMap());
+  // Map<String, dynamic> toMap() => {
+  //       'cv_id': cvId,
+  //       'user': user?.toMap(), // Assuming User has a toMap method
+  //       'description': description,
+  //       'job_title': jobTitle,
+  //       'user_companies': userCompany?.toMap(), // Handle null case
+  //       'user_education': userEducation?.toMap(),
+  //       'user_skill': userSkill?.toMap(),
+  //       'user_major': userMajor?.toMap(),
+  //       'user_language': userLanguage?.toMap(),
+  //       'user_award': userAward?.toMap(),
+  //     };
+  // String toJson() => json.encode(toMap());
   factory CV.fromJson(String source) => CV.fromMap(json.decode(source));
   @override
-  String toString() => 'CV {cvId: $cvId, userId: ${user.userId}}';
+  String toString() => 'CV {cvId: $cvId, userId: ${user!.userId}}';
 }

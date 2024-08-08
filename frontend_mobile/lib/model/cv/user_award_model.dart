@@ -6,7 +6,7 @@ import 'package:frontend_mobile/model/cv/user_model.dart';
 
 class UserAward {
   final int userAwardId;
-  final User user;
+  // final User user;
   final String awardName;
   final String? certificateFile;
   final String? awardCategory;
@@ -15,7 +15,7 @@ class UserAward {
 
   UserAward({
     required this.userAwardId,
-    required this.user,
+    // required this.user,
     required this.awardName,
     this.certificateFile,
     this.awardCategory,
@@ -33,7 +33,7 @@ class UserAward {
   }) {
     return UserAward(
       userAwardId: userAwardId ?? this.userAwardId,
-      user: user ?? this.user,
+      // user: user ?? this.user,
       awardName: awardName ?? this.awardName,
       certificateFile: certificateFile ?? this.certificateFile,
       awardCategory: awardCategory ?? this.awardCategory,
@@ -41,10 +41,11 @@ class UserAward {
       description: description ?? this.description,
     );
   }
+
   factory UserAward.fromMap(Map<String, dynamic> map) {
     return UserAward(
       userAwardId: map['user_award_id'] as int,
-      user: User.fromMap(map['user'] as Map<String, dynamic>),
+      // user: map['user_award'] != null ?User.fromMap(map['user'] as Map<String, dynamic>) : null,
       awardName: map['award_name'] as String,
       certificateFile: map['certificate_file'] as String?,
       awardCategory: map['award_category'] as String?,
@@ -54,18 +55,17 @@ class UserAward {
   }
 
   Map<String, dynamic> toMap() => {
-    'user_award_id': userAwardId,
-    'user': user.toMap(), // Assuming User has a toMap method
-    'award_name': awardName,
-    'certificate_file': certificateFile,
-    'award_category': awardCategory,
-    'date': date?.toIso8601String(), // Include date only if not null
-    'description': description,
-  };
+        'user_award_id': userAwardId,
+        // 'user': user.toMap(), // Assuming User has a toMap method
+        'award_name': awardName,
+        'certificate_file': certificateFile,
+        'award_category': awardCategory,
+        'date': date?.toIso8601String(), // Include date only if not null
+        'description': description,
+      };
 
-    String toJson() => json.encode(toMap());
-
+  String toJson() => json.encode(toMap());
 
   @override
-  String toString() => 'Award ${awardName} for User ${user.userId}';
+  String toString() => 'Award ${awardName} for ';
 }

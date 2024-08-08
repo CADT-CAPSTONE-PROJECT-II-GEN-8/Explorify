@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/text.dart';
+import 'package:frontend_mobile/provider/obsure_text_provider.dart';
 import 'package:frontend_mobile/routes/route_manager.dart';
 import 'package:frontend_mobile/screens/login/logic/user_input_logic.dart';
 import 'package:frontend_mobile/screens/login/services/auth_service.dart';
 import 'package:frontend_mobile/utils/constant.dart';
 import 'package:frontend_mobile/utils/validators.dart';
 import 'package:frontend_mobile/utils/config.dart';
+import 'package:provider/provider.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -48,15 +50,12 @@ class _RigisterState extends State<RegisterForm> {
       password: userInputData.password,
       email: userInputData.email,
     );
-
-    print(userInputData.email);
-    print(userInputData.password);
-    print(userInputData.username);
   }
 
   bool isSubmitted = false;
   @override
   Widget build(BuildContext context) {
+    final isObscureProvider = Provider.of<IsObscureProvider>(context);
     return Form(
       key: _formKey,
       child: Padding(
@@ -79,8 +78,14 @@ class _RigisterState extends State<RegisterForm> {
                   ? AutovalidateMode.always
                   : AutovalidateMode.disabled,
               controller: usernameController,
-              decoration: formDecoration('', Icons.person),
+              decoration: formDecoration(
+                  context: context,
+                  labelText: '',
+                  prefixIcon: Icons.person,
+                  suffixIcon: false,
+                  hintText: 'Enter your username'),
               onChanged: (value) => userInputData.updateUsername(value),
+              textInputAction: TextInputAction.next,
             ),
             Config.spaceSmall,
             Text(
@@ -98,8 +103,14 @@ class _RigisterState extends State<RegisterForm> {
                   ? AutovalidateMode.always
                   : AutovalidateMode.disabled,
 
-              decoration: formDecoration('', Icons.email),
+              decoration: formDecoration(
+                  context: context,
+                  labelText: '',
+                  prefixIcon: Icons.email,
+                  suffixIcon: false,
+                  hintText: 'Enter your email address'),
               onChanged: (value) => userInputData.updateEmail(value),
+              textInputAction: TextInputAction.next,
             ),
             // const SizedBox(child: Config.spaceSmall),
             // Text(
@@ -130,9 +141,16 @@ class _RigisterState extends State<RegisterForm> {
                   ? AutovalidateMode.always
                   : AutovalidateMode.disabled,
               controller: passwordController,
-              decoration: formDecoration('', Icons.lock),
+              decoration: formDecoration(
+                  context: context,
+                  labelText: '',
+                  prefixIcon: Icons.lock,
+                  suffixIcon: true,
+                  hintText: 'Enter your password'),
+
               onChanged: (value) => userInputData.updatePassword(value),
-              obscureText: true,
+              textInputAction: TextInputAction.done,
+              obscureText: isObscureProvider.isObscure,
             ),
             Config.spaceSmall,
 

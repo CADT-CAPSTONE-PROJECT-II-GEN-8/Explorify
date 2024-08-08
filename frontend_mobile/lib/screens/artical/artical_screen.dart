@@ -1,6 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/common/colors.dart';
+import 'package:frontend_mobile/common/image_strings.dart';
+import 'package:frontend_mobile/model/article/article_model.dart';
 import 'package:frontend_mobile/screens/artical/detail_screen.dart';
+import 'package:frontend_mobile/screens/artical/services/article_service.dart';
+import 'package:frontend_mobile/screens/profile/widget/custom_accAppBar.dart';
 
 class ArticleScreen extends StatefulWidget {
   const ArticleScreen({super.key});
@@ -27,49 +32,16 @@ final List<String> title = [
 int selectedIndex = 0;
 
 class _ArticleScreenState extends State<ArticleScreen> {
+  ArticleService articleService = ArticleService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: 100,
-        backgroundColor: Color.fromARGB(255, 249, 198, 157),
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     color: Colors.grey[100],
-        //     image: DecorationImage(
-        //       image: AssetImage("assets/images/upper_style.png"),
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
-        // ),
-        title: _buildText(),
-      ),
+      backgroundColor: Colors.white, // Change the background color to white
       body: _buildBody(),
     );
   }
 
   Future<List<Map<String, dynamic>>> getData() async {
-    // use to call the api
-
-    //   try {
-    //   final response =
-    //       await http.get(Uri.parse("https://fakestoreapi.com/products"));
-
-    //   if (response.statusCode == 200) {
-    //     List list = json.decode(response.body);
-    //     List<Map<String, dynamic>> items =
-    //         list.map((e) => e as Map<String, dynamic>).toList();
-    //     return items;
-    //   } else {
-    //     throw Exception("Failed to load data");
-    //   }
-    // } catch (e) {
-    //   throw Exception("Error fetching data: ${e.toString()}");
-    // }
-
-    // Sample data
     List<Map<String, dynamic>> sampleData = [
       {
         'title': 'Future of Work Trends',
@@ -121,28 +93,52 @@ class _ArticleScreenState extends State<ArticleScreen> {
     return Future.delayed(const Duration(seconds: 2), () => sampleData);
   }
 
-  Widget _buildText() {
-    return Column(
-      children: [
-        Text(
-          'Article',
-          style: TextStyle(
-            letterSpacing: 0.5,
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 25,
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _buildText() {
+  //   return Column(
+  //     children: [
+  //       Image.asset(AppImage.upperStyle),
+  //       const CustomAccountAppBar(
+  //         showBackArrow: true,
+  //         leadingIconColor: Colors.black,
+  //         title: Text(
+  //           "Artical",
+  //           style: TextStyle(
+  //             color: AppColor.black,
+  //             fontSize: 20,
+  //             fontWeight: FontWeight.bold,
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildBody() {
     return Column(
       children: [
+        Image.asset(AppImage.upperStyle),
+        const Column(
+          children: [
+            CustomAccountAppBar(
+              showBackArrow: false,
+              leadingIconColor: Colors.black,
+              title: Padding(
+                padding: EdgeInsets.only(left: 80),
+                child: Text(
+                  "Artical",
+                  style: TextStyle(
+                    color: AppColor.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
         _buildMenuBar(),
         _buildTextTitles(),
-        SizedBox(height: 20),
+        const SizedBox(height: 15),
         Expanded(
           child: IndexedStack(
             index: selectedIndex,
@@ -160,8 +156,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
   }
 
   Widget _buildTextTitles() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 25, top: 15),
+    return const Padding(
+      padding: EdgeInsets.only(left: 25, top: 5),
       child: Align(
         alignment: Alignment.centerLeft, // Aligns the container to the left
         child: Text(
@@ -200,7 +196,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -210,26 +206,23 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? Color.fromARGB(255, 255, 244, 233)
-                          : Color.fromARGB(153, 247, 247, 245),
+                          ? const Color.fromARGB(255, 255, 244, 233)
+                          : const Color.fromARGB(153, 247, 247, 245),
                       borderRadius: BorderRadius.circular(15),
-                      // border: isSelected
-                      //     ? Border.all(
-                      //         color: Color.fromARGB(255, 250, 86, 4),
-                      //         width: 2,
-                      //       )
-                      //     : null,
-                      // // border: Border.all(
-                      //   color: Colors.orange,
-                      //   width: 1.5,
-                      // ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
                     ),
                     child: Center(
                       child: Icon(
                         buttonIcon[index],
                         color: isSelected
-                            ? Color.fromARGB(255, 250, 86, 4)
-                            : Color.fromARGB(255, 21, 11, 61),
+                            ? const Color.fromARGB(255, 250, 86, 4)
+                            : const Color.fromARGB(255, 21, 11, 61),
                         size: 25,
                       ),
                     ),
@@ -239,7 +232,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                     title[index],
                     style: TextStyle(
                       color: isSelected
-                          ? Color.fromARGB(255, 250, 86, 4)
+                          ? const Color.fromARGB(255, 250, 86, 4)
                           : Colors.black,
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
@@ -258,8 +251,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   Widget _buildApi() {
     return Center(
-      child: FutureBuilder<List<Map<String, dynamic>>>(
-        future: getData(),
+      child: FutureBuilder<List<Post>>(
+        future: articleService.getPostDetials(context),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text("Error: ${snapshot.error}");
@@ -267,14 +260,14 @@ class _ArticleScreenState extends State<ArticleScreen> {
           if (snapshot.connectionState == ConnectionState.done) {
             return _buildListView(snapshot.data ?? []);
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         },
       ),
     );
   }
 
-  Widget _buildListView(List<Map<String, dynamic>> items) {
+  Widget _buildListView(List<Post> items) {
     return ListView.builder(
       itemCount: items.length,
       itemBuilder: (context, index) {
@@ -283,20 +276,19 @@ class _ArticleScreenState extends State<ArticleScreen> {
     );
   }
 
-  Widget _buildItem(Map<String, dynamic> item) {
+  Widget _buildItem(Post item) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white, // Set the background color to white
         borderRadius: BorderRadius.circular(26.0),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Color.fromRGBO(0, 0, 0, 0.08),
-        //     spreadRadius: 0,
-        //     blurRadius: 12,
-        //     offset: Offset(0, 4), // changes position of shadow
-        //   ),
-        // ],
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Card(
         shape: RoundedRectangleBorder(
@@ -314,18 +306,20 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 height: 130,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                    image: CachedNetworkImageProvider(item['image']),
-                    fit: BoxFit.cover,
-                    onError: (error, stackTrace) => Container(
-                      color: Colors.white,
-                      // Optionally, you can add an error icon here
-                      // child: Icon(Icons.error, size: 50),
-                    ),
-                  ),
+                  // image: DecorationImage(
+                  //   image: CachedNetworkImageProvider(item.),
+                  //   fit: BoxFit.cover,
+                  //   onError: (error, stackTrace) => Container(
+                  //     color: Colors.white,
+                  //   ),
+                  // ),
+                ),
+                child: Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGvLJOyDqTP40tXu2LdXWH0AdrGmdpFrsVD0iSfBgV4bNxioEeKRQN1ffnOg6LpXkKlzQ&usqp=CAU',
+                  fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -334,8 +328,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            "${item['title']}",
-                            style: TextStyle(
+                            item.title,
+                            style: const TextStyle(
                               color: Color.fromARGB(255, 242, 124, 28),
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -343,21 +337,21 @@ class _ArticleScreenState extends State<ArticleScreen> {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.bookmark_border,
                           color: Color.fromARGB(255, 82, 75, 107),
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
-                      "${item['category']}",
+                      item.content,
                       style: TextStyle(
                         color: Colors.grey[800],
                         fontSize: 12,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     InkWell(
                       onTap: () {
                         Navigator.push(
@@ -379,12 +373,12 @@ class _ArticleScreenState extends State<ArticleScreen> {
                             ),
                           ),
                           Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               color: Color.fromARGB(153, 247, 247, 245),
                             ),
-                            padding: EdgeInsets.all(6),
-                            child: Icon(Icons.arrow_forward_ios_rounded,
+                            padding: const EdgeInsets.all(6),
+                            child: const Icon(Icons.arrow_forward_ios_rounded,
                                 size: 16,
                                 color: Color.fromARGB(255, 21, 11, 61)),
                           ),

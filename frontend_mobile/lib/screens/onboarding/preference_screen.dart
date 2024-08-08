@@ -9,7 +9,7 @@ class PreferenceScreen extends StatefulWidget {
   const PreferenceScreen({super.key});
 
   @override
-  _PreferenceScreenState createState() => _PreferenceScreenState();
+  State<PreferenceScreen> createState() => _PreferenceScreenState();
 }
 
 class _PreferenceScreenState extends State<PreferenceScreen> {
@@ -25,7 +25,6 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
   List<String> selectedPreferences = [];
 
   TextEditingController searchController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +62,8 @@ class _PreferenceScreenState extends State<PreferenceScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.popAndPushNamed(context, RouteManager.loginScreen);
+                  Navigator.popAndPushNamed(
+                      context, RouteManager.loginScreen);
                 },
                 child: Row(
                   children: [

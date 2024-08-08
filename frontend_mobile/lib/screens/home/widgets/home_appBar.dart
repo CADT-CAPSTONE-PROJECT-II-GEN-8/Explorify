@@ -14,6 +14,7 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomAppBar(
+      
       title: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

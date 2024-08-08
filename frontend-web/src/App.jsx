@@ -7,6 +7,7 @@ import Routes from "src/routes/Routes";
 import Spinner from "./components/SmallComponents/Spinner";
 import { useLoading } from "./context/LoadingContext";
 
+
 const Custom = () => {
   const { isLoading } = useLoading();
 
@@ -17,6 +18,8 @@ const Custom = () => {
     </>
   );
 };
+
+
 
 export default function App() {
   React.useEffect(() => {

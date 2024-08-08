@@ -131,13 +131,14 @@ def internship_post_list(request):
     tags = request.query_params.getlist("tag")  # many tags
     if request.method == "GET":
         paginator = StandardResultsSetPagination()
-        posts = InternshipPost.objects.all()
+        posts = InternshipPost.objects.select_related('user__company_profile')
         if request.query_params:
+            
             posts = posts.filter(**request.query_params.dict())
         if tags:
             posts = posts.filter(tags__name__in=tags)
         result_page = paginator.paginate_queryset(posts, request)
-        serializer = InternshipPostSerializer(result_page, many=True)
+        serializer = InternshipPostDetail2Serializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)
 
 
@@ -187,8 +188,12 @@ FOR INTERNSHIP-POST DETAIL, UPDATE, DELETE For Web
 
 def internship_post_detail(request, pk=None):
     if request.method == "GET":
-        post = get_object_or_404(InternshipPost, pk=pk)
-        serializer = InternshipPostSerializer(post)
+        # post = get_object_or_404(InternshipPost, pk=pk)
+        try:
+            post = InternshipPost.objects.select_related('user__company_profile').get(pk=pk)
+        except InternshipPost.DoesNotExist:
+            return error_response(message="Not Found", status_code=404)
+        serializer = InternshipPostDetail2Serializer(post)
     
         return success_response(
             message="Get data successfully",
@@ -425,3 +430,56 @@ def favorite_delete(request, pk):
         )
 
 # DONE CHECKING AND TESTING
+
+
+#NEW
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.views import APIView
+
+from django.http import FileResponse, Http404
+from django.shortcuts import get_object_or_404
+class ApplyInternshipView(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+    serializer_class = InternshipApplicationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk, *args, **kwargs):
+        internship_post = get_object_or_404(InternshipPost, pk=pk)
+        data = request.data.copy()
+        data['internship_post'] = internship_post.pk
+        data['user'] = request.user.pk
+        
+        serializer = self.serializer_class(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response({"message": "Error", "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+class FetchCvView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, pk, *args, **kwargs):
+        application = get_object_or_404(InternshipApplication, pk=pk)
+        cv = application.cv
+        # cv = "yes"
+        if not cv:
+            raise Http404("Cv not found")
+
+        # return Response(cv, 200)
+        return FileResponse(
+            cv.open("rb"), content_type="application/pdf", as_attachment=False
+        )
+
+class FetchCoverLetterView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, pk, *args, **kwargs):
+        application = get_object_or_404(InternshipApplication, pk=pk)
+        
+        
+        cover_letter = application.cover_letter
+        # cover_letter = "application"
+        if not cover_letter:
+            raise Http404("Cv not found")
+        # return Response(cover_letter, 200)
+        return FileResponse(
+            cover_letter.open("rb"), content_type="application/pdf", as_attachment=False
+        )

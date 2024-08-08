@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import "package:flutter/material.dart";
+import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/init.dart';
+import 'package:frontend_mobile/screens/onboarding/welcome_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,8 +19,17 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     timer = Timer(const Duration(milliseconds: 2000), () {
-      InitApp.welcomeScreen(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => WelcomePage()),
+      );
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -48,7 +59,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     TextSpan(
                       text: "plorify",
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                          color: AppColor.secondary,
+                          fontWeight: FontWeight.bold),
                     ),
                   ]),
             ),

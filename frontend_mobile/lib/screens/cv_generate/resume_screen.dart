@@ -1,34 +1,44 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'dart:io';
+
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
+import 'package:flutter/material.dart' hide CarouselController;
+import 'package:frontend_mobile/screens/home/services/cv_generate_service.dart';
 
 class CVScreen extends StatefulWidget {
-  const CVScreen({Key? key}) : super(key: key);
+  const CVScreen({super.key, this.file});
+  final File? file;
 
   @override
-  _CVScreenState createState() => _CVScreenState();
+  State<CVScreen> createState() => _CVScreenState();
 }
 
 class _CVScreenState extends State<CVScreen> {
   int _current = 0;
   dynamic _selectedIndex = {};
 
-  CarouselController _carouselController = CarouselController();
-
-  List<Map<String, String>> _products = [
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
+  CvGenerateService cvGenerateService = CvGenerateService();
+  final List<dynamic> _products = [
     {
+      'id': 1,
       'title': 'Free',
-      'image':
-          'https://marketplace.canva.com/EAFRuCp3DcY/1/0/1131w/canva-black-white-minimalist-cv-resume-f5JNR-K5jjw.jpg',
+      'image': 'assets/images/cv1-1.png',
     },
     {
+      'id': 2,
       'title': 'Free',
-      'image':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9g5xjZV6YRiTWjFZWETn16OlqVJJDyrzCjg&s',
+      'image': 'assets/images/cv2-1.png',
     },
     {
+      'id': 3,
       'title': 'Pro',
-      'image':
-          'https://www.cvresumebuild.com/wp-content/uploads/2023/05/photo_2023-12-23_21-13-07-600x849.jpg',
+      'image': 'assets/images/cv3-1.png',
+    },
+    {
+      'id': 4,
+      'title': 'Pro',
+      'image': 'assets/images/cv4-1.png',
     }
   ];
 
@@ -38,8 +48,8 @@ class _CVScreenState extends State<CVScreen> {
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: 80,
-        backgroundColor: Color.fromARGB(255, 234, 155, 121),
-        title: Text(
+        backgroundColor: const Color.fromARGB(255, 234, 155, 121),
+        title: const Text(
           'RESUME',
           style: TextStyle(
             letterSpacing: 0.5,
@@ -58,7 +68,7 @@ class _CVScreenState extends State<CVScreen> {
       children: [
         Expanded(child: _buildCVScroll()),
         _buildBottom(),
-        SizedBox(
+        const SizedBox(
           height: 150,
         )
       ],
@@ -66,11 +76,11 @@ class _CVScreenState extends State<CVScreen> {
   }
 
   Widget _buildCVScroll() {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 420.0, // Set fixed height
       child: CarouselSlider(
-        carouselController: _carouselController,
+        controller: _carouselController,
         options: CarouselOptions(
           height: 420.0,
           aspectRatio: 16 / 9,
@@ -93,19 +103,20 @@ class _CVScreenState extends State<CVScreen> {
                   });
                 },
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 300),
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 245, 228, 212),
+                    color: const Color.fromARGB(255, 245, 228, 212),
                     borderRadius: BorderRadius.circular(20),
                     border: _selectedIndex == product
                         ? Border.all(
-                            color: Color.fromARGB(255, 250, 199, 154), width: 3)
+                            color: const Color.fromARGB(255, 250, 199, 154),
+                            width: 3)
                         : null,
                     boxShadow: _selectedIndex == product
                         ? [
-                            BoxShadow(
-                              color: const Color.fromARGB(255, 251, 215, 187),
+                            const BoxShadow(
+                              color: Color.fromARGB(255, 251, 215, 187),
                               blurRadius: 30,
                               offset: Offset(0, 10),
                             )
@@ -114,7 +125,7 @@ class _CVScreenState extends State<CVScreen> {
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.2),
                               blurRadius: 20,
-                              offset: Offset(0, 5),
+                              offset: const Offset(0, 5),
                             )
                           ],
                   ),
@@ -123,20 +134,20 @@ class _CVScreenState extends State<CVScreen> {
                       children: [
                         Container(
                           height: 330,
-                          margin: EdgeInsets.only(top: 20),
+                          margin: const EdgeInsets.only(top: 20),
                           clipBehavior: Clip.hardEdge,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Image.network(
+                          child: Image.asset(
                             product['image']!,
                             fit: BoxFit.cover,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Text(
                           product['title']!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color.fromARGB(255, 216, 104, 56),
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -160,12 +171,15 @@ class _CVScreenState extends State<CVScreen> {
       child: ElevatedButton(
         onPressed: () {
           // Perform an action when the button is pressed
+          cvGenerateService.myCV(
+              context: context, imageFile: widget.file!, templateId: _current);
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color.fromARGB(255, 236, 116, 52),
+          backgroundColor: const Color.fromARGB(255, 236, 116, 52),
           elevation: 2,
-          minimumSize: Size(350, 60), // Adjust the width and height as needed
-          padding: EdgeInsets.symmetric(
+          minimumSize:
+              const Size(350, 60), // Adjust the width and height as needed
+          padding: const EdgeInsets.symmetric(
               vertical: 15,
               horizontal: 30), // Add padding for a bigger touch area
         ),

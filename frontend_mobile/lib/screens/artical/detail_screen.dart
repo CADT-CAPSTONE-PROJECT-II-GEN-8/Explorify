@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/common/colors.dart';
+import 'package:frontend_mobile/model/article/article_model.dart';
 
 class DetailsScreen extends StatelessWidget {
-  final Map<String, dynamic> item;
+  final Post item;
 
   const DetailsScreen({Key? key, required this.item}) : super(key: key);
 
@@ -13,24 +15,28 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDetail(Map<String, dynamic> item, BuildContext context) {
+  Widget _buildDetail(Post item, BuildContext context) {
     return Stack(
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.4,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: CachedNetworkImageProvider(item['image']),
-              fit: BoxFit.cover,
-            ),
+          decoration: const BoxDecoration(
+              // image: DecorationImage(
+              //   image: CachedNetworkImageProvider(item['image']),
+              //   fit: BoxFit.cover,
+              // ),
+              ),
+          child: Image.network(
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGvLJOyDqTP40tXu2LdXWH0AdrGmdpFrsVD0iSfBgV4bNxioEeKRQN1ffnOg6LpXkKlzQ&usqp=CAU',
+            fit: BoxFit.cover,
           ),
         ),
         Positioned(
           top: 40,
           left: 10,
           child: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -51,7 +57,7 @@ class DetailsScreen extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),
-                    offset: Offset(0, 4),
+                    offset: const Offset(0, 4),
                     blurRadius: 8,
                   ),
                 ],
@@ -69,8 +75,8 @@ class DetailsScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            "${item['title']}",
-                            style: TextStyle(
+                            item.title,
+                            style: const TextStyle(
                               color: Color.fromARGB(255, 21, 11, 61),
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -81,7 +87,7 @@ class DetailsScreen extends StatelessWidget {
                           onTap: () {
                             // Implement save functionality if needed
                           },
-                          child: Row(
+                          child: const Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Icon(Icons.bookmark_border),
@@ -93,23 +99,24 @@ class DetailsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 30),
                     child: Text(
-                      "${item['category'] ?? 'No description available.'}",
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 242, 124, 28),
-                          fontSize: 14),
+                      item.content,
+                      style: const TextStyle(
+                          color: AppColor.primary,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
                       textAlign: TextAlign.start,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 30),
                     child: Text(
-                      "${item['description'] ?? 'No description available.'}",
-                      style: TextStyle(color: Colors.black, fontSize: 14),
+                      item.slug,
+                      style: const TextStyle(color: Colors.black, fontSize: 14),
                       textAlign: TextAlign.start,
                     ),
                   ),

@@ -139,25 +139,35 @@ def user_company_list(request):
     """
     List all company user work at, or create a new one
     """
+    user = request.user
+    try:
+        cv = CV.objects.get(user=user)
+    except CV.DoesNotExist:
+        return Response(
+            {"message": "CV not found for the user."},
+            status=status.HTTP_404_NOT_FOUND
+        )
+        
     if request.method == "GET":
-        user = request.user
-        user_company = UserCompany.objects.filter(user=user)
+        user_companies = cv.user_companies.all()
 
         # Check if user_company queryset is empty
-        if not user_company.exists():
+        if not user_companies.exists():
             return error_response(
                 message="No UserCompany found for this user",
                 status_code=status.HTTP_404_NOT_FOUND,
             )
 
-        serializer = UserCompanySerializer(user_company, many=True)
+        serializer = UserCompanySerializer(user_companies, many=True)
         return success_response(data=serializer.data, status_code=status.HTTP_200_OK)
 
     elif request.method == "POST":
         serializer = UserCompanySerializer(data=request.data)
+       
         if serializer.is_valid():
-            serializer.validated_data["user"] = request.user
-            serializer.save()
+            # serializer.validated_data["user"] = request.user
+            data = serializer.save()
+            cv.user_companies.add(data)
             return success_response(
                 message="Create successfully",
                 data=serializer.data,
@@ -169,7 +179,7 @@ def user_company_list(request):
 @permission_classes([IsAuthenticated])
 def user_company_detail(request, pk):
     try:
-        user_company = UserCompany.objects.get(pk=pk, user=request.user)
+        user_company = UserCompany.objects.get(pk=pk)
     except UserCompany.DoesNotExist:
         return error_response(
             message="No company available for user",
@@ -211,8 +221,17 @@ def user_education_list(request):
     """
     List all , or create a new one
     """
+    user = request.user
+    try:
+        cv = CV.objects.get(user=user)
+    except CV.DoesNotExist:
+        return Response(
+            {"message": "CV not found for the user."},
+            status=status.HTTP_404_NOT_FOUND
+        )
+        
     if request.method == "GET":
-        user_education = UserEducation.objects.filter(user=request.user)
+        user_education = cv.user_education.all()
 
         # Check if user_education queryset is empty
         if not user_education.exists():
@@ -231,36 +250,16 @@ def user_education_list(request):
     elif request.method == "POST":
         serializer = UserEducationDetailSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.validated_data["user"] = request.user
-            serializer.save()
-
-            # Retrieve related objects
-            school_instance = School.objects.get(pk=serializer.data["school"])
-            major_instance = Major.objects.get(pk=serializer.data["major"])
-            education_level_instance = EducationLevel.objects.get(
-                pk=serializer.data["education_level"]
-            )
-
-            # Serialize related objects
-            school_serializer = SchoolSerializer(school_instance)
-            major_serializer = MajorSerializer(major_instance)
-            education_level_serializer = EducationLevelSerializer(
-                education_level_instance
-            )
-
-            # Construct response data
-            data_response = {
-                "user_education_id": serializer.data["user_education_id"],
-                "school": school_serializer.data,
-                "major": major_serializer.data,
-                "education_level": education_level_serializer.data,
-                "start_date": serializer.data["start_date"],
-                "end_date": serializer.data["end_date"],
-            }
-
+            data = serializer.save()
+            
+            school_instance = serializer.data["school"]
+            major_instance = serializer.data["major"]
+            education_level_instance = serializer.data["education_level"]
+            
+            cv.user_education.add(data)
             return success_response(
                 message="Create successfully",
-                data=data_response,
+                data=None,
                 status_code=status.HTTP_201_CREATED,
             )
         return error_response(
@@ -315,8 +314,16 @@ def user_award_list(request):
     """
     List all , or create a new one
     """
+    user = request.user
+    try:
+        cv = CV.objects.get(user=user)
+    except CV.DoesNotExist:
+        return Response(
+            {"message": "CV not found for the user."},
+            status=status.HTTP_404_NOT_FOUND
+        )
     if request.method == "GET":
-        user_award = UserAward.objects.filter(user=request.user)
+        user_award = cv.user_award.all()
 
         # Check if user_award queryset is empty
         if not user_award.exists():
@@ -335,9 +342,9 @@ def user_award_list(request):
     elif request.method == "POST":
         serializer = UserAwardSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.validated_data["user"] = request.user
-            serializer.save()
-
+            # serializer.validated_data["user"] = request.user
+            data = serializer.save()
+            cv.user_award.add(data)
             return success_response(
                 message="Create successfully",
                 data=serializer.data,

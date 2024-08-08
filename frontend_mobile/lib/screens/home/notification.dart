@@ -43,7 +43,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Recently",
                         style: TextStyle(
                           fontSize: 12, // Adjust the font size as needed
@@ -89,7 +89,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       const SizedBox(
                         height: 14,
                       ),
-                      Text(
+                      const Text(
                         "Last Week",
                         style: TextStyle(
                           fontSize: 12, // Adjust the font size as needed

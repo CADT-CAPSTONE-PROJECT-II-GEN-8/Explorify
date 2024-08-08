@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/common/colors.dart';
 import 'package:frontend_mobile/common/image_strings.dart';
-import 'package:frontend_mobile/common/text.dart';
 import 'package:frontend_mobile/screens/home/widgets/bullet_list.dart';
 import 'package:frontend_mobile/screens/home/widgets/company_info.dart';
 
@@ -113,7 +112,7 @@ class CompanyDetailsScreen extends StatelessWidget {
             const SizedBox(height: 20),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.6,
-              child: CompanyInfo(),
+              child: const CompanyInfo(),
             ),
           ],
         ),

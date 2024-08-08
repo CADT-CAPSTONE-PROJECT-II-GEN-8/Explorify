@@ -53,10 +53,10 @@ const Register = () => {
       </Helmet>
       <div className="relative min-h-screen flex items-center justify-center bg-[#F27C1C]">
         <div className="absolute inset-0 bg-gradient-to-b from-[#f7ac70] via-[#F27C1C] to-[#F27C1C] h-full w-full"></div>
-        <div className="relative flex flex-col sm:flex-row lg:w-2/3 md:w-2/3 sm:w-4/5 items-center justify-center bg-transparent rounded-3xl">
+        <div className="relative flex flex-col sm:flex-row lg:w-3/4 md:w-2/3 sm:w-4/5 items-center justify-center bg-transparent rounded-3xl">
           <div className="hidden lg:flex flex-col self-center p-10 max-w-md text-white z-10 pb-60 pr-20">
             <img
-              src="https://www.creativefabrica.com/wp-content/uploads/2021/03/20/Mountain-logo-Design-Graphics-9785421-1-580x435.png"
+              src="../assets/logo2.png"
               alt="Logo"
               className="w-64"
             />

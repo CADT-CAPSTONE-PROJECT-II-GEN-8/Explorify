@@ -4,7 +4,7 @@ from cv_maker.models import CV, EducationLevel, Skill, Language, UserCompany, Us
 
 @admin.register(CV)
 class CVAdmin(admin.ModelAdmin):
-    list_display = ('cv_id', 'user', 'job_title', 'description', 'created_at', 'updated_at')
+    list_display = ('cv_id','user', 'job_title', 'description', 'created_at', 'updated_at')
     search_fields = ('user__username', 'job_title', 'description')
 
 @admin.register(EducationLevel)
@@ -24,7 +24,7 @@ class LanguageAdmin(admin.ModelAdmin):
 
 @admin.register(UserCompany)
 class UserCompanyAdmin(admin.ModelAdmin):
-    list_display = ('user_company_id', 'user', 'company_name', 'start_date', 'end_date', 'created_at', 'updated_at')
+    list_display = ('user_company_id', 'company_name', 'start_date', 'end_date', 'created_at', 'updated_at')
     search_fields = ('user__username', 'company_name')
     list_filter = ('start_date', 'end_date')
 
@@ -46,6 +46,6 @@ class MajorAdmin(admin.ModelAdmin):
 
 @admin.register(UserAward)
 class UserAwardAdmin(admin.ModelAdmin):
-    list_display = ('user_award_id', 'user', 'award_name', 'award_category', 'date', 'created_at', 'updated_at')
+    list_display = ('user_award_id', 'award_name', 'award_category', 'date', 'created_at', 'updated_at')
     search_fields = ('user__username', 'award_name', 'award_category')
     list_filter = ('date',)
