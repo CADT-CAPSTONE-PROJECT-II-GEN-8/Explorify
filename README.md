@@ -3,7 +3,7 @@
 
 **Description**
 
-This project provides a full-stack solution with a Laravel backend API, a Flutter mobile frontend, and a React web frontend, enabling you to build robust and interactive applications.
+This project provides a full-stack solution with a Django backend API, a Flutter mobile frontend, and a React web frontend, enabling you to build robust and interactive applications.
 
 **Getting Started**
 
